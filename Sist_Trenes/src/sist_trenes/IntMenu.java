@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package sist_trenes;
-
+import Carga.*;
+import javax.swing.JProgressBar;
 /**
  *
  * @author Usuario
@@ -14,6 +15,8 @@ public class IntMenu extends javax.swing.JFrame {
     /**
      * Creates new form IntMenu
      */
+   
+    //---------------------------------------------------------
     public IntMenu() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -27,17 +30,37 @@ public class IntMenu extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        jbtnReserva = new javax.swing.JButton();
+        jPanelFondo = new javax.swing.JPanel();
+        jPanelFondoImagen = new javax.swing.JPanel();
+        jlblTitulo = new javax.swing.JLabel();
         jbtnRecorrido = new javax.swing.JButton();
+        jbtnReserva = new javax.swing.JButton();
         jbtnReporte = new javax.swing.JButton();
         jbtnRegistrar = new javax.swing.JButton();
         jbtnConsulta = new javax.swing.JButton();
-        jlblTitulo = new javax.swing.JLabel();
         jlblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanelFondo.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelFondo.setLayout(new java.awt.GridBagLayout());
+
+        jPanelFondoImagen.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelFondoImagen.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jlblTitulo.setFont(new java.awt.Font("Arial Unicode MS", 1, 18)); // NOI18N
+        jlblTitulo.setForeground(java.awt.SystemColor.desktop);
+        jlblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlblTitulo.setText("TRENES DOBLE A");
+        jPanelFondoImagen.add(jlblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 250, 70));
+
+        jbtnRecorrido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_Place_Marker_26px_1.png"))); // NOI18N
+        jbtnRecorrido.setText("Recorridos");
+        jbtnRecorrido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbtnRecorrido.setFocusable(false);
+        jPanelFondoImagen.add(jbtnRecorrido, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 210, 130, -1));
 
         jbtnReserva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Train Ticket_26px.png"))); // NOI18N
         jbtnReserva.setText("Reservar Espacio");
@@ -48,49 +71,66 @@ public class IntMenu extends javax.swing.JFrame {
                 jbtnReservaActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtnReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 174, 170, -1));
-
-        jbtnRecorrido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_Place_Marker_26px_1.png"))); // NOI18N
-        jbtnRecorrido.setText("Recorridos");
-        jbtnRecorrido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jbtnRecorrido.setFocusable(false);
-        getContentPane().add(jbtnRecorrido, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 174, 130, -1));
+        jPanelFondoImagen.add(jbtnReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 210, 170, -1));
 
         jbtnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/System Report_26px.png"))); // NOI18N
         jbtnReporte.setText("Reportes");
         jbtnReporte.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnReporte.setFocusable(false);
-        getContentPane().add(jbtnReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, -1, -1));
+        jPanelFondoImagen.add(jbtnReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, -1, -1));
 
         jbtnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Document_26px.png"))); // NOI18N
         jbtnRegistrar.setText("Registrar");
         jbtnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnRegistrar.setFocusable(false);
-        getContentPane().add(jbtnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 240, -1, -1));
+        jPanelFondoImagen.add(jbtnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, -1, -1));
 
         jbtnConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Questions_26px.png"))); // NOI18N
         jbtnConsulta.setText("Consulta");
         jbtnConsulta.setToolTipText("Consultar viaje");
         jbtnConsulta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnConsulta.setFocusable(false);
-        getContentPane().add(jbtnConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, -1, -1));
+        jPanelFondoImagen.add(jbtnConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 370, -1, -1));
 
-        jlblTitulo.setFont(new java.awt.Font("Arial Unicode MS", 1, 18)); // NOI18N
-        jlblTitulo.setForeground(java.awt.SystemColor.desktop);
-        jlblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlblTitulo.setText("TRENES DOBLE A");
-        getContentPane().add(jlblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 220, 50));
-
+        jlblFondo.setBackground(new java.awt.Color(255, 255, 255));
         jlblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Movimiento-Absoluto.jpg"))); // NOI18N
-        getContentPane().add(jlblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 400));
+        jlblFondo.setMaximumSize(new java.awt.Dimension(1000, 600));
+        jPanelFondoImagen.add(jlblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 620));
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(35, 35, 35, 35);
+        jPanelFondo.add(jPanelFondoImagen, gridBagConstraints);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnReservaActionPerformed
         
-       menuReserva Reserva = new menuReserva();
-        Reserva.setVisible(true);
+        PreCarga carga = new PreCarga();
+        carga.setVisible(true);
+        
+        if(carga != carga){
+        }
+        else{
+           menuReserva Reserva = new menuReserva();
+           Reserva.setVisible(true);
+           this.setVisible(false);  
+        }
+
     }//GEN-LAST:event_jbtnReservaActionPerformed
 
     /**
@@ -129,6 +169,8 @@ public class IntMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanelFondo;
+    private javax.swing.JPanel jPanelFondoImagen;
     private javax.swing.JButton jbtnConsulta;
     private javax.swing.JButton jbtnRecorrido;
     private javax.swing.JButton jbtnRegistrar;

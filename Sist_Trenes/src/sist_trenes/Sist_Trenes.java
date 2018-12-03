@@ -6,6 +6,7 @@
 package sist_trenes;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
 /**
  *
  * @author Usuario
@@ -21,13 +22,16 @@ public class Sist_Trenes {
         
         IntMenu inicio = new IntMenu();
         inicio.setVisible(true);
-    }
+     }
     
      public static String fechaActual()
         {
+            
             Date fecha =  new Date();
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/YYYY");
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/YYYY h:mm a");
             
             return formatoFecha.format(fecha);
         }
+     
+
 }
