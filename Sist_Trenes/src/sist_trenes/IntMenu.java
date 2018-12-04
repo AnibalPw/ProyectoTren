@@ -5,7 +5,8 @@
  */
 package sist_trenes;
 import Carga.*;
-import javax.swing.JProgressBar;
+import javafx.concurrent.Task;
+
 /**
  *
  * @author Usuario
@@ -15,7 +16,14 @@ public class IntMenu extends javax.swing.JFrame {
     /**
      * Creates new form IntMenu
      */
-   
+    public void pause(int milSeg){
+        try{
+         Thread.sleep(milSeg);
+        }
+        catch(Exception ex){
+        
+        }
+    }
     //---------------------------------------------------------
     public IntMenu() {
         initComponents();
@@ -83,6 +91,11 @@ public class IntMenu extends javax.swing.JFrame {
         jbtnRegistrar.setText("Registrar");
         jbtnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnRegistrar.setFocusable(false);
+        jbtnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnRegistrarActionPerformed(evt);
+            }
+        });
         jPanelFondoImagen.add(jbtnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, -1, -1));
 
         jbtnConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Questions_26px.png"))); // NOI18N
@@ -123,15 +136,25 @@ public class IntMenu extends javax.swing.JFrame {
         PreCarga carga = new PreCarga();
         carga.setVisible(true);
         
+//        if(PreCarga.isDefaultLookAndFeelDecorated())
+//        {
+//        }
         if(carga != carga){
         }
         else{
-           menuReserva Reserva = new menuReserva();
-           Reserva.setVisible(true);
-           this.setVisible(false);  
+            menuReserva Reserva = new menuReserva();
+            Reserva.setVisible(true);
+            this.setVisible(false);
         }
 
     }//GEN-LAST:event_jbtnReservaActionPerformed
+
+    private void jbtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRegistrarActionPerformed
+        menuRegistro Registro = new  menuRegistro();
+        Registro.setVisible(true);
+        this.setVisible(false);
+         menuRegistro.jlblTituloRegistro.setText("Registro de Funcionarios");
+    }//GEN-LAST:event_jbtnRegistrarActionPerformed
 
     /**
      * @param args the command line arguments

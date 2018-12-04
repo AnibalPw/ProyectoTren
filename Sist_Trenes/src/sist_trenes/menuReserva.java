@@ -23,6 +23,7 @@ public class menuReserva extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
        jlblFecha.setText(Sist_Trenes.fechaActual());
+        
     }
         private int aumento = 0;
        
@@ -40,7 +41,7 @@ public class menuReserva extends javax.swing.JFrame {
         jPanelFondo = new javax.swing.JPanel();
         jPnlNavBar = new javax.swing.JPanel();
         jlblTitulo = new javax.swing.JLabel();
-        jbtnMenuTarifas = new javax.swing.JButton();
+        jbtnMenuDesplegable = new javax.swing.JButton();
         jPanelPago = new javax.swing.JPanel();
         jbtnDescuento = new javax.swing.JButton();
         jbtnPago = new javax.swing.JButton();
@@ -93,17 +94,17 @@ public class menuReserva extends javax.swing.JFrame {
         jlblTitulo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPnlNavBar.add(jlblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 250, -1));
 
-        jbtnMenuTarifas.setBackground(new java.awt.Color(255, 255, 255));
-        jbtnMenuTarifas.setForeground(new java.awt.Color(255, 255, 255));
-        jbtnMenuTarifas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/List_26px.png"))); // NOI18N
-        jbtnMenuTarifas.setToolTipText("Tarifas de Trenes");
-        jbtnMenuTarifas.setFocusable(false);
-        jbtnMenuTarifas.addActionListener(new java.awt.event.ActionListener() {
+        jbtnMenuDesplegable.setBackground(new java.awt.Color(255, 255, 255));
+        jbtnMenuDesplegable.setForeground(new java.awt.Color(255, 255, 255));
+        jbtnMenuDesplegable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/List_26px.png"))); // NOI18N
+        jbtnMenuDesplegable.setToolTipText("Tarifas de Trenes");
+        jbtnMenuDesplegable.setFocusable(false);
+        jbtnMenuDesplegable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnMenuTarifasActionPerformed(evt);
+                jbtnMenuDesplegableActionPerformed(evt);
             }
         });
-        jPnlNavBar.add(jbtnMenuTarifas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 50));
+        jPnlNavBar.add(jbtnMenuDesplegable, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 50));
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -379,7 +380,7 @@ public class menuReserva extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbtnMenuTarifasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenuTarifasActionPerformed
+    private void jbtnMenuDesplegableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenuDesplegableActionPerformed
         // TODO add your handling code here:
         int posicion = this.jPanelMPrecios.getX();
         if(posicion > -1)
@@ -390,7 +391,7 @@ public class menuReserva extends javax.swing.JFrame {
         {
         Animacion.Animacion.mover_derecha(-185, 12, 2, 2, jPanelMPrecios);
         }
-    }//GEN-LAST:event_jbtnMenuTarifasActionPerformed
+    }//GEN-LAST:event_jbtnMenuDesplegableActionPerformed
 
     private void jbtnPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPagoActionPerformed
         // TODO add your handling code here:
@@ -405,7 +406,12 @@ public class menuReserva extends javax.swing.JFrame {
     }//GEN-LAST:event_jDdlDestinoActionPerformed
 
     private void jBtnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegistroActionPerformed
-        // TODO add your handling code here:
+    
+        menuRegistro Registro = new  menuRegistro();
+        Registro.setVisible(true);
+        this.setVisible(false);
+        menuRegistro.jlblTituloRegistro.setText("Registro de Funcionarios");
+        
     }//GEN-LAST:event_jBtnRegistroActionPerformed
 
     private void jBtnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConsultaActionPerformed
@@ -499,7 +505,7 @@ public class menuReserva extends javax.swing.JFrame {
     private javax.swing.JButton jbtnDescuento;
     private javax.swing.JButton jbtnMas;
     private javax.swing.JButton jbtnMenos;
-    private javax.swing.JButton jbtnMenuTarifas;
+    private javax.swing.JButton jbtnMenuDesplegable;
     private javax.swing.JButton jbtnPago;
     private javax.swing.JLabel jlblCodigo;
     public static javax.swing.JLabel jlblContadorPasajeros;
