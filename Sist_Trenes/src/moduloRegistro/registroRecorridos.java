@@ -3,8 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sist_trenes;
 
+package moduloRegistro;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 
@@ -13,13 +13,13 @@ import javax.swing.JOptionPane;
  *
  * @author Usuario
  */
-public class menuRegistro extends javax.swing.JFrame {
+public class registroRecorridos extends javax.swing.JFrame {
 
     
     /**
      * Creates new form menuReserva
      */
-    public menuRegistro() {
+    public registroRecorridos() {
         initComponents();
         this.setLocationRelativeTo(null);
        
@@ -38,28 +38,31 @@ public class menuRegistro extends javax.swing.JFrame {
 
         jPanelFondo = new javax.swing.JPanel();
         jPnlNavBar = new javax.swing.JPanel();
-        jlblTituloRegistro = new javax.swing.JLabel();
+        jlblTituloRegistroTrenes = new javax.swing.JLabel();
         jbtnMenuDesplegable = new javax.swing.JButton();
-        jPanelPago = new javax.swing.JPanel();
+        jPnlInfoRegRecorridos = new javax.swing.JPanel();
         jPanelOpciones = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTableDatosConductor = new javax.swing.JTable();
-        jlblID = new javax.swing.JLabel();
+        jlblNomRuta = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jtxtCodigo1 = new javax.swing.JTextPane();
-        jlblNomConductor = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtxtCodigo = new javax.swing.JTextPane();
-        jlblRutaDestino = new javax.swing.JLabel();
-        jDdlDestino = new javax.swing.JComboBox<>();
-        jlblDescripcion = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jbtnGuardarDatos = new javax.swing.JButton();
-        jbtnModificarDatos = new javax.swing.JButton();
-        jbtnEliminarDatos = new javax.swing.JButton();
-        jbtnLimpiar = new javax.swing.JButton();
-        jPanelMPrecios = new javax.swing.JPanel();
+        jtxtNomRuta = new javax.swing.JTextPane();
+        jlblNomMaquinistaT = new javax.swing.JLabel();
+        jlblIDTren = new javax.swing.JLabel();
+        jlblCantVagones = new javax.swing.JLabel();
+        jbtnGuardarDatosTren = new javax.swing.JButton();
+        jbtnModificarDatosTren = new javax.swing.JButton();
+        jbtnEliminarDatosTren = new javax.swing.JButton();
+        jbtnLimpiarTren = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jtxtIDTren = new javax.swing.JTextPane();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jtxtCantVagones = new javax.swing.JTextPane();
+        jlblCapaTren = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jtxtCapacidadTren = new javax.swing.JTextPane();
+        jCbNomConductor = new javax.swing.JComboBox<>();
+        jPnlMenuRecorrido = new javax.swing.JPanel();
         jBtnHome = new javax.swing.JButton();
         jBtnReportes = new javax.swing.JButton();
         jBtnReservarEspacio = new javax.swing.JButton();
@@ -67,6 +70,7 @@ public class menuRegistro extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jBtnRegRuta = new javax.swing.JButton();
         jBtnRegFuncionario = new javax.swing.JButton();
+        jBtnRecorrido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,16 +82,16 @@ public class menuRegistro extends javax.swing.JFrame {
         jPnlNavBar.setToolTipText("");
         jPnlNavBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jlblTituloRegistro.setBackground(new java.awt.Color(0, 0, 0));
-        jlblTituloRegistro.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jlblTituloRegistro.setForeground(new java.awt.Color(0, 0, 0));
-        jlblTituloRegistro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPnlNavBar.add(jlblTituloRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 240, 20));
+        jlblTituloRegistroTrenes.setBackground(new java.awt.Color(0, 0, 0));
+        jlblTituloRegistroTrenes.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jlblTituloRegistroTrenes.setForeground(new java.awt.Color(0, 0, 0));
+        jlblTituloRegistroTrenes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPnlNavBar.add(jlblTituloRegistroTrenes, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 240, 20));
 
         jbtnMenuDesplegable.setBackground(new java.awt.Color(255, 255, 255));
         jbtnMenuDesplegable.setForeground(new java.awt.Color(255, 255, 255));
         jbtnMenuDesplegable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/List_26px.png"))); // NOI18N
-        jbtnMenuDesplegable.setToolTipText("Tarifas de Trenes");
+        jbtnMenuDesplegable.setToolTipText("Menú Registro");
         jbtnMenuDesplegable.setFocusable(false);
         jbtnMenuDesplegable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,8 +111,8 @@ public class menuRegistro extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(7, 8, 3, 5);
         jPanelFondo.add(jPnlNavBar, gridBagConstraints);
 
-        jPanelPago.setBackground(new java.awt.Color(255, 255, 255));
-        jPanelPago.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPnlInfoRegRecorridos.setBackground(new java.awt.Color(255, 255, 255));
+        jPnlInfoRegRecorridos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanelOpciones.setBackground(new java.awt.Color(255, 255, 255));
         jPanelOpciones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -117,96 +121,98 @@ public class menuRegistro extends javax.swing.JFrame {
 
         jTableDatosConductor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nombre Conductor", "Ruta", "Descripción"
+                "ID Tren", "Nombre ruta", "Nombre Maquinista", "Cant Vagones", "Capacidad Tren"
             }
         ));
         jScrollPane5.setViewportView(jTableDatosConductor);
 
         jPanelOpciones.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 220));
 
-        jPanelPago.add(jPanelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 800, 220));
+        jPnlInfoRegRecorridos.add(jPanelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 800, 220));
 
-        jlblID.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jlblID.setForeground(new java.awt.Color(0, 0, 0));
-        jlblID.setText("ID ");
-        jPanelPago.add(jlblID, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 30, 29));
+        jlblNomRuta.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblNomRuta.setForeground(new java.awt.Color(0, 0, 0));
+        jlblNomRuta.setText("Nombre de ruta: ");
+        jPnlInfoRegRecorridos.add(jlblNomRuta, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, 140, 29));
 
-        jScrollPane3.setViewportView(jtxtCodigo1);
+        jScrollPane3.setViewportView(jtxtNomRuta);
 
-        jPanelPago.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 180, -1));
+        jPnlInfoRegRecorridos.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, 230, -1));
 
-        jlblNomConductor.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jlblNomConductor.setForeground(new java.awt.Color(0, 0, 0));
-        jlblNomConductor.setText("Nombre del conductor: ");
-        jPanelPago.add(jlblNomConductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, -1, 29));
+        jlblNomMaquinistaT.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblNomMaquinistaT.setForeground(new java.awt.Color(0, 0, 0));
+        jlblNomMaquinistaT.setText("Nombre del Maquinista: ");
+        jPnlInfoRegRecorridos.add(jlblNomMaquinistaT, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, 29));
 
-        jScrollPane1.setViewportView(jtxtCodigo);
+        jlblIDTren.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblIDTren.setForeground(new java.awt.Color(0, 0, 0));
+        jlblIDTren.setText("ID de tren:");
+        jPnlInfoRegRecorridos.add(jlblIDTren, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 29));
 
-        jPanelPago.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, 280, -1));
+        jlblCantVagones.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblCantVagones.setForeground(new java.awt.Color(0, 0, 0));
+        jlblCantVagones.setText("Vagones del tren:");
+        jPnlInfoRegRecorridos.add(jlblCantVagones, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 130, 20));
 
-        jlblRutaDestino.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jlblRutaDestino.setForeground(new java.awt.Color(0, 0, 0));
-        jlblRutaDestino.setText("Ruta/Destino: ");
-        jPanelPago.add(jlblRutaDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, 29));
-
-        jDdlDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jDdlDestino.addActionListener(new java.awt.event.ActionListener() {
+        jbtnGuardarDatosTren.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save Archive_26px.png"))); // NOI18N
+        jbtnGuardarDatosTren.setText("Guardar");
+        jbtnGuardarDatosTren.setFocusable(false);
+        jbtnGuardarDatosTren.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jDdlDestinoActionPerformed(evt);
+                jbtnGuardarDatosTrenActionPerformed(evt);
             }
         });
-        jPanelPago.add(jDdlDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 220, -1));
+        jPnlInfoRegRecorridos.add(jbtnGuardarDatosTren, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, 130, -1));
 
-        jlblDescripcion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jlblDescripcion.setForeground(new java.awt.Color(0, 0, 0));
-        jlblDescripcion.setText("Descripción:");
-        jPanelPago.add(jlblDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 110, 20));
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
-
-        jPanelPago.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, 330, 70));
-
-        jbtnGuardarDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save Archive_26px.png"))); // NOI18N
-        jbtnGuardarDatos.setText("Guardar");
-        jbtnGuardarDatos.setFocusable(false);
-        jbtnGuardarDatos.addActionListener(new java.awt.event.ActionListener() {
+        jbtnModificarDatosTren.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Edit File_26px.png"))); // NOI18N
+        jbtnModificarDatosTren.setText("Modificar");
+        jbtnModificarDatosTren.setFocusable(false);
+        jbtnModificarDatosTren.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnGuardarDatosActionPerformed(evt);
+                jbtnModificarDatosTrenActionPerformed(evt);
             }
         });
-        jPanelPago.add(jbtnGuardarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, 130, -1));
+        jPnlInfoRegRecorridos.add(jbtnModificarDatosTren, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 170, 130, -1));
 
-        jbtnModificarDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Edit File_26px.png"))); // NOI18N
-        jbtnModificarDatos.setText("Modificar");
-        jbtnModificarDatos.setFocusable(false);
-        jbtnModificarDatos.addActionListener(new java.awt.event.ActionListener() {
+        jbtnEliminarDatosTren.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Trash_26px.png"))); // NOI18N
+        jbtnEliminarDatosTren.setText("Eliminar");
+        jbtnEliminarDatosTren.setFocusable(false);
+        jbtnEliminarDatosTren.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnModificarDatosActionPerformed(evt);
+                jbtnEliminarDatosTrenActionPerformed(evt);
             }
         });
-        jPanelPago.add(jbtnModificarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 170, 130, -1));
+        jPnlInfoRegRecorridos.add(jbtnEliminarDatosTren, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 120, -1));
 
-        jbtnEliminarDatos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Trash_26px.png"))); // NOI18N
-        jbtnEliminarDatos.setText("Eliminar");
-        jbtnEliminarDatos.setFocusable(false);
-        jbtnEliminarDatos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnEliminarDatosActionPerformed(evt);
-            }
-        });
-        jPanelPago.add(jbtnEliminarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 120, -1));
+        jbtnLimpiarTren.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Disposal_26px.png"))); // NOI18N
+        jbtnLimpiarTren.setToolTipText("Limpiar información");
+        jPnlInfoRegRecorridos.add(jbtnLimpiarTren, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 180, 40, -1));
 
-        jbtnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Disposal_26px.png"))); // NOI18N
-        jbtnLimpiar.setToolTipText("Limpiar información");
-        jPanelPago.add(jbtnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 180, 40, -1));
+        jScrollPane4.setViewportView(jtxtIDTren);
+
+        jPnlInfoRegRecorridos.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 230, -1));
+
+        jScrollPane6.setViewportView(jtxtCantVagones);
+
+        jPnlInfoRegRecorridos.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 70, 250, -1));
+
+        jlblCapaTren.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblCapaTren.setForeground(new java.awt.Color(0, 0, 0));
+        jlblCapaTren.setText("Capacidad del tren:");
+        jPnlInfoRegRecorridos.add(jlblCapaTren, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 140, 20));
+
+        jScrollPane7.setViewportView(jtxtCapacidadTren);
+
+        jPnlInfoRegRecorridos.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 250, -1));
+
+        jCbNomConductor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPnlInfoRegRecorridos.add(jCbNomConductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, 230, -1));
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -216,7 +222,7 @@ public class menuRegistro extends javax.swing.JFrame {
         gridBagConstraints.weightx = 1.9;
         gridBagConstraints.weighty = 0.6;
         gridBagConstraints.insets = new java.awt.Insets(75, 18, 19, 0);
-        jPanelFondo.add(jPanelPago, gridBagConstraints);
+        jPanelFondo.add(jPnlInfoRegRecorridos, gridBagConstraints);
 
         jBtnHome.setBackground(new java.awt.Color(204, 204, 204));
         jBtnHome.setForeground(new java.awt.Color(91, 91, 91));
@@ -276,7 +282,7 @@ public class menuRegistro extends javax.swing.JFrame {
         jBtnRegFuncionario.setBackground(new java.awt.Color(204, 204, 204));
         jBtnRegFuncionario.setForeground(new java.awt.Color(91, 91, 91));
         jBtnRegFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Collaborator Male_26px.png"))); // NOI18N
-        jBtnRegFuncionario.setText("Registrar Funcionario");
+        jBtnRegFuncionario.setText("Registro de Maquinistas");
         jBtnRegFuncionario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBtnRegFuncionario.setFocusable(false);
         jBtnRegFuncionario.addActionListener(new java.awt.event.ActionListener() {
@@ -285,10 +291,22 @@ public class menuRegistro extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanelMPreciosLayout = new javax.swing.GroupLayout(jPanelMPrecios);
-        jPanelMPrecios.setLayout(jPanelMPreciosLayout);
-        jPanelMPreciosLayout.setHorizontalGroup(
-            jPanelMPreciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jBtnRecorrido.setBackground(new java.awt.Color(204, 204, 204));
+        jBtnRecorrido.setForeground(new java.awt.Color(91, 91, 91));
+        jBtnRecorrido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_Place_Marker_26px_1.png"))); // NOI18N
+        jBtnRecorrido.setText("RECORRIDOS");
+        jBtnRecorrido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnRecorrido.setFocusable(false);
+        jBtnRecorrido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnRecorridoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPnlMenuRecorridoLayout = new javax.swing.GroupLayout(jPnlMenuRecorrido);
+        jPnlMenuRecorrido.setLayout(jPnlMenuRecorridoLayout);
+        jPnlMenuRecorridoLayout.setHorizontalGroup(
+            jPnlMenuRecorridoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jBtnHome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jBtnReportes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jBtnReservarEspacio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -296,25 +314,28 @@ public class menuRegistro extends javax.swing.JFrame {
             .addComponent(jSeparator2)
             .addComponent(jBtnRegRuta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jBtnRegFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jBtnRecorrido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanelMPreciosLayout.setVerticalGroup(
-            jPanelMPreciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelMPreciosLayout.createSequentialGroup()
+        jPnlMenuRecorridoLayout.setVerticalGroup(
+            jPnlMenuRecorridoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPnlMenuRecorridoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jBtnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jBtnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jBtnReservarEspacio, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBtnRecorrido, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
                 .addComponent(jBtnConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addGap(26, 26, 26)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jBtnRegFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jBtnRegRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(208, Short.MAX_VALUE))
+                .addContainerGap(173, Short.MAX_VALUE))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -323,7 +344,7 @@ public class menuRegistro extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 5);
-        jPanelFondo.add(jPanelMPrecios, gridBagConstraints);
+        jPanelFondo.add(jPnlMenuRecorrido, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -341,19 +362,19 @@ public class menuRegistro extends javax.swing.JFrame {
 
     private void jbtnMenuDesplegableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenuDesplegableActionPerformed
         // TODO add your handling code here:
-        int posicion = this.jPanelMPrecios.getX();
+        int posicion = this.jPnlMenuRecorrido.getX();
         if(posicion > -1)
         {
-        Animacion.Animacion.mover_izquierda(0, -188, 2, 2, jPanelMPrecios);
+        Animacion.Animacion.mover_izquierda(0, -210, 2, 2, jPnlMenuRecorrido);
         }
         else
         {
-        Animacion.Animacion.mover_derecha(-188, 12, 2, 2, jPanelMPrecios);
+        Animacion.Animacion.mover_derecha(-210, 12, 2, 2, jPnlMenuRecorrido);
         }
     }//GEN-LAST:event_jbtnMenuDesplegableActionPerformed
 
     private void jBtnReservarEspacioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnReservarEspacioActionPerformed
-        menuReserva Reserva = new menuReserva();
+        moduloServicio.menuReserva Reserva = new  moduloServicio.menuReserva();
         Reserva.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jBtnReservarEspacioActionPerformed
@@ -363,35 +384,38 @@ public class menuRegistro extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnConsultaActionPerformed
 
     private void jBtnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnHomeActionPerformed
-        IntMenu Inicio = new IntMenu();
+        sist_trenes.IntMenu Inicio = new sist_trenes.IntMenu();
         Inicio.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jBtnHomeActionPerformed
 
     private void jBtnRegRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegRutaActionPerformed
-        // TODO add your handling code here:
+            this.setVisible(true);
+            jlblTituloRegistroTrenes.setText("Registro de Recorridos");
     }//GEN-LAST:event_jBtnRegRutaActionPerformed
 
     private void jBtnRegFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegFuncionarioActionPerformed
-            this.setVisible(true);
-            jlblTituloRegistro.setText("Registro de Funcionarios");
+            menuRegistro RegistroFunc = new menuRegistro();
+            RegistroFunc.setVisible(true);
+            this.setVisible(false);
+            moduloRegistro.menuRegistro.jlblTituloRegistro.setText("Registro de Funcionarios");
     }//GEN-LAST:event_jBtnRegFuncionarioActionPerformed
 
-    private void jbtnModificarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnModificarDatosActionPerformed
+    private void jbtnEliminarDatosTrenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEliminarDatosTrenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jbtnModificarDatosActionPerformed
+    }//GEN-LAST:event_jbtnEliminarDatosTrenActionPerformed
 
-    private void jbtnGuardarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarDatosActionPerformed
+    private void jbtnModificarDatosTrenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnModificarDatosTrenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jbtnGuardarDatosActionPerformed
+    }//GEN-LAST:event_jbtnModificarDatosTrenActionPerformed
 
-    private void jDdlDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDdlDestinoActionPerformed
+    private void jbtnGuardarDatosTrenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarDatosTrenActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jDdlDestinoActionPerformed
+    }//GEN-LAST:event_jbtnGuardarDatosTrenActionPerformed
 
-    private void jbtnEliminarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEliminarDatosActionPerformed
+    private void jBtnRecorridoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRecorridoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jbtnEliminarDatosActionPerformed
+    }//GEN-LAST:event_jBtnRecorridoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -410,21 +434,23 @@ public class menuRegistro extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(menuRegistro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(registroRecorridos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(menuRegistro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(registroRecorridos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(menuRegistro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(registroRecorridos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(menuRegistro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(registroRecorridos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new menuRegistro().setVisible(true);
+                new registroRecorridos().setVisible(true);
             }
         });
     }
@@ -432,34 +458,38 @@ public class menuRegistro extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnConsulta;
     private javax.swing.JButton jBtnHome;
+    private javax.swing.JButton jBtnRecorrido;
     private javax.swing.JButton jBtnRegFuncionario;
     private javax.swing.JButton jBtnRegRuta;
     private javax.swing.JButton jBtnReportes;
     private javax.swing.JButton jBtnReservarEspacio;
-    private javax.swing.JComboBox<String> jDdlDestino;
+    private javax.swing.JComboBox<String> jCbNomConductor;
     private javax.swing.JPanel jPanelFondo;
-    private javax.swing.JPanel jPanelMPrecios;
     private javax.swing.JPanel jPanelOpciones;
-    private javax.swing.JPanel jPanelPago;
+    private javax.swing.JPanel jPnlInfoRegRecorridos;
+    private javax.swing.JPanel jPnlMenuRecorrido;
     private javax.swing.JPanel jPnlNavBar;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTableDatosConductor;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JButton jbtnEliminarDatos;
-    private javax.swing.JButton jbtnGuardarDatos;
-    private javax.swing.JButton jbtnLimpiar;
+    private javax.swing.JButton jbtnEliminarDatosTren;
+    private javax.swing.JButton jbtnGuardarDatosTren;
+    private javax.swing.JButton jbtnLimpiarTren;
     private javax.swing.JButton jbtnMenuDesplegable;
-    private javax.swing.JButton jbtnModificarDatos;
-    private javax.swing.JLabel jlblDescripcion;
-    private javax.swing.JLabel jlblID;
-    private javax.swing.JLabel jlblNomConductor;
-    private javax.swing.JLabel jlblRutaDestino;
-    public static javax.swing.JLabel jlblTituloRegistro;
-    private javax.swing.JTextPane jtxtCodigo;
-    private javax.swing.JTextPane jtxtCodigo1;
+    private javax.swing.JButton jbtnModificarDatosTren;
+    private javax.swing.JLabel jlblCantVagones;
+    private javax.swing.JLabel jlblCapaTren;
+    private javax.swing.JLabel jlblIDTren;
+    private javax.swing.JLabel jlblNomMaquinistaT;
+    private javax.swing.JLabel jlblNomRuta;
+    public static javax.swing.JLabel jlblTituloRegistroTrenes;
+    private javax.swing.JTextPane jtxtCantVagones;
+    private javax.swing.JTextPane jtxtCapacidadTren;
+    private javax.swing.JTextPane jtxtIDTren;
+    private javax.swing.JTextPane jtxtNomRuta;
     // End of variables declaration//GEN-END:variables
 }

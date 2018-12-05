@@ -103,6 +103,11 @@ public class IntMenu extends javax.swing.JFrame {
         jbtnConsulta.setToolTipText("Consultar viaje");
         jbtnConsulta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnConsulta.setFocusable(false);
+        jbtnConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnConsultaActionPerformed(evt);
+            }
+        });
         jPanelFondoImagen.add(jbtnConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 370, -1, -1));
 
         jlblFondo.setBackground(new java.awt.Color(255, 255, 255));
@@ -136,13 +141,13 @@ public class IntMenu extends javax.swing.JFrame {
         PreCarga carga = new PreCarga();
         carga.setVisible(true);
         
-//        if(PreCarga.isDefaultLookAndFeelDecorated())
-//        {
-//        }
+        if(PreCarga.isDefaultLookAndFeelDecorated())
+        {
+        }
         if(carga != carga){
         }
         else{
-            menuReserva Reserva = new menuReserva();
+            moduloServicio.menuReserva Reserva = new moduloServicio.menuReserva();
             Reserva.setVisible(true);
             this.setVisible(false);
         }
@@ -150,11 +155,18 @@ public class IntMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnReservaActionPerformed
 
     private void jbtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRegistrarActionPerformed
-        menuRegistro Registro = new  menuRegistro();
-        Registro.setVisible(true);
+        moduloRegistro.menuRegistro RegistroFunc = new  moduloRegistro.menuRegistro();
+        RegistroFunc.setVisible(true);
         this.setVisible(false);
-         menuRegistro.jlblTituloRegistro.setText("Registro de Funcionarios");
+         moduloRegistro.menuRegistro.jlblTituloRegistro.setText("Registro de Funcionarios");
     }//GEN-LAST:event_jbtnRegistrarActionPerformed
+
+    private void jbtnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnConsultaActionPerformed
+        moduloServicio.menuConsulta Consulta = new  moduloServicio.menuConsulta();
+        Consulta.setVisible(true);
+        this.setVisible(false);
+        moduloServicio.menuConsulta.jlblTituloConsulta.setText("Consulta Información");
+    }//GEN-LAST:event_jbtnConsultaActionPerformed
 
     /**
      * @param args the command line arguments

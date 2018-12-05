@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sist_trenes;
+package moduloServicio;
 
 import java.util.Scanner;
 import javax.swing.JOptionPane;
@@ -22,7 +22,8 @@ public class menuReserva extends javax.swing.JFrame {
     public menuReserva() {
         initComponents();
         this.setLocationRelativeTo(null);
-       jlblFecha.setText(Sist_Trenes.fechaActual());
+       //jlblFecha.setText(Sist_Trenes.fechaActual());
+       jlblFecha.setText(sist_trenes.Sist_Trenes.fechaActual());
         
     }
         private int aumento = 0;
@@ -76,6 +77,7 @@ public class menuReserva extends javax.swing.JFrame {
         jBtnRegistro = new javax.swing.JButton();
         jBtnConsulta = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
+        jBtnRecorrido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -324,6 +326,18 @@ public class menuReserva extends javax.swing.JFrame {
             }
         });
 
+        jBtnRecorrido.setBackground(new java.awt.Color(204, 204, 204));
+        jBtnRecorrido.setForeground(new java.awt.Color(91, 91, 91));
+        jBtnRecorrido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_Place_Marker_26px_1.png"))); // NOI18N
+        jBtnRecorrido.setText("RECORRIDOS");
+        jBtnRecorrido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnRecorrido.setFocusable(false);
+        jBtnRecorrido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnRecorridoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelMPreciosLayout = new javax.swing.GroupLayout(jPanelMPrecios);
         jPanelMPrecios.setLayout(jPanelMPreciosLayout);
         jPanelMPreciosLayout.setHorizontalGroup(
@@ -335,6 +349,7 @@ public class menuReserva extends javax.swing.JFrame {
             .addComponent(jBtnRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jBtnConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jSeparator2)
+            .addComponent(jBtnRecorrido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelMPreciosLayout.setVerticalGroup(
             jPanelMPreciosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -343,17 +358,19 @@ public class menuReserva extends javax.swing.JFrame {
                 .addComponent(jBtnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jBtnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addComponent(jBtnRegistro)
                 .addGap(18, 18, 18)
-                .addComponent(jBtnRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jBtnRecorrido, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
                 .addComponent(jBtnConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlblTituloTarifas, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jlblRutaCSJ, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
         jlblRutaCSJ.getAccessibleContext().setAccessibleDescription("");
@@ -374,7 +391,7 @@ public class menuReserva extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
+            .addComponent(jPanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -407,19 +424,22 @@ public class menuReserva extends javax.swing.JFrame {
 
     private void jBtnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegistroActionPerformed
     
-        menuRegistro Registro = new  menuRegistro();
+        moduloRegistro.menuRegistro Registro = new  moduloRegistro.menuRegistro();
         Registro.setVisible(true);
         this.setVisible(false);
-        menuRegistro.jlblTituloRegistro.setText("Registro de Funcionarios");
+        moduloRegistro.menuRegistro.jlblTituloRegistro.setText("Registro de Funcionarios");
         
     }//GEN-LAST:event_jBtnRegistroActionPerformed
 
     private void jBtnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConsultaActionPerformed
-        // TODO add your handling code here:
+        moduloServicio.menuConsulta Consulta = new moduloServicio.menuConsulta();
+        Consulta.setVisible(true);
+        this.setVisible(false);
+        moduloServicio.menuConsulta.jlblTituloConsulta.setText("Consulta Información");
     }//GEN-LAST:event_jBtnConsultaActionPerformed
 
     private void jBtnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnHomeActionPerformed
-        IntMenu Inicio = new IntMenu();
+        sist_trenes.IntMenu Inicio = new sist_trenes.IntMenu();
         Inicio.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jBtnHomeActionPerformed
@@ -450,6 +470,10 @@ public class menuReserva extends javax.swing.JFrame {
             }
         
     }//GEN-LAST:event_jbtnMenosActionPerformed
+
+    private void jBtnRecorridoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRecorridoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtnRecorridoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -489,6 +513,7 @@ public class menuReserva extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnConsulta;
     private javax.swing.JButton jBtnHome;
+    private javax.swing.JButton jBtnRecorrido;
     private javax.swing.JButton jBtnRegistro;
     private javax.swing.JButton jBtnReportes;
     private javax.swing.JComboBox<String> jDdlDestino;
