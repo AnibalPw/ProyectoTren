@@ -5,6 +5,7 @@
  */
 package sist_trenes;
 import Carga.*;
+import ds.desktop.notify.DesktopNotify;
 import javafx.concurrent.Task;
 
 /**
@@ -166,6 +167,9 @@ public class IntMenu extends javax.swing.JFrame {
         Consulta.setVisible(true);
         this.setVisible(false);
         moduloServicio.menuConsulta.jlblTituloConsulta.setText("Consulta Información");
+        DesktopNotify.showDesktopMessage("MENSAJE DE INFORMACIÓN", 
+                "PARA REALIZAR UNA CONSULTA NECESITA EL 'ID' DE LO QUE DESEA CONSULTAR ", 
+                DesktopNotify.INFORMATION);
     }//GEN-LAST:event_jbtnConsultaActionPerformed
 
     /**

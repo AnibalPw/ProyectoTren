@@ -66,9 +66,11 @@ public class menuRegistro extends javax.swing.JFrame {
         jBtnReservarEspacio = new javax.swing.JButton();
         jBtnConsulta = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
-        jBtnRegRuta = new javax.swing.JButton();
         jBtnRegFuncionario = new javax.swing.JButton();
         jBtnRecorrido = new javax.swing.JButton();
+        jBtnRegTrenes = new javax.swing.JButton();
+        jBtnRegEstaciones = new javax.swing.JButton();
+        jBtnRegRecorrido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -263,18 +265,6 @@ public class menuRegistro extends javax.swing.JFrame {
             }
         });
 
-        jBtnRegRuta.setBackground(new java.awt.Color(204, 204, 204));
-        jBtnRegRuta.setForeground(new java.awt.Color(91, 91, 91));
-        jBtnRegRuta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Train_26px.png"))); // NOI18N
-        jBtnRegRuta.setText("Registrar Ruta");
-        jBtnRegRuta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnRegRuta.setFocusable(false);
-        jBtnRegRuta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnRegRutaActionPerformed(evt);
-            }
-        });
-
         jBtnRegFuncionario.setBackground(new java.awt.Color(204, 204, 204));
         jBtnRegFuncionario.setForeground(new java.awt.Color(91, 91, 91));
         jBtnRegFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Collaborator Male_26px.png"))); // NOI18N
@@ -299,6 +289,42 @@ public class menuRegistro extends javax.swing.JFrame {
             }
         });
 
+        jBtnRegTrenes.setBackground(new java.awt.Color(204, 204, 204));
+        jBtnRegTrenes.setForeground(new java.awt.Color(91, 91, 91));
+        jBtnRegTrenes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Train_26px.png"))); // NOI18N
+        jBtnRegTrenes.setText("Registrar Trenes");
+        jBtnRegTrenes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnRegTrenes.setFocusable(false);
+        jBtnRegTrenes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnRegTrenesActionPerformed(evt);
+            }
+        });
+
+        jBtnRegEstaciones.setBackground(new java.awt.Color(204, 204, 204));
+        jBtnRegEstaciones.setForeground(new java.awt.Color(91, 91, 91));
+        jBtnRegEstaciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Railway Station_26px.png"))); // NOI18N
+        jBtnRegEstaciones.setText("Registrar Estaciones");
+        jBtnRegEstaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnRegEstaciones.setFocusable(false);
+        jBtnRegEstaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnRegEstacionesActionPerformed(evt);
+            }
+        });
+
+        jBtnRegRecorrido.setBackground(new java.awt.Color(204, 204, 204));
+        jBtnRegRecorrido.setForeground(new java.awt.Color(91, 91, 91));
+        jBtnRegRecorrido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Tracks_26px.png"))); // NOI18N
+        jBtnRegRecorrido.setText("Registrar Recorrido");
+        jBtnRegRecorrido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnRegRecorrido.setFocusable(false);
+        jBtnRegRecorrido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnRegRecorridoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPnlMenuRegistroFuncLayout = new javax.swing.GroupLayout(jPnlMenuRegistroFunc);
         jPnlMenuRegistroFunc.setLayout(jPnlMenuRegistroFuncLayout);
         jPnlMenuRegistroFuncLayout.setHorizontalGroup(
@@ -308,9 +334,11 @@ public class menuRegistro extends javax.swing.JFrame {
             .addComponent(jBtnReservarEspacio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jBtnConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jSeparator2)
-            .addComponent(jBtnRegRuta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jBtnRegFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
             .addComponent(jBtnRecorrido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jBtnRegTrenes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jBtnRegEstaciones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jBtnRegRecorrido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPnlMenuRegistroFuncLayout.setVerticalGroup(
             jPnlMenuRegistroFuncLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,8 +358,12 @@ public class menuRegistro extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jBtnRegFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jBtnRegRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(162, Short.MAX_VALUE))
+                .addComponent(jBtnRegTrenes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jBtnRegRecorrido, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jBtnRegEstaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -388,13 +420,6 @@ public class menuRegistro extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jBtnHomeActionPerformed
 
-    private void jBtnRegRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegRutaActionPerformed
-        registroRecorridos regRecorrido = new registroRecorridos();
-        regRecorrido.setVisible(true);
-        this.setVisible(false);
-        moduloRegistro.registroRecorridos.jlblTituloRegistroTrenes.setText("Registro de Recorridos");
-    }//GEN-LAST:event_jBtnRegRutaActionPerformed
-
     private void jBtnRegFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegFuncionarioActionPerformed
             this.setVisible(true);
             jlblTituloRegistro.setText("Registro de Funcionarios");
@@ -417,8 +442,29 @@ public class menuRegistro extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnEliminarDatosActionPerformed
 
     private void jBtnRecorridoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRecorridoActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jBtnRecorridoActionPerformed
+
+    private void jBtnRegTrenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegTrenesActionPerformed
+        registroTrenes Trenes = new registroTrenes();
+        Trenes.setVisible(true);
+        this.setVisible(false);
+         moduloRegistro.registroTrenes.jlblTituloRegistroTrenes.setText("Registro de Trenes");
+    }//GEN-LAST:event_jBtnRegTrenesActionPerformed
+
+    private void jBtnRegEstacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegEstacionesActionPerformed
+        registroEstaciones Estaciones = new registroEstaciones();
+        Estaciones.setVisible(true);
+        this.setVisible(false);
+        moduloRegistro.registroEstaciones.jlblTituloRegistroTrenes.setText("Registro de Estaciones");
+    }//GEN-LAST:event_jBtnRegEstacionesActionPerformed
+
+    private void jBtnRegRecorridoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegRecorridoActionPerformed
+        registroRecorridos regRecorridos = new registroRecorridos();
+        regRecorridos.setVisible(true);
+        this.setVisible(false);
+        moduloRegistro.registroRecorridos.jlblTituloRegistroTrenes.setText("Registro de Recorridos");
+    }//GEN-LAST:event_jBtnRegRecorridoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -460,8 +506,10 @@ public class menuRegistro extends javax.swing.JFrame {
     private javax.swing.JButton jBtnConsulta;
     private javax.swing.JButton jBtnHome;
     private javax.swing.JButton jBtnRecorrido;
+    private javax.swing.JButton jBtnRegEstaciones;
     private javax.swing.JButton jBtnRegFuncionario;
-    private javax.swing.JButton jBtnRegRuta;
+    private javax.swing.JButton jBtnRegRecorrido;
+    private javax.swing.JButton jBtnRegTrenes;
     private javax.swing.JButton jBtnReportes;
     private javax.swing.JButton jBtnReservarEspacio;
     private javax.swing.JComboBox<String> jDdlDestino;

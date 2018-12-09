@@ -13,13 +13,13 @@ import javax.swing.JOptionPane;
  *
  * @author Usuario
  */
-public class registroRecorridos extends javax.swing.JFrame {
+public class registroTrenes extends javax.swing.JFrame {
 
     
     /**
      * Creates new form menuReserva
      */
-    public registroRecorridos() {
+    public registroTrenes() {
         initComponents();
         this.setLocationRelativeTo(null);
        
@@ -43,25 +43,27 @@ public class registroRecorridos extends javax.swing.JFrame {
         jPnlInfoRegRecorridos = new javax.swing.JPanel();
         jPanelOpciones = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTableDatosConductor = new javax.swing.JTable();
-        jlblNomRuta = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jtxtNomRuta = new javax.swing.JTextPane();
-        jlblNomMaquinistaT = new javax.swing.JLabel();
+        jTableDatosTren = new javax.swing.JTable();
         jlblIDTren = new javax.swing.JLabel();
+        jlblCantVagones = new javax.swing.JLabel();
         jbtnGuardarDatosTren = new javax.swing.JButton();
         jbtnModificarDatosTren = new javax.swing.JButton();
         jbtnEliminarDatosTren = new javax.swing.JButton();
         jbtnLimpiarTren = new javax.swing.JButton();
-        jCbNomConductor = new javax.swing.JComboBox<>();
-        jCbIDtren = new javax.swing.JComboBox<>();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jtxtCantVagones = new javax.swing.JTextPane();
+        jlblCapaTren = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jtxtCapacidadTren = new javax.swing.JTextPane();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jtxtIDTren = new javax.swing.JTextPane();
         jPnlMenuRecorrido = new javax.swing.JPanel();
         jBtnHome = new javax.swing.JButton();
         jBtnReportes = new javax.swing.JButton();
         jBtnReservarEspacio = new javax.swing.JButton();
         jBtnConsulta = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
-        jBtnRegRuta = new javax.swing.JButton();
+        jBtnRegRecorrido = new javax.swing.JButton();
         jBtnRegFuncionario = new javax.swing.JButton();
         jBtnRecorrido = new javax.swing.JButton();
         jBtnRegTrenes = new javax.swing.JButton();
@@ -114,7 +116,7 @@ public class registroRecorridos extends javax.swing.JFrame {
         jPanelOpciones.setForeground(new java.awt.Color(255, 255, 255));
         jPanelOpciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTableDatosConductor.setModel(new javax.swing.table.DefaultTableModel(
+        jTableDatosTren.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -122,33 +124,24 @@ public class registroRecorridos extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "ID Tren", "Nombre ruta", "Nombre Maquinista"
+                "ID Tren", "Cantidad Vagones", "Capacidad Tren"
             }
         ));
-        jScrollPane5.setViewportView(jTableDatosConductor);
+        jScrollPane5.setViewportView(jTableDatosTren);
 
         jPanelOpciones.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 220));
 
         jPnlInfoRegRecorridos.add(jPanelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 800, 220));
 
-        jlblNomRuta.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jlblNomRuta.setForeground(new java.awt.Color(0, 0, 0));
-        jlblNomRuta.setText("Nombre de ruta: ");
-        jPnlInfoRegRecorridos.add(jlblNomRuta, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 140, 29));
-
-        jScrollPane3.setViewportView(jtxtNomRuta);
-
-        jPnlInfoRegRecorridos.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 230, -1));
-
-        jlblNomMaquinistaT.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jlblNomMaquinistaT.setForeground(new java.awt.Color(0, 0, 0));
-        jlblNomMaquinistaT.setText("Nombre del Maquinista: ");
-        jPnlInfoRegRecorridos.add(jlblNomMaquinistaT, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, -1, 29));
-
         jlblIDTren.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblIDTren.setForeground(new java.awt.Color(0, 0, 0));
         jlblIDTren.setText("ID de tren:");
-        jPnlInfoRegRecorridos.add(jlblIDTren, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, -1, 29));
+        jPnlInfoRegRecorridos.add(jlblIDTren, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 29));
+
+        jlblCantVagones.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblCantVagones.setForeground(new java.awt.Color(0, 0, 0));
+        jlblCantVagones.setText("Vagones del tren:");
+        jPnlInfoRegRecorridos.add(jlblCantVagones, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 130, 20));
 
         jbtnGuardarDatosTren.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save Archive_26px.png"))); // NOI18N
         jbtnGuardarDatosTren.setText("Guardar");
@@ -184,11 +177,22 @@ public class registroRecorridos extends javax.swing.JFrame {
         jbtnLimpiarTren.setToolTipText("Limpiar información");
         jPnlInfoRegRecorridos.add(jbtnLimpiarTren, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 180, 40, -1));
 
-        jCbNomConductor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPnlInfoRegRecorridos.add(jCbNomConductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, 230, -1));
+        jScrollPane6.setViewportView(jtxtCantVagones);
 
-        jCbIDtren.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPnlInfoRegRecorridos.add(jCbIDtren, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, 230, -1));
+        jPnlInfoRegRecorridos.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 250, -1));
+
+        jlblCapaTren.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblCapaTren.setForeground(new java.awt.Color(0, 0, 0));
+        jlblCapaTren.setText("Capacidad del tren:");
+        jPnlInfoRegRecorridos.add(jlblCapaTren, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 140, 20));
+
+        jScrollPane7.setViewportView(jtxtCapacidadTren);
+
+        jPnlInfoRegRecorridos.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 20, 250, -1));
+
+        jScrollPane8.setViewportView(jtxtIDTren);
+
+        jPnlInfoRegRecorridos.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, 250, -1));
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -243,15 +247,15 @@ public class registroRecorridos extends javax.swing.JFrame {
             }
         });
 
-        jBtnRegRuta.setBackground(new java.awt.Color(204, 204, 204));
-        jBtnRegRuta.setForeground(new java.awt.Color(91, 91, 91));
-        jBtnRegRuta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Tracks_26px.png"))); // NOI18N
-        jBtnRegRuta.setText("Registrar Recorrido");
-        jBtnRegRuta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBtnRegRuta.setFocusable(false);
-        jBtnRegRuta.addActionListener(new java.awt.event.ActionListener() {
+        jBtnRegRecorrido.setBackground(new java.awt.Color(204, 204, 204));
+        jBtnRegRecorrido.setForeground(new java.awt.Color(91, 91, 91));
+        jBtnRegRecorrido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Tracks_26px.png"))); // NOI18N
+        jBtnRegRecorrido.setText("Registrar Recorrido");
+        jBtnRegRecorrido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBtnRegRecorrido.setFocusable(false);
+        jBtnRegRecorrido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnRegRutaActionPerformed(evt);
+                jBtnRegRecorridoActionPerformed(evt);
             }
         });
 
@@ -312,7 +316,7 @@ public class registroRecorridos extends javax.swing.JFrame {
             .addComponent(jBtnReservarEspacio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jBtnConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jSeparator2)
-            .addComponent(jBtnRegRuta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jBtnRegRecorrido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jBtnRegFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jBtnRecorrido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jBtnRegTrenes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -338,7 +342,7 @@ public class registroRecorridos extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jBtnRegTrenes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jBtnRegRuta, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBtnRegRecorrido, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jBtnRegEstaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(65, Short.MAX_VALUE))
@@ -386,7 +390,7 @@ public class registroRecorridos extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnReservarEspacioActionPerformed
 
     private void jBtnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConsultaActionPerformed
-       moduloServicio.menuConsulta Consulta = new  moduloServicio.menuConsulta();
+        moduloServicio.menuConsulta Consulta = new  moduloServicio.menuConsulta();
         Consulta.setVisible(true);
         this.setVisible(false);
         moduloServicio.menuConsulta.jlblTituloConsulta.setText("Consulta Información");
@@ -398,16 +402,18 @@ public class registroRecorridos extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jBtnHomeActionPerformed
 
-    private void jBtnRegRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegRutaActionPerformed
-            this.setVisible(true);
-            jlblTituloRegistroTrenes.setText("Registro de Recorridos");
-    }//GEN-LAST:event_jBtnRegRutaActionPerformed
+    private void jBtnRegRecorridoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegRecorridoActionPerformed
+        registroRecorridos regRecorridos = new registroRecorridos();
+        regRecorridos.setVisible(true);
+        this.setVisible(false);
+        moduloRegistro.registroRecorridos.jlblTituloRegistroTrenes.setText("Registro de Recorridos");
+    }//GEN-LAST:event_jBtnRegRecorridoActionPerformed
 
     private void jBtnRegFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegFuncionarioActionPerformed
-            menuRegistro RegistroFunc = new menuRegistro();
-            RegistroFunc.setVisible(true);
-            this.setVisible(false);
-            moduloRegistro.menuRegistro.jlblTituloRegistro.setText("Registro de Funcionarios");
+        menuRegistro RegistroFunc = new menuRegistro();
+        RegistroFunc.setVisible(true);
+        this.setVisible(false);
+        moduloRegistro.menuRegistro.jlblTituloRegistro.setText("Registro de Funcionarios");
     }//GEN-LAST:event_jBtnRegFuncionarioActionPerformed
 
     private void jbtnEliminarDatosTrenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEliminarDatosTrenActionPerformed
@@ -423,15 +429,12 @@ public class registroRecorridos extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnGuardarDatosTrenActionPerformed
 
     private void jBtnRecorridoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRecorridoActionPerformed
-        this.setVisible(true);
-        jlblTituloRegistroTrenes.setText("Registro de Recorridos");
+        // TODO add your handling code here:
     }//GEN-LAST:event_jBtnRecorridoActionPerformed
 
     private void jBtnRegTrenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegTrenesActionPerformed
-       registroTrenes Trenes = new registroTrenes();
-        Trenes.setVisible(true);
-        this.setVisible(false);
-         moduloRegistro.registroTrenes.jlblTituloRegistroTrenes.setText("Registro de Trenes");
+      this.setVisible(true);
+      jlblTituloRegistroTrenes.setText("Registro de Trenes");
     }//GEN-LAST:event_jBtnRegTrenesActionPerformed
 
     private void jBtnRegEstacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegEstacionesActionPerformed
@@ -458,14 +461,18 @@ public class registroRecorridos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(registroRecorridos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(registroTrenes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(registroRecorridos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(registroTrenes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(registroRecorridos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(registroTrenes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(registroRecorridos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(registroTrenes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -474,7 +481,7 @@ public class registroRecorridos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new registroRecorridos().setVisible(true);
+                new registroTrenes().setVisible(true);
             }
         });
     }
@@ -485,30 +492,32 @@ public class registroRecorridos extends javax.swing.JFrame {
     private javax.swing.JButton jBtnRecorrido;
     private javax.swing.JButton jBtnRegEstaciones;
     private javax.swing.JButton jBtnRegFuncionario;
-    private javax.swing.JButton jBtnRegRuta;
+    private javax.swing.JButton jBtnRegRecorrido;
     private javax.swing.JButton jBtnRegTrenes;
     private javax.swing.JButton jBtnReportes;
     private javax.swing.JButton jBtnReservarEspacio;
-    private javax.swing.JComboBox<String> jCbIDtren;
-    private javax.swing.JComboBox<String> jCbNomConductor;
     private javax.swing.JPanel jPanelFondo;
     private javax.swing.JPanel jPanelOpciones;
     private javax.swing.JPanel jPnlInfoRegRecorridos;
     private javax.swing.JPanel jPnlMenuRecorrido;
     private javax.swing.JPanel jPnlNavBar;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTableDatosConductor;
+    private javax.swing.JTable jTableDatosTren;
     private javax.swing.JButton jbtnEliminarDatosTren;
     private javax.swing.JButton jbtnGuardarDatosTren;
     private javax.swing.JButton jbtnLimpiarTren;
     private javax.swing.JButton jbtnMenuDesplegable;
     private javax.swing.JButton jbtnModificarDatosTren;
+    private javax.swing.JLabel jlblCantVagones;
+    private javax.swing.JLabel jlblCapaTren;
     private javax.swing.JLabel jlblIDTren;
-    private javax.swing.JLabel jlblNomMaquinistaT;
-    private javax.swing.JLabel jlblNomRuta;
     public static javax.swing.JLabel jlblTituloRegistroTrenes;
-    private javax.swing.JTextPane jtxtNomRuta;
+    private javax.swing.JTextPane jtxtCantVagones;
+    private javax.swing.JTextPane jtxtCapacidadTren;
+    private javax.swing.JTextPane jtxtIDTren;
     // End of variables declaration//GEN-END:variables
 }
