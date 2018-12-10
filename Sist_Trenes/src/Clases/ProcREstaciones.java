@@ -16,16 +16,17 @@ public class ProcREstaciones {
 
     public ProcREstaciones(){}
     
-    public ProcREstaciones(ArrayList<Object> lista)
-    {
-    this.lista = lista;
-    }
+        public ProcREstaciones(ArrayList<Object> lista)
+        {
+        this.lista = lista;
+        }
     
-      public void agregarRegistro(RegistroEstaciones nombre){
+      public void AgregarRegistro(RegistroEstaciones nombre)
+      {
         this.lista.add(nombre);
-    }
+      }
     
-      public void modificarRegistro (int ID, RegistroEstaciones nombre)
+      public void ModificarRegistro (int ID, RegistroEstaciones nombre)
       {
           this.lista.set(ID, nombre);
       }
@@ -40,15 +41,17 @@ public class ProcREstaciones {
           return(RegistroEstaciones)lista.get(ID);
       }
       
-      public int cantidadRegistro(){
+      public int cantidadRegistro()
+      {
         return this.lista.size();
-    }
+      }
       
-      public int BuscarID(int ID){
+      public int BuscarID(int ID)
+      {
         for(int i = 0; i < cantidadRegistro(); i++){
             if(ID == ObtenerRegistro(i).getIdEstacion())return i;
         }
         return -1;
-    }
+      }
     
 }

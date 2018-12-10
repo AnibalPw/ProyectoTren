@@ -5,26 +5,286 @@
  */
 
 package moduloRegistro;
+import Clases.Limpiar_txt;
+import Clases.ProcREstaciones;
+import Clases.RegistroEstaciones;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.Scanner;
+import java.util.StringTokenizer;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import sun.security.pkcs11.wrapper.Constants;
 
 
 /**
  *
- * @author Usuario
+ * @author Aníbal Pérez Wolf
  */
 public class registroEstaciones extends javax.swing.JFrame {
 
+
+     Limpiar_txt lt = new Limpiar_txt();
     
-    /**
-     * Creates new form menuReserva
-     */
+    private String ruta_txt = "C:\\Users\\Usuario\\Desktop\\Universidad\\Programación\\Estructura de Datos\\Sistema de Trenes\\Sist_Trenes\\BDtxt\\RegistroEstaciones.txt";
+    
+    RegistroEstaciones RegEstacion;
+    ProcREstaciones PREstaciones;
+    
+     int clic_tabla;
+    
     public registroEstaciones() {
         initComponents();
         this.setLocationRelativeTo(null);
+        PREstaciones = new ProcREstaciones();
+        
+        try {
+            cargar_txt();
+            listarRegistro();
+        } catch (Exception e) {
+            mensaje("No existe el archivo txt");
+        }
        
     }
         
+    
+    public void AgregarRegistro(File ruta){
+        try{
+            if(leerID() == -666)mensaje("Ingresar ID en número entero");
+            else if(leerNombre() == null)mensaje("Ingresar Nombre de la Estación");
+             else if(leerUbicacion() == null)mensaje("Ingresar Ubicación");
+            else if(leerHoraEntrada() == null) mensaje("Ingresar Hora de Entrada");
+            else if(leerHoraSalida() == null)mensaje("Ingresar Hora Salida");
+            else if(leerNumTel() == null)mensaje("Ingresar Número de Télefono");
+            else if(leerCorreo() == null)mensaje("Ingrese Correo");
+            else{
+                RegEstacion = new RegistroEstaciones(leerID(), leerNombre(), leerUbicacion(), leerHoraEntrada(), leerHoraSalida(), leerNumTel(), leerCorreo());
+                if(PREstaciones.BuscarID(RegEstacion.getIdEstacion())!= -1)mensaje("Este ID ya existe");
+                else PREstaciones.AgregarRegistro(RegEstacion);
+                
+                Guardar_txt();
+                listarRegistro();
+                lt.limpiar_texto(jPnlInfoRegEstaciones); 
+            }
+        }catch(Exception ex){
+            mensaje(ex.getMessage());
+        }
+    }
+    
+    public void cargar_txt(){
+        File ruta = new File(ruta_txt);
+        try{
+            
+            FileReader ficheroSalida = new FileReader(ruta);
+            BufferedReader BR = new BufferedReader(ficheroSalida);
+            
+            
+            String linea = null;
+            while((linea = BR.readLine())!=null){
+                StringTokenizer St = new StringTokenizer(linea, ",");
+                RegEstacion = new RegistroEstaciones();
+                RegEstacion.setIdEstacion(Integer.parseInt(St.nextToken()));
+                RegEstacion.setNombre(St.nextToken());
+                RegEstacion.setUbicacion(St.nextToken());
+                RegEstacion.setHoraEntrada(St.nextToken());
+                RegEstacion.setHoraSalida(St.nextToken());
+                RegEstacion.setNumTelefono(St.nextToken());
+                RegEstacion.setCorreo(St.nextToken());
+                PREstaciones.AgregarRegistro(RegEstacion);
+            }
+            BR.close();
+        }catch(Exception ex){
+            mensaje("Error al cargar archivo: "+ex.getMessage());
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    public void Guardar_txt(){
+//        FileWriter fw;
+//        PrintWriter pw;
+        try{
+//            fw = new FileWriter(ruta_txt);
+//            pw = new PrintWriter(fw);
+            BufferedWriter ficheroSalida = new BufferedWriter(new FileWriter(new File(ruta_txt)));
+            for(int i = 0; i < PREstaciones.cantidadRegistro(); i++){
+                RegEstacion = PREstaciones.ObtenerRegistro(i);
+//                pw.println(String.valueOf(RegEstacion.getIdEstacion()+", "+RegEstacion.getNombre()+", "+RegEstacion.getUbicacion()+", "+RegEstacion.getHoraEntrada()+",  "+RegEstacion.getHoraSalida()+","+RegEstacion.getNumTelefono()+","+RegEstacion.getCorreo()));
+                 ficheroSalida.write(String.valueOf(RegEstacion.getIdEstacion()+", "+RegEstacion.getNombre()+", "+RegEstacion.getUbicacion()+", "+RegEstacion.getHoraEntrada()+",  "+RegEstacion.getHoraSalida()+","+RegEstacion.getNumTelefono()+","+RegEstacion.getCorreo()));
+                 ficheroSalida.newLine();
+            }
+             ficheroSalida.close();
+            
+        }catch(Exception ex){
+            mensaje("Error al guardar archivo: "+ex.getMessage());
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    
+    public void modificarRegistro(File ruta){
+        try{
+             if(leerID() == -666)mensaje("Ingresar ID en número entero");
+            else if(leerNombre() == null)mensaje("Ingresar Nombre de la Estación");
+             else if(leerUbicacion() == null)mensaje("Ingresar Ubicación");
+            else if(leerHoraEntrada() == null) mensaje("Ingresar Hora de Entrada");
+            else if(leerHoraSalida() == null)mensaje("Ingresar Hora Salida");
+            else if(leerNumTel() == null)mensaje("Ingresar Número de Télefono");
+            else if(leerCorreo() == null)mensaje("Ingrese Correo");
+            else{
+                int ID = PREstaciones.BuscarID(leerID());
+                RegEstacion = new RegistroEstaciones(leerID(), leerNombre(), leerUbicacion(), leerHoraEntrada(), leerHoraSalida(), leerNumTel(), leerCorreo());
+                
+                if(ID == -1)PREstaciones.AgregarRegistro(RegEstacion);
+                else PREstaciones.ModificarRegistro(ID, RegEstacion);
+                
+                Guardar_txt();
+                listarRegistro();
+                lt.limpiar_texto(jPnlInfoRegEstaciones);
+            }
+        }catch(Exception ex){
+            mensaje(ex.getMessage());
+        }
+    }
+    
+    public void eliminarRegistro(){
+        try{
+            if(leerID() == -666) mensaje("Ingrese ID entero");
+            
+            else{
+                int ID = PREstaciones.BuscarID(leerID());
+                if(ID == -1) mensaje("codigo no existe");
+                
+                else{
+                    int si = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar este la Estación","Si / No",0);
+                    if(si == 0){
+                        PREstaciones.EliminarRegistro(ID);
+                        
+                        Guardar_txt();
+                        listarRegistro();
+                        lt.limpiar_texto(this.jPnlInfoRegEstaciones);
+                    }
+                }
+                
+                
+            }
+        }catch(Exception ex){
+            mensaje(ex.getMessage());
+        }
+    }
+    
+    
+    public void listarRegistro(){
+        DefaultTableModel dt = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
+        
+        
+        dt.addColumn("ID");
+        dt.addColumn("Nombre");
+        dt.addColumn("Ubicacion");
+        dt.addColumn("Horario Entrada");
+        dt.addColumn("Horario Salida");
+        dt.addColumn ("Télefono");
+        dt.addColumn ("Correo");
+        
+        //jTableDatosEstacion.setDefaultRenderer(Object.class, null);
+        
+        Object fila[] = new Object[dt.getColumnCount()];
+        for(int i = 0; i < PREstaciones.cantidadRegistro(); i++){
+            RegEstacion = PREstaciones.ObtenerRegistro(i);
+            fila[0] = RegEstacion.getIdEstacion();
+            fila[1] = RegEstacion.getNombre();
+            fila[2] = RegEstacion.getUbicacion();
+            fila[3] = RegEstacion.getHoraEntrada();
+            fila[4] = RegEstacion.getHoraSalida();
+            fila[5] = RegEstacion.getNumTelefono();
+            fila[6] = RegEstacion.getCorreo();
+            dt.addRow(fila);
+        }
+        jTableDatosEstacion.setModel(dt);
+        jTableDatosEstacion.setRowHeight(30);
+    }
+        
+    
+     public int leerID(){
+        try{
+            int ID = Integer.parseInt(jtxtIDEstacion.getText().trim());
+            return ID;
+        }catch(Exception ex){
+            return -666;
+        }
+    }
+     
+      public String leerNombre(){
+        try{
+            String nombre = jtxtNombreEstacion.getText().trim().replace(" ", "_");
+            return nombre;
+        }catch(Exception ex){
+            return null;
+        }
+    }
+    
+    public String leerUbicacion(){
+        try{
+           String ubicacion = jtxtUbicacion.getText().trim().replace(" ", "_");
+            return ubicacion;
+        }catch(Exception ex)
+        {
+            return null;
+        }
+    }
+    
+    
+      public String leerHoraEntrada(){
+        try{
+            String HEntrada = jtxtHEntrada.getText().trim().replace(" ", "_");
+            return HEntrada;
+        }catch(Exception ex){
+            return null;
+        }
+    }
+    
+    public String leerHoraSalida(){
+        try{
+           String HSalida = jtxtHSalida.getText().trim().replace(" ", "_");
+            return HSalida;
+        }catch(Exception ex)
+        {
+            return null;
+        }
+    }
+    
+    
+      public String leerNumTel(){
+        try{
+            String NumTel = jtxtNumTel.getText().trim().replace(" ", "_");
+            return NumTel;
+        }catch(Exception ex){
+            return null;
+        }
+    }
+    
+    public String leerCorreo(){
+        try{
+           String Correo = jtxtCorreo.getText().trim().replace(" ", "_");
+            return Correo;
+        }catch(Exception ex)
+        {
+            return null;
+        }
+    }
+   
+       public void mensaje(String texto){
+        JOptionPane.showMessageDialog(null, texto);
+    }
         
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,10 +300,10 @@ public class registroEstaciones extends javax.swing.JFrame {
         jPnlNavBar = new javax.swing.JPanel();
         jlblTituloRegistroTrenes = new javax.swing.JLabel();
         jbtnMenuDesplegable = new javax.swing.JButton();
-        jPnlInfoRegRecorridos = new javax.swing.JPanel();
+        jPnlInfoRegEstaciones = new javax.swing.JPanel();
         jPanelOpciones = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTableDatosTren = new javax.swing.JTable();
+        jTableDatosEstacion = new javax.swing.JTable();
         jlblUbicacion = new javax.swing.JLabel();
         jlblHSalida = new javax.swing.JLabel();
         jbtnGuardarDatosTren = new javax.swing.JButton();
@@ -66,6 +326,9 @@ public class registroEstaciones extends javax.swing.JFrame {
         jlblHSalida1 = new javax.swing.JLabel();
         jScrollPane11 = new javax.swing.JScrollPane();
         jtxtCorreo = new javax.swing.JTextPane();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        jtxtNombreEstacion = new javax.swing.JTextPane();
+        jlblNombreEstacion = new javax.swing.JLabel();
         jPnlMenuRecorrido = new javax.swing.JPanel();
         jBtnHome = new javax.swing.JButton();
         jBtnReportes = new javax.swing.JButton();
@@ -117,40 +380,45 @@ public class registroEstaciones extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(7, 8, 3, 5);
         jPanelFondo.add(jPnlNavBar, gridBagConstraints);
 
-        jPnlInfoRegRecorridos.setBackground(new java.awt.Color(255, 255, 255));
-        jPnlInfoRegRecorridos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPnlInfoRegEstaciones.setBackground(new java.awt.Color(255, 255, 255));
+        jPnlInfoRegEstaciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanelOpciones.setBackground(new java.awt.Color(255, 255, 255));
         jPanelOpciones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelOpciones.setForeground(new java.awt.Color(255, 255, 255));
         jPanelOpciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTableDatosTren.setModel(new javax.swing.table.DefaultTableModel(
+        jTableDatosEstacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID de Estación", "Ubicación", "Horario de Salida", "Horario de Entrada", "Télefono ", "Correo"
+                "ID de Estación", "Nombre", "Ubicación", "Horario de Salida", "Horario de Entrada", "Télefono ", "Correo"
             }
         ));
-        jScrollPane5.setViewportView(jTableDatosTren);
+        jTableDatosEstacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableDatosEstacionMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(jTableDatosEstacion);
 
-        jPanelOpciones.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 220));
+        jPanelOpciones.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 240));
 
-        jPnlInfoRegRecorridos.add(jPanelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 800, 220));
+        jPnlInfoRegEstaciones.add(jPanelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 1000, 240));
 
         jlblUbicacion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblUbicacion.setForeground(new java.awt.Color(0, 0, 0));
         jlblUbicacion.setText("Ubicación:");
-        jPnlInfoRegRecorridos.add(jlblUbicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 20, -1, 29));
+        jPnlInfoRegEstaciones.add(jlblUbicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, -1, 29));
 
         jlblHSalida.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblHSalida.setForeground(new java.awt.Color(0, 0, 0));
         jlblHSalida.setText("Horario de Salida:");
-        jPnlInfoRegRecorridos.add(jlblHSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, 130, 20));
+        jPnlInfoRegEstaciones.add(jlblHSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, 130, 20));
 
         jbtnGuardarDatosTren.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save Archive_26px.png"))); // NOI18N
         jbtnGuardarDatosTren.setText("Guardar");
@@ -160,7 +428,7 @@ public class registroEstaciones extends javax.swing.JFrame {
                 jbtnGuardarDatosTrenActionPerformed(evt);
             }
         });
-        jPnlInfoRegRecorridos.add(jbtnGuardarDatosTren, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, 130, -1));
+        jPnlInfoRegEstaciones.add(jbtnGuardarDatosTren, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 130, -1));
 
         jbtnModificarDatosTren.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Edit File_26px.png"))); // NOI18N
         jbtnModificarDatosTren.setText("Modificar");
@@ -170,7 +438,7 @@ public class registroEstaciones extends javax.swing.JFrame {
                 jbtnModificarDatosTrenActionPerformed(evt);
             }
         });
-        jPnlInfoRegRecorridos.add(jbtnModificarDatosTren, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 170, 130, -1));
+        jPnlInfoRegEstaciones.add(jbtnModificarDatosTren, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 130, -1));
 
         jbtnEliminarDatosTren.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Trash_26px.png"))); // NOI18N
         jbtnEliminarDatosTren.setText("Eliminar");
@@ -180,55 +448,69 @@ public class registroEstaciones extends javax.swing.JFrame {
                 jbtnEliminarDatosTrenActionPerformed(evt);
             }
         });
-        jPnlInfoRegRecorridos.add(jbtnEliminarDatosTren, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 120, -1));
+        jPnlInfoRegEstaciones.add(jbtnEliminarDatosTren, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, 120, -1));
 
         jbtnLimpiarTren.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Disposal_26px.png"))); // NOI18N
         jbtnLimpiarTren.setToolTipText("Limpiar información");
-        jPnlInfoRegRecorridos.add(jbtnLimpiarTren, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 180, 40, -1));
+        jbtnLimpiarTren.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnLimpiarTrenActionPerformed(evt);
+            }
+        });
+        jPnlInfoRegEstaciones.add(jbtnLimpiarTren, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 190, 40, -1));
 
         jScrollPane6.setViewportView(jtxtHSalida);
 
-        jPnlInfoRegRecorridos.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 70, 250, -1));
+        jPnlInfoRegEstaciones.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 60, 250, -1));
 
         jlblHEntrada.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblHEntrada.setForeground(new java.awt.Color(0, 0, 0));
         jlblHEntrada.setText("Horario de Entrada:");
-        jPnlInfoRegRecorridos.add(jlblHEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 140, 20));
+        jPnlInfoRegEstaciones.add(jlblHEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, 140, 20));
 
         jScrollPane7.setViewportView(jtxtHEntrada);
 
-        jPnlInfoRegRecorridos.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 250, -1));
+        jPnlInfoRegEstaciones.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 250, -1));
 
         jScrollPane8.setViewportView(jtxtUbicacion);
 
-        jPnlInfoRegRecorridos.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 20, 250, -1));
+        jPnlInfoRegEstaciones.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 250, -1));
 
         jlblIDEstacion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblIDEstacion.setForeground(new java.awt.Color(0, 0, 0));
         jlblIDEstacion.setText("ID de Estación:");
-        jPnlInfoRegRecorridos.add(jlblIDEstacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 29));
+        jPnlInfoRegEstaciones.add(jlblIDEstacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 29));
 
         jScrollPane9.setViewportView(jtxtIDEstacion);
 
-        jPnlInfoRegRecorridos.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 250, -1));
+        jPnlInfoRegEstaciones.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 250, -1));
 
         jlblNumTel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblNumTel.setForeground(new java.awt.Color(0, 0, 0));
         jlblNumTel.setText("Número de Télefono:");
-        jPnlInfoRegRecorridos.add(jlblNumTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 160, 20));
+        jPnlInfoRegEstaciones.add(jlblNumTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 100, 160, 20));
 
         jScrollPane10.setViewportView(jtxtNumTel);
 
-        jPnlInfoRegRecorridos.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 250, -1));
+        jPnlInfoRegEstaciones.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 100, 250, -1));
 
         jlblHSalida1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblHSalida1.setForeground(new java.awt.Color(0, 0, 0));
         jlblHSalida1.setText("Correo:");
-        jPnlInfoRegRecorridos.add(jlblHSalida1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 120, 60, 20));
+        jPnlInfoRegEstaciones.add(jlblHSalida1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, 60, 20));
 
         jScrollPane11.setViewportView(jtxtCorreo);
 
-        jPnlInfoRegRecorridos.add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 120, 250, -1));
+        jPnlInfoRegEstaciones.add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 140, 250, -1));
+
+        jScrollPane12.setViewportView(jtxtNombreEstacion);
+
+        jPnlInfoRegEstaciones.add(jScrollPane12, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 250, -1));
+
+        jlblNombreEstacion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblNombreEstacion.setForeground(new java.awt.Color(0, 0, 0));
+        jlblNombreEstacion.setText("Nombre Estación:");
+        jPnlInfoRegEstaciones.add(jlblNombreEstacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, 29));
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -238,7 +520,7 @@ public class registroEstaciones extends javax.swing.JFrame {
         gridBagConstraints.weightx = 1.9;
         gridBagConstraints.weighty = 0.6;
         gridBagConstraints.insets = new java.awt.Insets(75, 18, 19, 0);
-        jPanelFondo.add(jPnlInfoRegRecorridos, gridBagConstraints);
+        jPanelFondo.add(jPnlInfoRegEstaciones, gridBagConstraints);
 
         jBtnHome.setBackground(new java.awt.Color(204, 204, 204));
         jBtnHome.setForeground(new java.awt.Color(91, 91, 91));
@@ -400,7 +682,7 @@ public class registroEstaciones extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
+            .addComponent(jPanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -453,15 +735,17 @@ public class registroEstaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnRegFuncionarioActionPerformed
 
     private void jbtnEliminarDatosTrenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEliminarDatosTrenActionPerformed
-        // TODO add your handling code here:
+       this.eliminarRegistro();
     }//GEN-LAST:event_jbtnEliminarDatosTrenActionPerformed
 
     private void jbtnModificarDatosTrenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnModificarDatosTrenActionPerformed
-        // TODO add your handling code here:
+        File ruta = new File(jtxtIDEstacion.getText());
+        this.modificarRegistro(ruta);
     }//GEN-LAST:event_jbtnModificarDatosTrenActionPerformed
 
     private void jbtnGuardarDatosTrenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarDatosTrenActionPerformed
-        // TODO add your handling code here:
+         File ruta = new File(jtxtIDEstacion.getText());
+        this.AgregarRegistro(ruta);
     }//GEN-LAST:event_jbtnGuardarDatosTrenActionPerformed
 
     private void jBtnRecorridoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRecorridoActionPerformed
@@ -479,6 +763,37 @@ public class registroEstaciones extends javax.swing.JFrame {
        this.setVisible(true);
        jlblTituloRegistroTrenes.setText("Registro de Estaciones");
     }//GEN-LAST:event_jBtnRegEstacionesActionPerformed
+
+    private void jbtnLimpiarTrenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLimpiarTrenActionPerformed
+        Limpiar_txt lp = new Limpiar_txt();
+        lt.limpiar_texto(this.jPanelFondo);
+    }//GEN-LAST:event_jbtnLimpiarTrenActionPerformed
+
+    private void jTableDatosEstacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableDatosEstacionMouseClicked
+          clic_tabla = jTableDatosEstacion.rowAtPoint(evt.getPoint());
+        
+        int ID = (int)jTableDatosEstacion.getValueAt(clic_tabla, 0);
+        String nombre = ""+jTableDatosEstacion.getValueAt(clic_tabla, 1);
+        String ubicacion = ""+jTableDatosEstacion.getValueAt(clic_tabla, 2);
+        String HoraEntrada = ""+jTableDatosEstacion.getValueAt(clic_tabla, 3);
+        String HoraSalida = ""+jTableDatosEstacion.getValueAt(clic_tabla, 4);
+        String numTele = ""+jTableDatosEstacion.getValueAt(clic_tabla, 5);
+        String Correo = ""+jTableDatosEstacion.getValueAt(clic_tabla, 6);
+        
+        jtxtIDEstacion.setText(String.valueOf(ID));
+        jtxtNombreEstacion.setText(nombre);
+        jtxtUbicacion.setText(String.valueOf(ubicacion));
+        jtxtHEntrada.setText(String.valueOf(HoraEntrada));
+        jtxtHSalida.setText(String.valueOf(HoraSalida));
+        jtxtNumTel.setText(String.valueOf(numTele));
+        jtxtCorreo.setText(String.valueOf(Correo));
+        
+        try{
+//            JLabel lbl = (JLabel)tabla.getValueAt(clic_tabla, 4);
+//            lblFoto.setIcon(lbl.getIcon());
+        }catch(Exception ex){
+        }
+    }//GEN-LAST:event_jTableDatosEstacionMouseClicked
 
     /**
      * @param args the command line arguments
@@ -542,18 +857,19 @@ public class registroEstaciones extends javax.swing.JFrame {
     private javax.swing.JButton jBtnReservarEspacio;
     private javax.swing.JPanel jPanelFondo;
     private javax.swing.JPanel jPanelOpciones;
-    private javax.swing.JPanel jPnlInfoRegRecorridos;
+    private javax.swing.JPanel jPnlInfoRegEstaciones;
     private javax.swing.JPanel jPnlMenuRecorrido;
     private javax.swing.JPanel jPnlNavBar;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTableDatosTren;
+    private javax.swing.JTable jTableDatosEstacion;
     private javax.swing.JButton jbtnEliminarDatosTren;
     private javax.swing.JButton jbtnGuardarDatosTren;
     private javax.swing.JButton jbtnLimpiarTren;
@@ -563,6 +879,7 @@ public class registroEstaciones extends javax.swing.JFrame {
     private javax.swing.JLabel jlblHSalida;
     private javax.swing.JLabel jlblHSalida1;
     private javax.swing.JLabel jlblIDEstacion;
+    private javax.swing.JLabel jlblNombreEstacion;
     private javax.swing.JLabel jlblNumTel;
     public static javax.swing.JLabel jlblTituloRegistroTrenes;
     private javax.swing.JLabel jlblUbicacion;
@@ -570,6 +887,7 @@ public class registroEstaciones extends javax.swing.JFrame {
     private javax.swing.JTextPane jtxtHEntrada;
     private javax.swing.JTextPane jtxtHSalida;
     private javax.swing.JTextPane jtxtIDEstacion;
+    private javax.swing.JTextPane jtxtNombreEstacion;
     private javax.swing.JTextPane jtxtNumTel;
     private javax.swing.JTextPane jtxtUbicacion;
     // End of variables declaration//GEN-END:variables
