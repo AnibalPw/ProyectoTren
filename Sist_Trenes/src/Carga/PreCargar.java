@@ -4,31 +4,54 @@
  * and open the template in the editor.
  */
 package Carga;
-import Carga.CargarBarra;
+
+import ds.desktop.notify.DesktopNotify;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.Timer;
+import sist_trenes.Sist_Trenes;
 
 
 /**
  *
  * @author Usuario
  */
-public final class PreCarga extends javax.swing.JFrame {
+public class PreCargar extends javax.swing.JFrame {
 
     /**
-     * Creates new form PreCarga
-   */
-    CargarBarra hilo;
-    public PreCarga() {
-        initComponents();
-        iniciar();
-    }
+     * Creates new form Carga
+     */
+    public Timer t;
+    public ActionListener ac;
+    public int x=0;
     
-    public void iniciar(){
-    this.setLocationRelativeTo(null);
-    hilo = new CargarBarra(getProgreso());
-    hilo.start();
-    hilo = null;
+    public PreCargar() {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        ac = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                x = x + 1;
+                jProgressBar.setValue(x);
+                jlblCarga.setText("Cargando " +x+ "");
+                if(jProgressBar.getValue() == 100)
+                {
+                dispose();
+              
+                t.stop();
+                }
+                
+                
+            }
+        };
+        t = new Timer(50, ac);
+        t.start();
+        
     }
-      
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,8 +63,8 @@ public final class PreCarga extends javax.swing.JFrame {
 
         jPanelPrecarga = new javax.swing.JPanel();
         jLabelCarga = new javax.swing.JLabel();
-        Progreso = new javax.swing.JProgressBar();
-        lblCargar = new javax.swing.JLabel();
+        jProgressBar = new javax.swing.JProgressBar();
+        jlblCarga = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -51,39 +74,35 @@ public final class PreCarga extends javax.swing.JFrame {
         jLabelCarga.setBackground(new java.awt.Color(255, 255, 255));
         jLabelCarga.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/preCarga.gif"))); // NOI18N
 
-        Progreso.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                ProgresoStateChanged(evt);
-            }
-        });
+        jProgressBar.setForeground(new java.awt.Color(0, 255, 0));
 
-        lblCargar.setText("Cargar");
+        jlblCarga.setText("jLabel1");
 
         javax.swing.GroupLayout jPanelPrecargaLayout = new javax.swing.GroupLayout(jPanelPrecarga);
         jPanelPrecarga.setLayout(jPanelPrecargaLayout);
         jPanelPrecargaLayout.setHorizontalGroup(
             jPanelPrecargaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelPrecargaLayout.createSequentialGroup()
-                .addGap(87, 87, 87)
+                .addGap(79, 79, 79)
                 .addComponent(jLabelCarga)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelPrecargaLayout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
+                .addContainerGap(44, Short.MAX_VALUE)
                 .addGroup(jPanelPrecargaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCargar)
-                    .addComponent(Progreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43))
+                    .addComponent(jlblCarga)
+                    .addComponent(jProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37))
         );
         jPanelPrecargaLayout.setVerticalGroup(
             jPanelPrecargaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelPrecargaLayout.createSequentialGroup()
                 .addGap(66, 66, 66)
                 .addComponent(jLabelCarga)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblCargar)
-                .addGap(18, 18, 18)
-                .addComponent(Progreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
+                .addGap(15, 15, 15)
+                .addComponent(jlblCarga)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -99,13 +118,6 @@ public final class PreCarga extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void ProgresoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_ProgresoStateChanged
-        if(getProgreso().getValue() == 100)
-        {
-            this.setVisible(false);
-        }
-    }//GEN-LAST:event_ProgresoStateChanged
 
     /**
      * @param args the command line arguments
@@ -124,46 +136,29 @@ public final class PreCarga extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PreCarga.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PreCargar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PreCarga.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PreCargar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PreCarga.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PreCargar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PreCarga.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PreCargar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PreCarga().setVisible(true);
+                new PreCargar().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JProgressBar Progreso;
     private javax.swing.JLabel jLabelCarga;
     private javax.swing.JPanel jPanelPrecarga;
-    public static javax.swing.JLabel lblCargar;
+    public static javax.swing.JProgressBar jProgressBar;
+    public static javax.swing.JLabel jlblCarga;
     // End of variables declaration//GEN-END:variables
-
-    /**
-     * @return the Progreso
-     */
-    public javax.swing.JProgressBar getProgreso() {
-        return Progreso;
-    }
-
-    /**
-     * @param Progreso the Progreso to set
-     */
-    public void setProgreso(javax.swing.JProgressBar Progreso) {
-        this.Progreso = Progreso;
-    }
-
- 
-
-  
 }

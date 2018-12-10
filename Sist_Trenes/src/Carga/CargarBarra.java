@@ -22,8 +22,10 @@ public class CargarBarra extends Thread{
     public void run(){
     
         for(int i=1; i<=100; i++){
+            PreCarga.lblCargar.setText("Cargando " + i + " " );
             progreso.setValue(i);
-        pause(30);
+            
+        pause(50);
         }
     }
     public void pause(int milSeg){

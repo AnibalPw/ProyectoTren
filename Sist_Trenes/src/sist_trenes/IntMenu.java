@@ -6,7 +6,8 @@
 package sist_trenes;
 import Carga.*;
 import ds.desktop.notify.DesktopNotify;
-import javafx.concurrent.Task;
+
+import moduloServicio.menuReserva;
 
 /**
  *
@@ -17,15 +18,7 @@ public class IntMenu extends javax.swing.JFrame {
     /**
      * Creates new form IntMenu
      */
-    public void pause(int milSeg){
-        try{
-         Thread.sleep(milSeg);
-        }
-        catch(Exception ex){
-        
-        }
-    }
-    //---------------------------------------------------------
+ 
     public IntMenu() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -138,21 +131,27 @@ public class IntMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnReservaActionPerformed
-        
-        PreCarga carga = new PreCarga();
-        carga.setVisible(true);
-        
-        if(PreCarga.isDefaultLookAndFeelDecorated())
-        {
-        }
-        if(carga != carga){
-        }
-        else{
-            moduloServicio.menuReserva Reserva = new moduloServicio.menuReserva();
-            Reserva.setVisible(true);
-            this.setVisible(false);
-        }
-
+    
+            PreCargar carga = new PreCargar();
+            carga.setVisible(true);
+            if (carga.jProgressBar.getValue() == 100){
+                    moduloServicio.menuReserva Reserva = new moduloServicio.menuReserva();
+                Reserva.setVisible(true);
+                Reserva.setExtendedState(Reserva.MAXIMIZED_BOTH);
+                this.setVisible(false);  
+            }
+      
+//            for(int i=0; i<=carga.x; i++)
+//            {
+//                PreCargar.jProgressBar.setValue(i);
+//                if (i == 100)
+//                {
+//                dispose();
+//              
+//                carga.t.stop();
+//                }
+//           
+//            }
     }//GEN-LAST:event_jbtnReservaActionPerformed
 
     private void jbtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRegistrarActionPerformed
@@ -163,9 +162,13 @@ public class IntMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnRegistrarActionPerformed
 
     private void jbtnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnConsultaActionPerformed
+        PreCargar carga = new PreCargar();
+            carga.setVisible(true);
+        
         moduloServicio.menuConsulta Consulta = new  moduloServicio.menuConsulta();
         Consulta.setVisible(true);
         this.setVisible(false);
+        Consulta.setExtendedState(Consulta.MAXIMIZED_BOTH);
         moduloServicio.menuConsulta.jlblTituloConsulta.setText("Consulta Información");
         DesktopNotify.showDesktopMessage("MENSAJE DE INFORMACIÓN", 
                 "PARA REALIZAR UNA CONSULTA NECESITA EL 'ID' DE LO QUE DESEA CONSULTAR ", 
@@ -210,11 +213,11 @@ public class IntMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanelFondo;
     private javax.swing.JPanel jPanelFondoImagen;
-    private javax.swing.JButton jbtnConsulta;
+    public static javax.swing.JButton jbtnConsulta;
     private javax.swing.JButton jbtnRecorrido;
     private javax.swing.JButton jbtnRegistrar;
     private javax.swing.JButton jbtnReporte;
-    private javax.swing.JButton jbtnReserva;
+    public static javax.swing.JButton jbtnReserva;
     private javax.swing.JLabel jlblFondo;
     private javax.swing.JLabel jlblTitulo;
     // End of variables declaration//GEN-END:variables

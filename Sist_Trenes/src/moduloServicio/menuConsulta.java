@@ -75,7 +75,7 @@ public class menuConsulta extends javax.swing.JFrame {
         jlblTituloConsulta.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jlblTituloConsulta.setForeground(new java.awt.Color(0, 0, 0));
         jlblTituloConsulta.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPnlNavBar.add(jlblTituloConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 250, 20));
+        jPnlNavBar.add(jlblTituloConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 270, 30));
 
         jbtnMenuDesplegable.setBackground(new java.awt.Color(255, 255, 255));
         jbtnMenuDesplegable.setForeground(new java.awt.Color(255, 255, 255));

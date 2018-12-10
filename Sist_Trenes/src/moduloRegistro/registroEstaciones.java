@@ -60,6 +60,12 @@ public class registroEstaciones extends javax.swing.JFrame {
         jlblIDEstacion = new javax.swing.JLabel();
         jScrollPane9 = new javax.swing.JScrollPane();
         jtxtIDEstacion = new javax.swing.JTextPane();
+        jlblNumTel = new javax.swing.JLabel();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        jtxtNumTel = new javax.swing.JTextPane();
+        jlblHSalida1 = new javax.swing.JLabel();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        jtxtCorreo = new javax.swing.JTextPane();
         jPnlMenuRecorrido = new javax.swing.JPanel();
         jBtnHome = new javax.swing.JButton();
         jBtnReportes = new javax.swing.JButton();
@@ -121,13 +127,13 @@ public class registroEstaciones extends javax.swing.JFrame {
 
         jTableDatosTren.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID de Estación", "Ubicación", "Horario de Salida", "Horario de Entrada"
+                "ID de Estación", "Ubicación", "Horario de Salida", "Horario de Entrada", "Télefono ", "Correo"
             }
         ));
         jScrollPane5.setViewportView(jTableDatosTren);
@@ -139,12 +145,12 @@ public class registroEstaciones extends javax.swing.JFrame {
         jlblUbicacion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblUbicacion.setForeground(new java.awt.Color(0, 0, 0));
         jlblUbicacion.setText("Ubicación:");
-        jPnlInfoRegRecorridos.add(jlblUbicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, -1, 29));
+        jPnlInfoRegRecorridos.add(jlblUbicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 20, -1, 29));
 
         jlblHSalida.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblHSalida.setForeground(new java.awt.Color(0, 0, 0));
         jlblHSalida.setText("Horario de Salida:");
-        jPnlInfoRegRecorridos.add(jlblHSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, 130, 20));
+        jPnlInfoRegRecorridos.add(jlblHSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, 130, 20));
 
         jbtnGuardarDatosTren.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save Archive_26px.png"))); // NOI18N
         jbtnGuardarDatosTren.setText("Guardar");
@@ -182,7 +188,7 @@ public class registroEstaciones extends javax.swing.JFrame {
 
         jScrollPane6.setViewportView(jtxtHSalida);
 
-        jPnlInfoRegRecorridos.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 70, 250, -1));
+        jPnlInfoRegRecorridos.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 70, 250, -1));
 
         jlblHEntrada.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblHEntrada.setForeground(new java.awt.Color(0, 0, 0));
@@ -195,7 +201,7 @@ public class registroEstaciones extends javax.swing.JFrame {
 
         jScrollPane8.setViewportView(jtxtUbicacion);
 
-        jPnlInfoRegRecorridos.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, 250, -1));
+        jPnlInfoRegRecorridos.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 20, 250, -1));
 
         jlblIDEstacion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblIDEstacion.setForeground(new java.awt.Color(0, 0, 0));
@@ -204,7 +210,25 @@ public class registroEstaciones extends javax.swing.JFrame {
 
         jScrollPane9.setViewportView(jtxtIDEstacion);
 
-        jPnlInfoRegRecorridos.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 250, -1));
+        jPnlInfoRegRecorridos.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 250, -1));
+
+        jlblNumTel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblNumTel.setForeground(new java.awt.Color(0, 0, 0));
+        jlblNumTel.setText("Número de Télefono:");
+        jPnlInfoRegRecorridos.add(jlblNumTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 160, 20));
+
+        jScrollPane10.setViewportView(jtxtNumTel);
+
+        jPnlInfoRegRecorridos.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 250, -1));
+
+        jlblHSalida1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblHSalida1.setForeground(new java.awt.Color(0, 0, 0));
+        jlblHSalida1.setText("Correo:");
+        jPnlInfoRegRecorridos.add(jlblHSalida1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 120, 60, 20));
+
+        jScrollPane11.setViewportView(jtxtCorreo);
+
+        jPnlInfoRegRecorridos.add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 120, 250, -1));
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -521,6 +545,8 @@ public class registroEstaciones extends javax.swing.JFrame {
     private javax.swing.JPanel jPnlInfoRegRecorridos;
     private javax.swing.JPanel jPnlMenuRecorrido;
     private javax.swing.JPanel jPnlNavBar;
+    private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
@@ -535,12 +561,16 @@ public class registroEstaciones extends javax.swing.JFrame {
     private javax.swing.JButton jbtnModificarDatosTren;
     private javax.swing.JLabel jlblHEntrada;
     private javax.swing.JLabel jlblHSalida;
+    private javax.swing.JLabel jlblHSalida1;
     private javax.swing.JLabel jlblIDEstacion;
+    private javax.swing.JLabel jlblNumTel;
     public static javax.swing.JLabel jlblTituloRegistroTrenes;
     private javax.swing.JLabel jlblUbicacion;
+    private javax.swing.JTextPane jtxtCorreo;
     private javax.swing.JTextPane jtxtHEntrada;
     private javax.swing.JTextPane jtxtHSalida;
     private javax.swing.JTextPane jtxtIDEstacion;
+    private javax.swing.JTextPane jtxtNumTel;
     private javax.swing.JTextPane jtxtUbicacion;
     // End of variables declaration//GEN-END:variables
 }

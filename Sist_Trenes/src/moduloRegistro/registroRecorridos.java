@@ -81,7 +81,7 @@ public class registroRecorridos extends javax.swing.JFrame {
         jlblTituloRegistroTrenes.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jlblTituloRegistroTrenes.setForeground(new java.awt.Color(0, 0, 0));
         jlblTituloRegistroTrenes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPnlNavBar.add(jlblTituloRegistroTrenes, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 240, 20));
+        jPnlNavBar.add(jlblTituloRegistroTrenes, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 250, 30));
 
         jbtnMenuDesplegable.setBackground(new java.awt.Color(255, 255, 255));
         jbtnMenuDesplegable.setForeground(new java.awt.Color(255, 255, 255));

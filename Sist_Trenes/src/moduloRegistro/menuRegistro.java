@@ -86,7 +86,7 @@ public class menuRegistro extends javax.swing.JFrame {
         jlblTituloRegistro.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jlblTituloRegistro.setForeground(new java.awt.Color(0, 0, 0));
         jlblTituloRegistro.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPnlNavBar.add(jlblTituloRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 240, 20));
+        jPnlNavBar.add(jlblTituloRegistro, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 240, 30));
 
         jbtnMenuDesplegable.setBackground(new java.awt.Color(255, 255, 255));
         jbtnMenuDesplegable.setForeground(new java.awt.Color(255, 255, 255));

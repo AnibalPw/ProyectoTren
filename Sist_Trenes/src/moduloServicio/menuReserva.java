@@ -44,8 +44,6 @@ public class menuReserva extends javax.swing.JFrame {
         jlblTitulo = new javax.swing.JLabel();
         jbtnMenuDesplegable = new javax.swing.JButton();
         jPanelPago = new javax.swing.JPanel();
-        jbtnDescuento = new javax.swing.JButton();
-        jbtnPago = new javax.swing.JButton();
         jPanelOpciones = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jlblPrecio = new javax.swing.JLabel();
@@ -55,20 +53,32 @@ public class menuReserva extends javax.swing.JFrame {
         jlblFecha = new javax.swing.JLabel();
         jlblDestino = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jtxtCodigo1 = new javax.swing.JTextPane();
+        jtxtCodigoViaje = new javax.swing.JTextPane();
         jlblContadorPasajeros = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jtxtCdescuento = new javax.swing.JTextPane();
         jlblViaje = new javax.swing.JLabel();
-        jlblCodigo = new javax.swing.JLabel();
         jlblNumPasajeroTitulo = new javax.swing.JLabel();
         jbtnMas = new javax.swing.JButton();
         jbtnMenos = new javax.swing.JButton();
         jlblMontoTotal = new javax.swing.JLabel();
-        jtxtTotal = new javax.swing.JTextField();
+        jtxtTotalPagar = new javax.swing.JTextField();
         jDdlDestino = new javax.swing.JComboBox<>();
         jlblFechaHora = new javax.swing.JLabel();
         jlblPrecioUni = new javax.swing.JLabel();
+        jtxtPagoCliente = new javax.swing.JTextField();
+        jlblMontoTotal1 = new javax.swing.JLabel();
+        jtxtCambioaCliente = new javax.swing.JTextField();
+        jlblMontoTotal2 = new javax.swing.JLabel();
+        jlblViaje1 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jtxtIDTren = new javax.swing.JTextPane();
+        jlblViaje2 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jtxtIDEstacion = new javax.swing.JTextPane();
+        jlblDCliente = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jtxtCodigo4 = new javax.swing.JTextPane();
+        jbtnPago = new javax.swing.JButton();
+        jPnlEligeCampo = new javax.swing.JPanel();
         jPanelMPrecios = new javax.swing.JPanel();
         jlblTituloTarifas = new javax.swing.JLabel();
         jlblRutaCSJ = new javax.swing.JLabel();
@@ -122,34 +132,13 @@ public class menuReserva extends javax.swing.JFrame {
         jPanelPago.setBackground(new java.awt.Color(255, 255, 255));
         jPanelPago.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jbtnDescuento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Loyalty Card_26px.png"))); // NOI18N
-        jbtnDescuento.setText("Realizar descuento");
-        jbtnDescuento.setFocusable(false);
-        jbtnDescuento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnDescuentoActionPerformed(evt);
-            }
-        });
-        jPanelPago.add(jbtnDescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 10, 180, -1));
-
-        jbtnPago.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jbtnPago.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/colon-costarricense.png"))); // NOI18N
-        jbtnPago.setText("Guardar y Cobrar");
-        jbtnPago.setFocusable(false);
-        jbtnPago.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnPagoActionPerformed(evt);
-            }
-        });
-        jPanelPago.add(jbtnPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 360, 170, -1));
-
         jPanelOpciones.setBackground(new java.awt.Color(255, 255, 255));
         jPanelOpciones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelOpciones.setForeground(new java.awt.Color(255, 255, 255));
         jPanelOpciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jSeparator1.setForeground(new java.awt.Color(153, 153, 153));
-        jPanelOpciones.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 87, 770, 10));
+        jPanelOpciones.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 650, 10));
 
         jlblPrecio.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jlblPrecio.setForeground(new java.awt.Color(102, 102, 102));
@@ -159,50 +148,41 @@ public class menuReserva extends javax.swing.JFrame {
         jlblUsuario.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblUsuario.setForeground(new java.awt.Color(0, 0, 0));
         jlblUsuario.setText("Nombre del cliente:");
-        jPanelOpciones.add(jlblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, -1, 29));
+        jPanelOpciones.add(jlblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, -1, 29));
 
         jScrollPane1.setViewportView(jtxtCodigo);
 
-        jPanelOpciones.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 110, 180, -1));
+        jPanelOpciones.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 180, -1));
 
         jlblFecha.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jlblFecha.setForeground(new java.awt.Color(0, 0, 0));
         jlblFecha.setText("dd/mm/yyyy");
-        jPanelOpciones.add(jlblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 50, 200, 20));
+        jPanelOpciones.add(jlblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, 170, 20));
 
         jlblDestino.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblDestino.setForeground(new java.awt.Color(0, 0, 0));
         jlblDestino.setText("Destino:");
         jPanelOpciones.add(jlblDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, 29));
 
-        jScrollPane3.setViewportView(jtxtCodigo1);
+        jScrollPane3.setViewportView(jtxtCodigoViaje);
 
-        jPanelOpciones.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 130, -1));
+        jPanelOpciones.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 100, -1));
 
         jlblContadorPasajeros.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblContadorPasajeros.setForeground(new java.awt.Color(0, 0, 0));
         jlblContadorPasajeros.setText("0");
         jlblContadorPasajeros.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanelOpciones.add(jlblContadorPasajeros, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 173, 20, -1));
-
-        jScrollPane4.setViewportView(jtxtCdescuento);
-
-        jPanelOpciones.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 110, -1));
+        jPanelOpciones.add(jlblContadorPasajeros, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 250, 20, -1));
 
         jlblViaje.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblViaje.setForeground(new java.awt.Color(0, 0, 0));
         jlblViaje.setText("Código del Viaje:");
-        jPanelOpciones.add(jlblViaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, 29));
-
-        jlblCodigo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jlblCodigo.setForeground(new java.awt.Color(0, 0, 0));
-        jlblCodigo.setText("Código Descuento:");
-        jPanelOpciones.add(jlblCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 140, 20));
+        jPanelOpciones.add(jlblViaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, 29));
 
         jlblNumPasajeroTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblNumPasajeroTitulo.setForeground(new java.awt.Color(0, 0, 0));
         jlblNumPasajeroTitulo.setText("Número de Pasajeros:");
-        jPanelOpciones.add(jlblNumPasajeroTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 160, 20));
+        jPanelOpciones.add(jlblNumPasajeroTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 220, 160, 20));
 
         jbtnMas.setBackground(new java.awt.Color(255, 255, 255));
         jbtnMas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Plus_26px.png"))); // NOI18N
@@ -217,7 +197,7 @@ public class menuReserva extends javax.swing.JFrame {
                 jbtnMasActionPerformed(evt);
             }
         });
-        jPanelOpciones.add(jbtnMas, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 170, 40, 30));
+        jPanelOpciones.add(jbtnMas, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 240, 40, 30));
 
         jbtnMenos.setBackground(new java.awt.Color(255, 255, 255));
         jbtnMenos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Minus_26px.png"))); // NOI18N
@@ -233,15 +213,15 @@ public class menuReserva extends javax.swing.JFrame {
                 jbtnMenosActionPerformed(evt);
             }
         });
-        jPanelOpciones.add(jbtnMenos, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 170, 40, 30));
+        jPanelOpciones.add(jbtnMenos, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 240, 40, 30));
 
         jlblMontoTotal.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblMontoTotal.setForeground(new java.awt.Color(0, 0, 0));
-        jlblMontoTotal.setText("Monto a Paga:");
-        jPanelOpciones.add(jlblMontoTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 230, 103, 30));
+        jlblMontoTotal.setText("Monto a Pagar:");
+        jPanelOpciones.add(jlblMontoTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 110, 30));
 
-        jtxtTotal.setEnabled(false);
-        jPanelOpciones.add(jtxtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 230, 139, 30));
+        jtxtTotalPagar.setEnabled(false);
+        jPanelOpciones.add(jtxtTotalPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, 139, 30));
 
         jDdlDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jDdlDestino.addActionListener(new java.awt.event.ActionListener() {
@@ -254,14 +234,74 @@ public class menuReserva extends javax.swing.JFrame {
         jlblFechaHora.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jlblFechaHora.setForeground(new java.awt.Color(102, 102, 102));
         jlblFechaHora.setText("Fecha y hora");
-        jPanelOpciones.add(jlblFechaHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 20, 70, 29));
+        jPanelOpciones.add(jlblFechaHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, 70, 29));
 
         jlblPrecioUni.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jlblPrecioUni.setForeground(new java.awt.Color(0, 0, 0));
         jlblPrecioUni.setText("₡");
         jPanelOpciones.add(jlblPrecioUni, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, 110, 20));
 
-        jPanelPago.add(jPanelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 50, 800, 290));
+        jtxtPagoCliente.setEnabled(false);
+        jPanelOpciones.add(jtxtPagoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 300, 139, 30));
+
+        jlblMontoTotal1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblMontoTotal1.setForeground(new java.awt.Color(0, 0, 0));
+        jlblMontoTotal1.setText("Paga con:");
+        jPanelOpciones.add(jlblMontoTotal1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 270, 80, 30));
+
+        jtxtCambioaCliente.setEnabled(false);
+        jPanelOpciones.add(jtxtCambioaCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 300, 139, 30));
+
+        jlblMontoTotal2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblMontoTotal2.setForeground(new java.awt.Color(0, 0, 0));
+        jlblMontoTotal2.setText("Cambio:");
+        jPanelOpciones.add(jlblMontoTotal2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 270, 60, 30));
+
+        jlblViaje1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblViaje1.setForeground(new java.awt.Color(0, 0, 0));
+        jlblViaje1.setText("ID Tren:");
+        jPanelOpciones.add(jlblViaje1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, -1, 29));
+
+        jScrollPane4.setViewportView(jtxtIDTren);
+
+        jPanelOpciones.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 100, -1));
+
+        jlblViaje2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblViaje2.setForeground(new java.awt.Color(0, 0, 0));
+        jlblViaje2.setText("ID Estación:");
+        jPanelOpciones.add(jlblViaje2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, -1, 29));
+
+        jScrollPane5.setViewportView(jtxtIDEstacion);
+
+        jPanelOpciones.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, 100, -1));
+
+        jlblDCliente.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblDCliente.setForeground(new java.awt.Color(0, 0, 0));
+        jlblDCliente.setText("ID Cliente:");
+        jPanelOpciones.add(jlblDCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, 29));
+
+        jScrollPane6.setViewportView(jtxtCodigo4);
+
+        jPanelOpciones.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 100, -1));
+
+        jbtnPago.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jbtnPago.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/colon-costarricense.png"))); // NOI18N
+        jbtnPago.setText("Guardar y Cobrar");
+        jbtnPago.setFocusable(false);
+        jbtnPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnPagoActionPerformed(evt);
+            }
+        });
+        jPanelOpciones.add(jbtnPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 400, 170, -1));
+
+        jPanelPago.add(jPanelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 670, 450));
+
+        jPnlEligeCampo.setBackground(new java.awt.Color(51, 51, 51));
+        jPnlEligeCampo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPnlEligeCampo.setForeground(new java.awt.Color(255, 255, 255));
+        jPnlEligeCampo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanelPago.add(jPnlEligeCampo, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 20, 450, 450));
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -270,7 +310,7 @@ public class menuReserva extends javax.swing.JFrame {
         gridBagConstraints.ipadx = 50;
         gridBagConstraints.weightx = 1.9;
         gridBagConstraints.weighty = 0.6;
-        gridBagConstraints.insets = new java.awt.Insets(75, 18, 19, 0);
+        gridBagConstraints.insets = new java.awt.Insets(34, 18, 19, 15);
         jPanelFondo.add(jPanelPago, gridBagConstraints);
 
         jlblTituloTarifas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -370,7 +410,7 @@ public class menuReserva extends javax.swing.JFrame {
                 .addComponent(jlblTituloTarifas, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jlblRutaCSJ, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jlblRutaCSJ.getAccessibleContext().setAccessibleDescription("");
@@ -387,7 +427,7 @@ public class menuReserva extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelFondo, javax.swing.GroupLayout.DEFAULT_SIZE, 1448, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,7 +438,7 @@ public class menuReserva extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnMenuDesplegableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenuDesplegableActionPerformed
-        // TODO add your handling code here:
+
         int posicion = this.jPanelMPrecios.getX();
         if(posicion > -1)
         {
@@ -407,16 +447,12 @@ public class menuReserva extends javax.swing.JFrame {
         else
         {
         Animacion.Animacion.mover_derecha(-185, 12, 2, 2, jPanelMPrecios);
-        }
+        } 
     }//GEN-LAST:event_jbtnMenuDesplegableActionPerformed
 
     private void jbtnPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPagoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtnPagoActionPerformed
-
-    private void jbtnDescuentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDescuentoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbtnDescuentoActionPerformed
 
     private void jDdlDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDdlDestinoActionPerformed
         // TODO add your handling code here:
@@ -521,23 +557,27 @@ public class menuReserva extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelMPrecios;
     private javax.swing.JPanel jPanelOpciones;
     private javax.swing.JPanel jPanelPago;
+    private javax.swing.JPanel jPnlEligeCampo;
     private javax.swing.JPanel jPnlNavBar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JButton jbtnDescuento;
     private javax.swing.JButton jbtnMas;
     private javax.swing.JButton jbtnMenos;
     private javax.swing.JButton jbtnMenuDesplegable;
     private javax.swing.JButton jbtnPago;
-    private javax.swing.JLabel jlblCodigo;
     public static javax.swing.JLabel jlblContadorPasajeros;
+    private javax.swing.JLabel jlblDCliente;
     private javax.swing.JLabel jlblDestino;
     private javax.swing.JLabel jlblFecha;
     private javax.swing.JLabel jlblFechaHora;
     private javax.swing.JLabel jlblMontoTotal;
+    private javax.swing.JLabel jlblMontoTotal1;
+    private javax.swing.JLabel jlblMontoTotal2;
     private javax.swing.JLabel jlblNumPasajeroTitulo;
     private javax.swing.JLabel jlblPrecio;
     private javax.swing.JLabel jlblPrecioUni;
@@ -546,9 +586,15 @@ public class menuReserva extends javax.swing.JFrame {
     private javax.swing.JLabel jlblTituloTarifas;
     private javax.swing.JLabel jlblUsuario;
     private javax.swing.JLabel jlblViaje;
-    private javax.swing.JTextPane jtxtCdescuento;
+    private javax.swing.JLabel jlblViaje1;
+    private javax.swing.JLabel jlblViaje2;
+    private javax.swing.JTextField jtxtCambioaCliente;
     private javax.swing.JTextPane jtxtCodigo;
-    private javax.swing.JTextPane jtxtCodigo1;
-    private javax.swing.JTextField jtxtTotal;
+    private javax.swing.JTextPane jtxtCodigo4;
+    private javax.swing.JTextPane jtxtCodigoViaje;
+    private javax.swing.JTextPane jtxtIDEstacion;
+    private javax.swing.JTextPane jtxtIDTren;
+    private javax.swing.JTextField jtxtPagoCliente;
+    private javax.swing.JTextField jtxtTotalPagar;
     // End of variables declaration//GEN-END:variables
 }
