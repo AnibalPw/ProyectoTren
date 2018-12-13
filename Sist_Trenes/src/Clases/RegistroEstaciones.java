@@ -24,7 +24,7 @@ public class RegistroEstaciones{
     
     public RegistroEstaciones(){}
     
-    public RegistroEstaciones(int pIdEstacion, String pNombre ,String pUbicacion, String pHoEntrada, String pHoSalida, String pNumTel, String pCorreo)
+    public RegistroEstaciones(int pIdEstacion, String pNombre, String pUbicacion, String pHoEntrada, String pHoSalida, String pNumTel, String pCorreo)
     {
     this.idEstacion = pIdEstacion;
     this.nombre =  pNombre;

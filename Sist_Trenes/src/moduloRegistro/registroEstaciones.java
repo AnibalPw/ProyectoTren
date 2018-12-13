@@ -29,7 +29,7 @@ import sun.security.pkcs11.wrapper.Constants;
 public class registroEstaciones extends javax.swing.JFrame {
 
 
-     Limpiar_txt lt = new Limpiar_txt();
+    Limpiar_txt lt = new Limpiar_txt();
     
     private String ruta_txt = "C:\\Users\\Usuario\\Desktop\\Universidad\\Programación\\Estructura de Datos\\Sistema de Trenes\\Sist_Trenes\\BDtxt\\RegistroEstaciones.txt";
     
@@ -753,7 +753,7 @@ public class registroEstaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnRecorridoActionPerformed
 
     private void jBtnRegTrenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegTrenesActionPerformed
-         registroTrenes Trenes = new registroTrenes();
+        registroTrenes Trenes = new registroTrenes();
         Trenes.setVisible(true);
         this.setVisible(false);
         moduloRegistro.registroTrenes.jlblTituloRegistroTrenes.setText("Registro de Trenes");
@@ -766,7 +766,7 @@ public class registroEstaciones extends javax.swing.JFrame {
 
     private void jbtnLimpiarTrenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLimpiarTrenActionPerformed
         Limpiar_txt lp = new Limpiar_txt();
-        lt.limpiar_texto(this.jPanelFondo);
+        lp.limpiar_texto(jPnlInfoRegEstaciones);
     }//GEN-LAST:event_jbtnLimpiarTrenActionPerformed
 
     private void jTableDatosEstacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableDatosEstacionMouseClicked

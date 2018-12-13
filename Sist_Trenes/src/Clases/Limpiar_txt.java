@@ -8,6 +8,7 @@ package Clases;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
 /**
  *
@@ -16,13 +17,17 @@ import javax.swing.JTextField;
 public class Limpiar_txt {
     
      public void limpiar_texto(JPanel panel){
-        for(int i = 0; panel.getComponents().length > i; i++){
-            if(panel.getComponents()[i] instanceof JTextField){
+        for(int i = 0;  i > panel.getComponents().length; i++){
+            if(panel.getComponents()[i] instanceof JTextPane){
+                ((JTextPane)panel.getComponents()[i]).setText("");
+            }
+            else if(panel.getComponents()[i] instanceof JTextField){
                 ((JTextField)panel.getComponents()[i]).setText("");
             }
             else if(panel.getComponents()[i] instanceof JPasswordField){
                 ((JPasswordField)panel.getComponents()[i]).setText("");
             }
         }
+        
     }
 }

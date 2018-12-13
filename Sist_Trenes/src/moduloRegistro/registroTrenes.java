@@ -5,8 +5,18 @@
  */
 
 package moduloRegistro;
+import Clases.Limpiar_txt;
+import Clases.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 
 /**
@@ -15,17 +25,193 @@ import javax.swing.JOptionPane;
  */
 public class registroTrenes extends javax.swing.JFrame {
 
+     Limpiar_txt lt = new Limpiar_txt();
     
-    /**
-     * Creates new form menuReserva
-     */
+    private String ruta_txt = "C:\\Users\\Usuario\\Desktop\\Universidad\\Programación\\Estructura de Datos\\Sistema de Trenes\\Sist_Trenes\\BDtxt\\RegistroTrenes.txt";
+    
+    RegistroTrenes RegTrenes;
+    ProcRTrenes PRTrenes;
+    
+        int clic_tabla;
+        
     public registroTrenes() {
         initComponents();
         this.setLocationRelativeTo(null);
-       
+        
+          PRTrenes = new ProcRTrenes();
+        
+        try {
+            cargarTrenes_txt();
+            listarRegistro();
+        } catch (Exception e) {
+            mensaje("No existe el archivo txt");
+        } 
     }
         
+    
+      public void AgregarTrenRegistro(File ruta){
+        try{
+            if(IDTren() == -666)mensaje("Ingresar ID en número entero");
+            else if(InVagon() == -666)mensaje("Ingresar Cantidad de Vagones");
+            else if(InCapa() == -666)mensaje("Ingresar Capacidad del Tren");
+            else{
+                RegTrenes = new RegistroTrenes(IDTren(), InVagon(), InCapa());
+                if(PRTrenes.BuscarID(RegTrenes.getIDTrenes())!= -1)mensaje("Este ID ya existe");
+                else PRTrenes.AgregarTren(RegTrenes);
+                
+                GuardarTren_txt();
+                listarRegistro();
+                lt.limpiar_texto(jPnlInfoRegRecorridos); 
+            }
+        }catch(Exception ex){
+            mensaje(ex.getMessage());
+        }
+    }
+      
+      
+      public void cargarTrenes_txt(){
+        File ruta = new File(ruta_txt);
+        try{
+            
+            FileReader ficheroSalida = new FileReader(ruta);
+            BufferedReader BR = new BufferedReader(ficheroSalida);
+            
+            String linea = null;
+             while((linea = BR.readLine())!= null){
+                StringTokenizer St = new StringTokenizer(linea, ",");
+                RegTrenes = new RegistroTrenes();
+                RegTrenes.setIDTrenes(Integer.parseInt(St.nextToken()));
+                RegTrenes.setVagonesTren(Integer.parseInt(St.nextToken()));
+                RegTrenes.setCapacidadTren(Double.parseDouble(St.nextToken()));
+                PRTrenes.AgregarTren(RegTrenes);
+            }
+            BR.close();
+        }catch(Exception ex){
+            mensaje("Error al cargar archivo: "+ex.getMessage());
+            System.out.println(ex.getMessage());
+        }
+    }
+      
+      
+      public void GuardarTren_txt(){
+          
+        try{
+            BufferedWriter ficheroSalida = new BufferedWriter(new FileWriter(new File(ruta_txt)));
+            for(int i = 0; i < PRTrenes.cantidadTren(); i++){
+                RegTrenes = PRTrenes.ObtenerTren(i);
+
+                 ficheroSalida.write(String.valueOf(RegTrenes.getIDTrenes()+"," +RegTrenes.getVagonesTren()+"," +RegTrenes.getCapacidadTren()));
+                 ficheroSalida.newLine();
+            }
+             ficheroSalida.close();
+            
+        }catch(Exception ex){
+            mensaje("Error al guardar archivo: "+ex.getMessage());
+            System.out.println(ex.getMessage());
+        }
+    }
+      
+       public void modificarRegistroTrenes(File ruta){
+        try{
+               if(IDTren() == -666)mensaje("Ingresar ID en número entero");
+           else if(InVagon() == -666)mensaje("Ingresar Cantidad de Vagones");
+            else if(InCapa() == -666)mensaje("Ingresar Capacidad del Tren");
+            else{
+                int ID = PRTrenes.BuscarID(IDTren());
+                RegTrenes = new RegistroTrenes(IDTren(), InVagon(), InCapa());
+                
+                if(ID == -1)PRTrenes.AgregarTren(RegTrenes);
+                else PRTrenes.ModificarTren(ID, RegTrenes);
+                
+                GuardarTren_txt();
+                listarRegistro();
+                lt.limpiar_texto(jPnlInfoRegRecorridos);
+            }
+        }catch(Exception ex){
+            mensaje(ex.getMessage());
+        }
+    }
+       
+       
+           public void eliminarRegistroTrenes(){
+        try{
+            if(IDTren() == -666) mensaje("Ingrese ID entero");
+            
+            else{
+                int ID = PRTrenes.BuscarID(IDTren());
+                if(ID == -1) mensaje("Número de ID no existe");
+                
+                else{
+                    int si = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar este la Estación","Si / No",0);
+                    if(si == 0){
+                        PRTrenes.EliminarTren(ID);
+                        
+                        GuardarTren_txt();
+                        listarRegistro();
+                        lt.limpiar_texto(jPnlInfoRegRecorridos);
+                    }
+                }
+            }
+        }catch(Exception ex){
+            mensaje(ex.getMessage());
+        }
+    }
+    
+       public void listarRegistro(){
+        DefaultTableModel dt = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
         
+         
+        dt.addColumn("ID");
+        dt.addColumn("Cantidad Vagones");
+        dt.addColumn("Capacidad Tren");
+    
+        Object fila[] = new Object[dt.getColumnCount()];
+        for(int i = 0; i < PRTrenes.cantidadTren(); i++){
+            RegTrenes = PRTrenes.ObtenerTren(i);
+            fila[0] = RegTrenes.getIDTrenes();
+            fila[1] = RegTrenes.getVagonesTren();
+            fila[2] = RegTrenes.getCapacidadTren();
+          
+            dt.addRow(fila);
+        }
+        jTableDatosTren.setModel(dt);
+        jTableDatosTren.setRowHeight(30);
+    }
+        
+       
+       public int IDTren(){
+        try{
+            int IDT = Integer.parseInt(jtxtIDTren.getText().trim());
+            return IDT;
+        }catch(Exception ex){
+            return -666;
+        }
+    }    
+       public int InVagon(){
+        try{
+            int CanVagones = Integer.parseInt(jtxtCantVagones.getText().trim());
+            return CanVagones;
+        }catch(Exception ex){
+            return -666;
+        }
+    }
+             public double InCapa(){
+        try{
+            double  CapaTren= Double.parseDouble(jtxtCapacidadTren.getText().trim());
+            return CapaTren;
+        }catch(Exception ex){
+            return -666;
+        }
+    }
+       
+          public void mensaje(String texto){
+        JOptionPane.showMessageDialog(null, texto);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -127,6 +313,11 @@ public class registroTrenes extends javax.swing.JFrame {
                 "ID Tren", "Cantidad Vagones", "Capacidad Tren"
             }
         ));
+        jTableDatosTren.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableDatosTrenMouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(jTableDatosTren);
 
         jPanelOpciones.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 220));
@@ -141,7 +332,7 @@ public class registroTrenes extends javax.swing.JFrame {
         jlblCantVagones.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblCantVagones.setForeground(new java.awt.Color(0, 0, 0));
         jlblCantVagones.setText("Vagones del tren:");
-        jPnlInfoRegRecorridos.add(jlblCantVagones, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 130, 20));
+        jPnlInfoRegRecorridos.add(jlblCantVagones, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, 130, 20));
 
         jbtnGuardarDatosTren.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save Archive_26px.png"))); // NOI18N
         jbtnGuardarDatosTren.setText("Guardar");
@@ -175,20 +366,25 @@ public class registroTrenes extends javax.swing.JFrame {
 
         jbtnLimpiarTren.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Disposal_26px.png"))); // NOI18N
         jbtnLimpiarTren.setToolTipText("Limpiar información");
+        jbtnLimpiarTren.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnLimpiarTrenActionPerformed(evt);
+            }
+        });
         jPnlInfoRegRecorridos.add(jbtnLimpiarTren, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 180, 40, -1));
 
         jScrollPane6.setViewportView(jtxtCantVagones);
 
-        jPnlInfoRegRecorridos.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 250, -1));
+        jPnlInfoRegRecorridos.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, 250, -1));
 
         jlblCapaTren.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblCapaTren.setForeground(new java.awt.Color(0, 0, 0));
         jlblCapaTren.setText("Capacidad del tren:");
-        jPnlInfoRegRecorridos.add(jlblCapaTren, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 140, 20));
+        jPnlInfoRegRecorridos.add(jlblCapaTren, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 140, 20));
 
         jScrollPane7.setViewportView(jtxtCapacidadTren);
 
-        jPnlInfoRegRecorridos.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 20, 250, -1));
+        jPnlInfoRegRecorridos.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, 250, -1));
 
         jScrollPane8.setViewportView(jtxtIDTren);
 
@@ -417,15 +613,17 @@ public class registroTrenes extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnRegFuncionarioActionPerformed
 
     private void jbtnEliminarDatosTrenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEliminarDatosTrenActionPerformed
-        // TODO add your handling code here:
+        this.eliminarRegistroTrenes();
     }//GEN-LAST:event_jbtnEliminarDatosTrenActionPerformed
 
     private void jbtnModificarDatosTrenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnModificarDatosTrenActionPerformed
-        // TODO add your handling code here:
+        File ruta = new File(jtxtIDTren.getText());
+        this.modificarRegistroTrenes(ruta);
     }//GEN-LAST:event_jbtnModificarDatosTrenActionPerformed
 
     private void jbtnGuardarDatosTrenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarDatosTrenActionPerformed
-        // TODO add your handling code here:
+       File ruta = new File(jtxtIDTren.getText());
+        this.AgregarTrenRegistro(ruta);
     }//GEN-LAST:event_jbtnGuardarDatosTrenActionPerformed
 
     private void jBtnRecorridoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRecorridoActionPerformed
@@ -443,6 +641,32 @@ public class registroTrenes extends javax.swing.JFrame {
         this.setVisible(false);
         moduloRegistro.registroEstaciones.jlblTituloRegistroTrenes.setText("Registro de Estaciones");
     }//GEN-LAST:event_jBtnRegEstacionesActionPerformed
+
+    private void jbtnLimpiarTrenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLimpiarTrenActionPerformed
+         Limpiar_txt lp = new Limpiar_txt();
+        lp.limpiar_texto(jPnlInfoRegRecorridos);
+    }//GEN-LAST:event_jbtnLimpiarTrenActionPerformed
+
+    private void jTableDatosTrenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableDatosTrenMouseClicked
+              clic_tabla = jTableDatosTren.rowAtPoint(evt.getPoint());
+        
+        int ID = (int)jTableDatosTren.getValueAt(clic_tabla, 0);
+        int vagones = (int)jTableDatosTren.getValueAt(clic_tabla, 1);
+        double capacidad = (double)jTableDatosTren.getValueAt(clic_tabla, 2);
+        
+        
+        
+        jtxtIDTren.setText(String.valueOf(ID));
+        jtxtCantVagones.setText(String.valueOf(vagones));
+        jtxtCapacidadTren.setText(String.valueOf(capacidad));
+        
+        
+        try{
+//            JLabel lbl = (JLabel)tabla.getValueAt(clic_tabla, 4);
+//            lblFoto.setIcon(lbl.getIcon());
+        }catch(Exception ex){
+        }
+    }//GEN-LAST:event_jTableDatosTrenMouseClicked
 
     /**
      * @param args the command line arguments

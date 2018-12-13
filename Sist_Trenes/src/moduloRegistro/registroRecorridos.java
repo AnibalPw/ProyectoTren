@@ -44,17 +44,20 @@ public class registroRecorridos extends javax.swing.JFrame {
         jPanelOpciones = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTableDatosConductor = new javax.swing.JTable();
-        jlblNomRuta = new javax.swing.JLabel();
+        jlblPrecioRuta = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jtxtNomRuta = new javax.swing.JTextPane();
-        jlblNomMaquinistaT = new javax.swing.JLabel();
-        jlblIDTren = new javax.swing.JLabel();
+        jtxtPrecioRuta = new javax.swing.JTextPane();
+        jlblEstacionS = new javax.swing.JLabel();
+        jlblEstacionD = new javax.swing.JLabel();
         jbtnGuardarDatosTren = new javax.swing.JButton();
         jbtnModificarDatosTren = new javax.swing.JButton();
         jbtnEliminarDatosTren = new javax.swing.JButton();
         jbtnLimpiarTren = new javax.swing.JButton();
-        jCbNomConductor = new javax.swing.JComboBox<>();
-        jCbIDtren = new javax.swing.JComboBox<>();
+        jCbED = new javax.swing.JComboBox<>();
+        jCbIDS = new javax.swing.JComboBox<>();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jtxtNomRuta = new javax.swing.JTextPane();
+        jlblNomRuta = new javax.swing.JLabel();
         jPnlMenuRecorrido = new javax.swing.JPanel();
         jBtnHome = new javax.swing.JButton();
         jBtnReportes = new javax.swing.JButton();
@@ -116,13 +119,13 @@ public class registroRecorridos extends javax.swing.JFrame {
 
         jTableDatosConductor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID Tren", "Nombre ruta", "Nombre Maquinista"
+                "ID Tren", "Precio ruta", "Estación Salida", "Estación Entrada"
             }
         ));
         jScrollPane5.setViewportView(jTableDatosConductor);
@@ -131,24 +134,24 @@ public class registroRecorridos extends javax.swing.JFrame {
 
         jPnlInfoRegRecorridos.add(jPanelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 800, 220));
 
-        jlblNomRuta.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jlblNomRuta.setForeground(new java.awt.Color(0, 0, 0));
-        jlblNomRuta.setText("Nombre de ruta: ");
-        jPnlInfoRegRecorridos.add(jlblNomRuta, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 140, 29));
+        jlblPrecioRuta.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblPrecioRuta.setForeground(new java.awt.Color(0, 0, 0));
+        jlblPrecioRuta.setText("Precio Ruta:");
+        jPnlInfoRegRecorridos.add(jlblPrecioRuta, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 90, 29));
 
-        jScrollPane3.setViewportView(jtxtNomRuta);
+        jScrollPane3.setViewportView(jtxtPrecioRuta);
 
-        jPnlInfoRegRecorridos.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 230, -1));
+        jPnlInfoRegRecorridos.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, 230, -1));
 
-        jlblNomMaquinistaT.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jlblNomMaquinistaT.setForeground(new java.awt.Color(0, 0, 0));
-        jlblNomMaquinistaT.setText("Nombre del Maquinista: ");
-        jPnlInfoRegRecorridos.add(jlblNomMaquinistaT, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, -1, 29));
+        jlblEstacionS.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblEstacionS.setForeground(new java.awt.Color(0, 0, 0));
+        jlblEstacionS.setText("Estación Salida:");
+        jPnlInfoRegRecorridos.add(jlblEstacionS, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 120, 29));
 
-        jlblIDTren.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jlblIDTren.setForeground(new java.awt.Color(0, 0, 0));
-        jlblIDTren.setText("ID de tren:");
-        jPnlInfoRegRecorridos.add(jlblIDTren, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, -1, 29));
+        jlblEstacionD.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblEstacionD.setForeground(new java.awt.Color(0, 0, 0));
+        jlblEstacionD.setText("Estación Destino");
+        jPnlInfoRegRecorridos.add(jlblEstacionD, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, -1, 29));
 
         jbtnGuardarDatosTren.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Save Archive_26px.png"))); // NOI18N
         jbtnGuardarDatosTren.setText("Guardar");
@@ -184,11 +187,20 @@ public class registroRecorridos extends javax.swing.JFrame {
         jbtnLimpiarTren.setToolTipText("Limpiar información");
         jPnlInfoRegRecorridos.add(jbtnLimpiarTren, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 180, 40, -1));
 
-        jCbNomConductor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPnlInfoRegRecorridos.add(jCbNomConductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, 230, -1));
+        jCbED.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPnlInfoRegRecorridos.add(jCbED, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 70, 230, -1));
 
-        jCbIDtren.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPnlInfoRegRecorridos.add(jCbIDtren, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 70, 230, -1));
+        jCbIDS.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPnlInfoRegRecorridos.add(jCbIDS, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 230, -1));
+
+        jScrollPane4.setViewportView(jtxtNomRuta);
+
+        jPnlInfoRegRecorridos.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 230, -1));
+
+        jlblNomRuta.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblNomRuta.setForeground(new java.awt.Color(0, 0, 0));
+        jlblNomRuta.setText("Nombre de ruta: ");
+        jPnlInfoRegRecorridos.add(jlblNomRuta, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 140, 29));
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -489,14 +501,15 @@ public class registroRecorridos extends javax.swing.JFrame {
     private javax.swing.JButton jBtnRegTrenes;
     private javax.swing.JButton jBtnReportes;
     private javax.swing.JButton jBtnReservarEspacio;
-    private javax.swing.JComboBox<String> jCbIDtren;
-    private javax.swing.JComboBox<String> jCbNomConductor;
+    private javax.swing.JComboBox<String> jCbED;
+    private javax.swing.JComboBox<String> jCbIDS;
     private javax.swing.JPanel jPanelFondo;
     private javax.swing.JPanel jPanelOpciones;
     private javax.swing.JPanel jPnlInfoRegRecorridos;
     private javax.swing.JPanel jPnlMenuRecorrido;
     private javax.swing.JPanel jPnlNavBar;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTableDatosConductor;
@@ -505,10 +518,12 @@ public class registroRecorridos extends javax.swing.JFrame {
     private javax.swing.JButton jbtnLimpiarTren;
     private javax.swing.JButton jbtnMenuDesplegable;
     private javax.swing.JButton jbtnModificarDatosTren;
-    private javax.swing.JLabel jlblIDTren;
-    private javax.swing.JLabel jlblNomMaquinistaT;
+    private javax.swing.JLabel jlblEstacionD;
+    private javax.swing.JLabel jlblEstacionS;
     private javax.swing.JLabel jlblNomRuta;
+    private javax.swing.JLabel jlblPrecioRuta;
     public static javax.swing.JLabel jlblTituloRegistroTrenes;
     private javax.swing.JTextPane jtxtNomRuta;
+    private javax.swing.JTextPane jtxtPrecioRuta;
     // End of variables declaration//GEN-END:variables
 }

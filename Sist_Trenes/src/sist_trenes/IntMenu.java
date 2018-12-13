@@ -132,14 +132,15 @@ public class IntMenu extends javax.swing.JFrame {
 
     private void jbtnReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnReservaActionPerformed
     
-            PreCargar carga = new PreCargar();
-            carga.setVisible(true);
-            if (carga.jProgressBar.getValue() == 100){
-                    moduloServicio.menuReserva Reserva = new moduloServicio.menuReserva();
+//            PreCargar carga = new PreCargar();
+//            carga.setVisible(true);
+//            if (carga.jProgressBar.getValue() == 100){
+//                  
+//            }
+              moduloServicio.menuReserva Reserva = new moduloServicio.menuReserva();
                 Reserva.setVisible(true);
                 Reserva.setExtendedState(Reserva.MAXIMIZED_BOTH);
                 this.setVisible(false);  
-            }
       
 //            for(int i=0; i<=carga.x; i++)
 //            {
