@@ -55,8 +55,8 @@ public class IntMenu extends javax.swing.JFrame {
         jlblTitulo.setFont(new java.awt.Font("Arial Unicode MS", 1, 18)); // NOI18N
         jlblTitulo.setForeground(java.awt.SystemColor.desktop);
         jlblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlblTitulo.setText("TRENES DOBLE A");
-        jPanelFondoImagen.add(jlblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 250, 70));
+        jlblTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logotren2.png"))); // NOI18N
+        jPanelFondoImagen.add(jlblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, 380, 140));
 
         jbtnRecorrido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_Place_Marker_26px_1.png"))); // NOI18N
         jbtnRecorrido.setText("Recorridos");
@@ -64,16 +64,21 @@ public class IntMenu extends javax.swing.JFrame {
         jbtnRecorrido.setFocusable(false);
         jPanelFondoImagen.add(jbtnRecorrido, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 210, 130, -1));
 
-        jbtnReserva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Train Ticket_26px.png"))); // NOI18N
-        jbtnReserva.setText("Reservar Espacio");
+        jbtnReserva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/botones/boton4.png"))); // NOI18N
+        jbtnReserva.setBorder(null);
+        jbtnReserva.setBorderPainted(false);
+        jbtnReserva.setContentAreaFilled(false);
         jbtnReserva.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbtnReserva.setFocusPainted(false);
         jbtnReserva.setFocusable(false);
+        jbtnReserva.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/botones/boton4press.png"))); // NOI18N
+        jbtnReserva.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/botones/boton4roll.png"))); // NOI18N
         jbtnReserva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnReservaActionPerformed(evt);
             }
         });
-        jPanelFondoImagen.add(jbtnReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 210, 170, -1));
+        jPanelFondoImagen.add(jbtnReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, 220, 70));
 
         jbtnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/System Report_26px.png"))); // NOI18N
         jbtnReporte.setText("Reportes");
