@@ -57,7 +57,7 @@ public class registroEstaciones extends javax.swing.JFrame {
         try{
             if(leerID() == -666)mensaje("Ingresar ID en número entero");
             else if(leerNombre() == null)mensaje("Ingresar Nombre de la Estación");
-             else if(leerUbicacion() == null)mensaje("Ingresar Ubicación");
+            else if(leerUbicacion() == null)mensaje("Ingresar Ubicación");
             else if(leerHoraEntrada() == null) mensaje("Ingresar Hora de Entrada");
             else if(leerHoraSalida() == null)mensaje("Ingresar Hora Salida");
             else if(leerNumTel() == null)mensaje("Ingresar Número de Télefono");
@@ -105,22 +105,18 @@ public class registroEstaciones extends javax.swing.JFrame {
     }
     
     public void Guardar_txt(){
-//        FileWriter fw;
-//        PrintWriter pw;
         try{
-//            fw = new FileWriter(ruta_txt);
-//            pw = new PrintWriter(fw);
             BufferedWriter ficheroSalida = new BufferedWriter(new FileWriter(new File(ruta_txt)));
             for(int i = 0; i < PREstaciones.cantidadRegistro(); i++){
                 RegEstacion = PREstaciones.ObtenerRegistro(i);
 //                pw.println(String.valueOf(RegEstacion.getIdEstacion()+", "+RegEstacion.getNombre()+", "+RegEstacion.getUbicacion()+", "+RegEstacion.getHoraEntrada()+",  "+RegEstacion.getHoraSalida()+","+RegEstacion.getNumTelefono()+","+RegEstacion.getCorreo()));
-                 ficheroSalida.write(String.valueOf(RegEstacion.getIdEstacion()+", "+RegEstacion.getNombre()+", "+RegEstacion.getUbicacion()+", "+RegEstacion.getHoraEntrada()+",  "+RegEstacion.getHoraSalida()+","+RegEstacion.getNumTelefono()+","+RegEstacion.getCorreo()));
-                 ficheroSalida.newLine();
+                ficheroSalida.write(String.valueOf(RegEstacion.getIdEstacion()+", "+RegEstacion.getNombre()+", "+RegEstacion.getUbicacion()+", "+RegEstacion.getHoraEntrada()+",  "+RegEstacion.getHoraSalida()+","+RegEstacion.getNumTelefono()+","+RegEstacion.getCorreo()));
+                ficheroSalida.newLine();
             }
              ficheroSalida.close();
             
         }catch(Exception ex){
-            mensaje("Error al guardar archivo: "+ex.getMessage());
+            mensaje("Error al guardar archivo:" + ex.getMessage());
             System.out.println(ex.getMessage());
         }
     }
@@ -130,7 +126,7 @@ public class registroEstaciones extends javax.swing.JFrame {
         try{
              if(leerID() == -666)mensaje("Ingresar ID en número entero");
             else if(leerNombre() == null)mensaje("Ingresar Nombre de la Estación");
-             else if(leerUbicacion() == null)mensaje("Ingresar Ubicación");
+            else if(leerUbicacion() == null)mensaje("Ingresar Ubicación");
             else if(leerHoraEntrada() == null) mensaje("Ingresar Hora de Entrada");
             else if(leerHoraSalida() == null)mensaje("Ingresar Hora Salida");
             else if(leerNumTel() == null)mensaje("Ingresar Número de Télefono");
@@ -185,15 +181,13 @@ public class registroEstaciones extends javax.swing.JFrame {
                 return false;
             }
         };
-        
-        
         dt.addColumn("ID");
         dt.addColumn("Nombre");
         dt.addColumn("Ubicacion");
         dt.addColumn("Horario Entrada");
         dt.addColumn("Horario Salida");
-        dt.addColumn ("Télefono");
-        dt.addColumn ("Correo");
+        dt.addColumn("Télefono");
+        dt.addColumn("Correo");
         
         //jTableDatosEstacion.setDefaultRenderer(Object.class, null);
         
@@ -212,7 +206,6 @@ public class registroEstaciones extends javax.swing.JFrame {
         jTableDatosEstacion.setModel(dt);
         jTableDatosEstacion.setRowHeight(30);
     }
-        
     
      public int leerID(){
         try{
@@ -225,7 +218,7 @@ public class registroEstaciones extends javax.swing.JFrame {
      
       public String leerNombre(){
         try{
-            String nombre = jtxtNombreEstacion.getText().trim().replace(" ", "_");
+            String nombre = jtxtNombreEstacion.getText().trim().replace(" ", " ");
             return nombre;
         }catch(Exception ex){
             return null;
@@ -234,7 +227,7 @@ public class registroEstaciones extends javax.swing.JFrame {
     
     public String leerUbicacion(){
         try{
-           String ubicacion = jtxtUbicacion.getText().trim().replace(" ", "_");
+           String ubicacion = jtxtUbicacion.getText().trim().replace(" ", " ");
             return ubicacion;
         }catch(Exception ex)
         {
@@ -245,7 +238,7 @@ public class registroEstaciones extends javax.swing.JFrame {
     
       public String leerHoraEntrada(){
         try{
-            String HEntrada = jtxtHEntrada.getText().trim().replace(" ", "_");
+            String HEntrada = jtxtHEntrada.getText().trim().replace(" ", " ");
             return HEntrada;
         }catch(Exception ex){
             return null;
@@ -254,7 +247,7 @@ public class registroEstaciones extends javax.swing.JFrame {
     
     public String leerHoraSalida(){
         try{
-           String HSalida = jtxtHSalida.getText().trim().replace(" ", "_");
+           String HSalida = jtxtHSalida.getText().trim().replace(" ", " ");
             return HSalida;
         }catch(Exception ex)
         {
@@ -265,7 +258,7 @@ public class registroEstaciones extends javax.swing.JFrame {
     
       public String leerNumTel(){
         try{
-            String NumTel = jtxtNumTel.getText().trim().replace(" ", "_");
+            String NumTel = jtxtNumTel.getText().trim().replace(" ", " ");
             return NumTel;
         }catch(Exception ex){
             return null;
@@ -274,7 +267,7 @@ public class registroEstaciones extends javax.swing.JFrame {
     
     public String leerCorreo(){
         try{
-           String Correo = jtxtCorreo.getText().trim().replace(" ", "_");
+           String Correo = jtxtCorreo.getText().trim().replace(" ", " ");
             return Correo;
         }catch(Exception ex)
         {
@@ -413,7 +406,7 @@ public class registroEstaciones extends javax.swing.JFrame {
         jlblUbicacion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblUbicacion.setForeground(new java.awt.Color(0, 0, 0));
         jlblUbicacion.setText("Ubicación:");
-        jPnlInfoRegEstaciones.add(jlblUbicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, -1, 29));
+        jPnlInfoRegEstaciones.add(jlblUbicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, -1, 29));
 
         jlblHSalida.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblHSalida.setForeground(new java.awt.Color(0, 0, 0));
@@ -474,12 +467,12 @@ public class registroEstaciones extends javax.swing.JFrame {
 
         jScrollPane8.setViewportView(jtxtUbicacion);
 
-        jPnlInfoRegEstaciones.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 250, -1));
+        jPnlInfoRegEstaciones.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 250, -1));
 
         jlblIDEstacion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblIDEstacion.setForeground(new java.awt.Color(0, 0, 0));
         jlblIDEstacion.setText("ID de Estación:");
-        jPnlInfoRegEstaciones.add(jlblIDEstacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 29));
+        jPnlInfoRegEstaciones.add(jlblIDEstacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, 29));
 
         jScrollPane9.setViewportView(jtxtIDEstacion);
 
@@ -499,18 +492,19 @@ public class registroEstaciones extends javax.swing.JFrame {
         jlblHSalida1.setText("Correo:");
         jPnlInfoRegEstaciones.add(jlblHSalida1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, 60, 20));
 
+        jtxtCorreo.setText("trenesdobleA@gmail.com");
         jScrollPane11.setViewportView(jtxtCorreo);
 
         jPnlInfoRegEstaciones.add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 140, 250, -1));
 
         jScrollPane12.setViewportView(jtxtNombreEstacion);
 
-        jPnlInfoRegEstaciones.add(jScrollPane12, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 250, -1));
+        jPnlInfoRegEstaciones.add(jScrollPane12, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 250, -1));
 
         jlblNombreEstacion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblNombreEstacion.setForeground(new java.awt.Color(0, 0, 0));
         jlblNombreEstacion.setText("Nombre Estación:");
-        jPnlInfoRegEstaciones.add(jlblNombreEstacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, 29));
+        jPnlInfoRegEstaciones.add(jlblNombreEstacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, 29));
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -689,7 +683,7 @@ public class registroEstaciones extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnMenuDesplegableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMenuDesplegableActionPerformed
-        // TODO add your handling code here:
+
         int posicion = this.jPnlMenuRecorrido.getX();
         if(posicion > -1)
         {
@@ -721,17 +715,17 @@ public class registroEstaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnHomeActionPerformed
 
     private void jBtnRegRecorridoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegRecorridoActionPerformed
-            registroRecorridos regRecorridos = new registroRecorridos();
-            regRecorridos.setVisible(true);
-            this.setVisible(false);
-            moduloRegistro.registroRecorridos.jlblTituloRegistroTrenes.setText("Registro de Recorridos");
+        registroRecorridos regRecorridos = new registroRecorridos();
+        regRecorridos.setVisible(true);
+        this.setVisible(false);
+        moduloRegistro.registroRecorridos.jlblTituloRegistroTrenes.setText("Registro de Recorridos");
     }//GEN-LAST:event_jBtnRegRecorridoActionPerformed
 
     private void jBtnRegFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegFuncionarioActionPerformed
-            menuRegistro RegistroFunc = new menuRegistro();
-            RegistroFunc.setVisible(true);
-            this.setVisible(false);
-            moduloRegistro.menuRegistro.jlblTituloRegistro.setText("Registro de Funcionarios");
+        menuRegistro RegistroFunc = new menuRegistro();
+        RegistroFunc.setVisible(true);
+        this.setVisible(false);
+        moduloRegistro.menuRegistro.jlblTituloRegistro.setText("Registro de Funcionarios");
     }//GEN-LAST:event_jBtnRegFuncionarioActionPerformed
 
     private void jbtnEliminarDatosTrenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEliminarDatosTrenActionPerformed
@@ -744,7 +738,7 @@ public class registroEstaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnModificarDatosTrenActionPerformed
 
     private void jbtnGuardarDatosTrenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarDatosTrenActionPerformed
-         File ruta = new File(jtxtIDEstacion.getText());
+        File ruta = new File(jtxtIDEstacion.getText());
         this.AgregarRegistro(ruta);
     }//GEN-LAST:event_jbtnGuardarDatosTrenActionPerformed
 
@@ -770,7 +764,7 @@ public class registroEstaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnLimpiarTrenActionPerformed
 
     private void jTableDatosEstacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableDatosEstacionMouseClicked
-          clic_tabla = jTableDatosEstacion.rowAtPoint(evt.getPoint());
+        clic_tabla = jTableDatosEstacion.rowAtPoint(evt.getPoint());
         
         int ID = (int)jTableDatosEstacion.getValueAt(clic_tabla, 0);
         String nombre = ""+jTableDatosEstacion.getValueAt(clic_tabla, 1);

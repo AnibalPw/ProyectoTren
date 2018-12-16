@@ -9,6 +9,7 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 
+
 /**
  *
  * @author Usuario
@@ -21,10 +22,11 @@ public class registroRecorridos extends javax.swing.JFrame {
      */
     public registroRecorridos() {
         initComponents();
-        this.setLocationRelativeTo(null);
-       
+        this.setLocationRelativeTo(null); 
     }
         
+    
+    
         
     /**
      * This method is called from within the constructor to initialize the form.
@@ -191,7 +193,12 @@ public class registroRecorridos extends javax.swing.JFrame {
         jPnlInfoRegRecorridos.add(jCbED, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 70, 230, -1));
 
         jCbIDS.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPnlInfoRegRecorridos.add(jCbIDS, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 230, -1));
+        jCbIDS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCbIDSActionPerformed(evt);
+            }
+        });
+        jPnlInfoRegRecorridos.add(jCbIDS, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 64, 230, 30));
 
         jScrollPane4.setViewportView(jtxtNomRuta);
 
@@ -411,15 +418,15 @@ public class registroRecorridos extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnHomeActionPerformed
 
     private void jBtnRegRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegRutaActionPerformed
-            this.setVisible(true);
-            jlblTituloRegistroTrenes.setText("Registro de Recorridos");
+        this.setVisible(true);
+        jlblTituloRegistroTrenes.setText("Registro de Recorridos");
     }//GEN-LAST:event_jBtnRegRutaActionPerformed
 
     private void jBtnRegFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegFuncionarioActionPerformed
-            menuRegistro RegistroFunc = new menuRegistro();
-            RegistroFunc.setVisible(true);
-            this.setVisible(false);
-            moduloRegistro.menuRegistro.jlblTituloRegistro.setText("Registro de Funcionarios");
+        menuRegistro RegistroFunc = new menuRegistro();
+        RegistroFunc.setVisible(true);
+        this.setVisible(false);
+        moduloRegistro.menuRegistro.jlblTituloRegistro.setText("Registro de Funcionarios");
     }//GEN-LAST:event_jBtnRegFuncionarioActionPerformed
 
     private void jbtnEliminarDatosTrenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEliminarDatosTrenActionPerformed
@@ -452,6 +459,10 @@ public class registroRecorridos extends javax.swing.JFrame {
         this.setVisible(false);
         moduloRegistro.registroEstaciones.jlblTituloRegistroTrenes.setText("Registro de Estaciones");
     }//GEN-LAST:event_jBtnRegEstacionesActionPerformed
+
+    private void jCbIDSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCbIDSActionPerformed
+       
+    }//GEN-LAST:event_jCbIDSActionPerformed
 
     /**
      * @param args the command line arguments

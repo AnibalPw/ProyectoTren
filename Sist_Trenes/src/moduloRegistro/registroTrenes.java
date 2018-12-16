@@ -81,7 +81,7 @@ public class registroTrenes extends javax.swing.JFrame {
                 StringTokenizer St = new StringTokenizer(linea, ",");
                 RegTrenes = new RegistroTrenes();
                 RegTrenes.setIDTrenes(Integer.parseInt(St.nextToken()));
-                RegTrenes.setVagonesTren(Integer.parseInt(St.nextToken()));
+                RegTrenes.setVagonesTren(Integer.valueOf(St.nextToken()));
                 RegTrenes.setCapacidadTren(Double.parseDouble(St.nextToken()));
                 PRTrenes.AgregarTren(RegTrenes);
             }
