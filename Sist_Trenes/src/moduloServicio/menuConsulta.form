@@ -154,6 +154,9 @@
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="jTxtResultados">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                  </AuxValues>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                       <AbsoluteConstraints x="0" y="0" width="570" height="200"/>
@@ -190,7 +193,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTextPane" name="jtxtCodigo1">
+                <Component class="javax.swing.JTextPane" name="jtxtIDClienteC">
                 </Component>
               </SubComponents>
             </Container>
@@ -222,7 +225,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTextPane" name="jtxtCodigo">
+                <Component class="javax.swing.JTextPane" name="jtxtIDEstacionC">
                 </Component>
               </SubComponents>
             </Container>
@@ -254,7 +257,10 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTextPane" name="jtxtCdescuento">
+                <Component class="javax.swing.JTextPane" name="jtxtIDTrenC">
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>

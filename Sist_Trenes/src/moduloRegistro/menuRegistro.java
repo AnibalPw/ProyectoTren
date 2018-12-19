@@ -5,9 +5,24 @@
  */
 
 package moduloRegistro;
+import Clases.Limpiar_txt;
+import Clases.ProcRMaquinistas;
+import Clases.RegistroMaquinistas;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.util.Formatter;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
-import static moduloRegistro.registroRecorridos.jlblTituloRegistroTrenes;
+import javax.swing.table.DefaultTableModel;
+import java.io.FileInputStream;
+import static moduloRegistro.registroRecorridos.jCbED;
+import static moduloRegistro.registroRecorridos.jCbIDES;
+import static moduloRegistro.registroRecorridos.jtxtIDRuta;
 
 
 /**
@@ -17,21 +32,342 @@ import static moduloRegistro.registroRecorridos.jlblTituloRegistroTrenes;
 public class menuRegistro extends javax.swing.JFrame {
 
     
-    /**
-     * Creates new form menuReserva
-     */
+    Limpiar_txt lt = new Limpiar_txt();
+    
+    String barra = File.separator; //File.separator lo que hace es \\
+    private String ruta_txt = "C:\\Users\\Usuario\\Desktop\\Universidad\\Programación\\Estructura de Datos\\Sistema de Trenes\\Sist_Trenes\\BDtxt\\RegistroMaquinistas.txt";
+    private String rutaIndividual_txt = "C:\\Users\\Usuario\\Desktop\\Universidad\\Programación\\Estructura de Datos\\Sistema de Trenes\\Sist_Trenes\\txtIndiviual\\Maquinistas\\Maquinistas";
+    
+    RegistroMaquinistas RegMaquinista;
+    ProcRMaquinistas PRMaquinista;
+    
+    int clic_tabla;
+    registroRecorridos ddl = new registroRecorridos();
+    
     public menuRegistro() {
         initComponents();
         this.setLocationRelativeTo(null);
        
+         PRMaquinista = new ProcRMaquinistas();
+        
+         ddl.cargarDDLRecorrido();
+        
+         try {
+            cargar_txt();
+            listarRegistro();
+        } catch (Exception e) {
+            mensaje("No existe el archivo txt");
+        }
+    }
+    
+    
+     public void AgregarRegistro(File ruta){
+        try{
+            if(leerIDMaquinista()== -666)mensaje("Ingresar ID en número entero");
+            else if(leerNMaquinista()== null)mensaje("Ingresar Nombre de Maquinista");
+            else if(leerRecorrido()== null)mensaje("Seleccione el recorrido");
+            else if(leerDescripcion()== null) mensaje("Digite una descripción");
+           
+            else{
+                RegMaquinista = new RegistroMaquinistas(leerIDMaquinista(), leerNMaquinista(), leerRecorrido(), leerDescripcion());
+                if(PRMaquinista.BuscarID(RegMaquinista.getIdMaquinista())!= -1)mensaje("Este ID ya existe");
+                else PRMaquinista.AgregarMaquinista(RegMaquinista);
+                
+                CrearTXTIndMaquinistas();
+                
+                
+                Guardar_txt();
+                listarRegistro();
+                lt.limpiar_texto(jPnlMenuRegistroFunc); 
+            }
+        }catch(Exception ex){
+            mensaje(ex.getMessage());
+        }
+    }
+     
+         
+        public void Guardar_txt(){
+        String line = System.getProperty("line.separator"); 
+        try{
+            BufferedWriter ficheroSalida = new BufferedWriter(new FileWriter(new File(ruta_txt)));
+            for(int i = 0; i < PRMaquinista.cantidadMaquinistas(); i++){
+                RegMaquinista = PRMaquinista.ObtenerMaquinista(i);
+                ficheroSalida.write(String.valueOf(RegMaquinista.getIdMaquinista()+"," +RegMaquinista.getNombreMaquinista()+", "+RegMaquinista.getRecorrido()+", "+RegMaquinista.getDescripcion()));
+              
+                ficheroSalida.newLine();
+            }
+             ficheroSalida.close();
+            
+        }catch(Exception ex){
+            mensaje("Error al guardar archivo:" + ex.getMessage());
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+        public void cargar_txt(){
+        File ruta = new File(ruta_txt);
+        String line = System.getProperty("line.separator"); 
+        try{
+            
+            FileReader ficheroSalida = new FileReader(ruta);
+            BufferedReader BR = new BufferedReader(ficheroSalida);
+            
+            String linea = null;
+            while((linea = BR.readLine())!= null){
+                StringTokenizer St = new StringTokenizer(linea, ",");
+                RegMaquinista = new RegistroMaquinistas();
+                RegMaquinista.setIdMaquinista(Integer.parseInt(St.nextToken()));
+                RegMaquinista.setNombreMaquinista(St.nextToken());
+                RegMaquinista.setRecorrido(St.nextToken());
+                RegMaquinista.setDescripcion(String.valueOf(St.nextToken()));
+                PRMaquinista.AgregarMaquinista(RegMaquinista);
+            }
+            BR.close();
+        }catch(Exception ex){
+            mensaje("Error al cargar archivo: " +ex.getMessage());
+            System.out.println(ex.getMessage());
+        }
     }
         
+        public void modificarRegistro(File ruta){
+        try{
+            
+            File dir = new File(ruta_txt);
+            File url = new File(rutaIndividual_txt + jtxtIDRuta.getText()+".maquinistas");
+
+             if(jtxtIDRuta.getText().equals(""))
+           {
+               JOptionPane.showMessageDialog(rootPane, "INIDIQUE EL REGISTRO");
+           }
+             else
+             {
+                if(dir.exists() && url.exists())
+                {
+                    if(leerIDMaquinista()== -666)mensaje("Ingresar ID en número entero");
+                    else if(leerNMaquinista()== null)mensaje("Ingresar Nombre de la Ruta");
+                    else if(leerRecorrido()== null)mensaje("Ingresar Precio");
+                    else if(leerDescripcion()== null) mensaje("Elija estación Salida");
+                    
+                    else{
+                        int ID = PRMaquinista.BuscarID(leerIDMaquinista());
+                        RegMaquinista = new RegistroMaquinistas(leerIDMaquinista(), leerNMaquinista(), leerRecorrido(), leerDescripcion());
+
+                        if(ID == -1)PRMaquinista.AgregarMaquinista(RegMaquinista);
+                        else PRMaquinista.ModificarMaquinista(ID, RegMaquinista);
+
+                        EditarTXTIndMaquinista();
+
+                        Guardar_txt();
+                        listarRegistro();
+                        lt.limpiar_texto(jPnlRegFuncionario);
+                    }
+                }
+                else
+               {
+                   JOptionPane.showMessageDialog(rootPane, "NO EXISTE ESTE REGISTRO");
+               }
+                 
+             }
+           
+        }catch(Exception ex){
+            mensaje(ex.getMessage());
+        }
+    }
+    
+        public void eliminarRegistro(){
+        try{
+            if(leerIDMaquinista()== -666) mensaje("Ingrese ID entero");
+            
+            else{
+                int ID = PRMaquinista.BuscarID(leerIDMaquinista());
+                if(ID == -1) mensaje("codigo no existe");
+                
+                else{
+                    int si = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar este la Estación","Si / No",0);
+                    if(si == 0){
+                        PRMaquinista.EliminarMaquinista(ID);
+                        EliminarTXTIndMaquinista();
+                        JOptionPane.showMessageDialog(rootPane, "Registro Eliminado");
+                        
+                        Guardar_txt();
+                        listarRegistro();
+                        lt.limpiar_texto(this.jPnlRegFuncionario);
+                    }
+                }
+            }
+        }catch(Exception ex){
+            mensaje(ex.getMessage());
+        }
+    }
+          
+          
+        public void listarRegistro(){
+        DefaultTableModel dt = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column){
+            return false;
+            }
+        };
         
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
+        dt.addColumn("ID");
+        dt.addColumn("Nombre Maquinista");
+        dt.addColumn("Recorrido");
+        dt.addColumn("Descripcion");
+        //jTableDatosEstacion.setDefaultRenderer(Object.class, null);
+        
+        Object fila[] = new Object[dt.getColumnCount()];
+        for(int i = 0; i < PRMaquinista.cantidadMaquinistas(); i++){
+            RegMaquinista = PRMaquinista.ObtenerMaquinista(i);
+            fila[0] = RegMaquinista.getIdMaquinista();
+            fila[1] = RegMaquinista.getNombreMaquinista();
+            fila[2] = RegMaquinista.getRecorrido();
+            fila[3] = RegMaquinista.getDescripcion();
+            dt.addRow(fila);
+        }
+        jTableDatosMaquinista.setModel(dt);
+        jTableDatosMaquinista.setRowHeight(30);
+    }
+         
+         
+         
+    public int leerIDMaquinista(){
+        try{
+            int IDM = Integer.parseInt(jtxtIDM.getText().trim());
+            return IDM;
+        }catch(Exception ex){
+            return -666;
+        }
+    }
+     
+    public String leerNMaquinista(){
+        try{
+            String nombreM = jtxtNombreMaquinista.getText().trim().replace(" ", " ");
+            return nombreM;
+        }catch(Exception ex){
+            return null;
+        }
+    }
+    
+    public String leerRecorrido(){
+        try{
+            String recorrido = (String)jDdlDestino.getSelectedItem();
+            return recorrido;
+        }catch(Exception ex){
+            return null;
+        }
+    }
+    
+    public String leerDescripcion(){
+        try{
+           String descripcion = jTextAreaDescrip.getText();
+            return descripcion;
+        }catch(Exception ex)
+        {
+            return null;
+        }
+    }
+   
+    public void mensaje(String texto){
+        JOptionPane.showMessageDialog(null, texto);
+    }
+        
+     private void CrearTXTIndMaquinistas()
+   {
+           String archivo = jtxtIDM.getText()+".maquinistas";
+           File crear_archivo = new File(rutaIndividual_txt + archivo);
+           
+           if(jtxtIDM.getText().equals(""))
+           {
+            JOptionPane.showMessageDialog(rootPane, "NO HAY ID");
+           }
+           else
+           {
+               try 
+               {
+                    if(crear_archivo.exists())
+                    {
+                        
+                    }
+                    else
+                    {
+                        //crear_ubicacion.mkdirs();
+                        Formatter crear = new Formatter(rutaIndividual_txt + archivo);
+                        crear.format("%s\r\n%s\r\n%s\r\n%s", 
+                                "IDMaquinista="+jtxtIDM.getText(),
+                                "Nombre Maquinista="+jtxtNombreMaquinista.getText(), 
+                                "Recorrido="+jDdlDestino.getItemAt(archivo.compareTo(archivo)), 
+                                "Descripcion="+jTextAreaDescrip.getText());
+                        crear.close();
+                    }
+               } 
+               catch (Exception e)
+               {
+                   
+               }
+           } 
+       }
+     
+     private void EditarTXTIndMaquinista()
+       {
+           File url = new File(rutaIndividual_txt + jtxtIDRuta.getText()+".maquinistas");
+           String archivo = jtxtIDRuta.getText()+".recorridos";
+           if(jtxtIDRuta.getText().equals(""))
+           {
+               JOptionPane.showMessageDialog(rootPane, "INIDIQUE EL REGISTRO");
+           }
+           else
+           {
+               if(url.exists())
+               {
+                   try 
+                    {
+                     FileWriter escrito = new FileWriter(rutaIndividual_txt + jtxtIDRuta.getText()+".maquinistas");
+                     String ID = "IDMaquinista=";
+                     String NombreM =  "Nombre Maquinista=";
+                     String Recorrido = "Recorrido=";
+                     String Descrip = "Descripcion=";
+                     
+                        PrintWriter guardar = new PrintWriter(escrito);
+                        guardar.println(ID+jtxtIDRuta.getText());
+                        guardar.println(NombreM+jtxtNombreMaquinista.getText());
+                        guardar.println(Recorrido+jTextAreaDescrip.getText());
+                        guardar.println(Descrip+jDdlDestino.getItemAt(archivo.compareTo(archivo)));
+                        escrito.close();
+                    } 
+                    catch (Exception e) {
+                    }
+               }
+               else
+               {
+                   JOptionPane.showMessageDialog(rootPane, "NO EXISTE ESTE REGISTRO");
+               }
+           }
+       }
+    
+     private void EliminarTXTIndMaquinista()
+       {
+            File url = new File(rutaIndividual_txt + jtxtIDRuta.getText()+".maquinistas");
+            if(jtxtIDRuta.getText().equals(""))
+            {
+             JOptionPane.showMessageDialog(rootPane, "NO HAY ID");
+            }
+            else
+            {
+                if(url.exists())
+                {
+                    try {
+                        FileInputStream cerrar = new FileInputStream(url);
+                        cerrar.close();
+                        System.gc();
+                        url.delete();
+                        
+                    } catch (Exception e) {
+                    }
+                }
+            }
+       }   
+   
+     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -44,18 +380,18 @@ public class menuRegistro extends javax.swing.JFrame {
         jPnlRegFuncionario = new javax.swing.JPanel();
         jPanelOpciones = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTableDatosConductor = new javax.swing.JTable();
+        jTableDatosMaquinista = new javax.swing.JTable();
         jlblID = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jtxtCodigo1 = new javax.swing.JTextPane();
+        jtxtIDM = new javax.swing.JTextPane();
         jlblNomConductor = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtxtCodigo = new javax.swing.JTextPane();
+        jtxtNombreMaquinista = new javax.swing.JTextPane();
         jlblRutaDestino = new javax.swing.JLabel();
         jDdlDestino = new javax.swing.JComboBox<>();
         jlblDescripcion = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jTextAreaDescrip = new javax.swing.JTextArea();
         jbtnGuardarDatos = new javax.swing.JButton();
         jbtnModificarDatos = new javax.swing.JButton();
         jbtnEliminarDatos = new javax.swing.JButton();
@@ -119,18 +455,20 @@ public class menuRegistro extends javax.swing.JFrame {
         jPanelOpciones.setForeground(new java.awt.Color(255, 255, 255));
         jPanelOpciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTableDatosConductor.setModel(new javax.swing.table.DefaultTableModel(
+        jTableDatosMaquinista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "ID", "Nombre Conductor", "Ruta", "Descripción"
             }
         ));
-        jScrollPane5.setViewportView(jTableDatosConductor);
+        jTableDatosMaquinista.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableDatosMaquinistaMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(jTableDatosMaquinista);
 
         jPanelOpciones.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 220));
 
@@ -141,7 +479,7 @@ public class menuRegistro extends javax.swing.JFrame {
         jlblID.setText("ID ");
         jPnlRegFuncionario.add(jlblID, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 30, 29));
 
-        jScrollPane3.setViewportView(jtxtCodigo1);
+        jScrollPane3.setViewportView(jtxtIDM);
 
         jPnlRegFuncionario.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 180, -1));
 
@@ -150,7 +488,7 @@ public class menuRegistro extends javax.swing.JFrame {
         jlblNomConductor.setText("Nombre del conductor: ");
         jPnlRegFuncionario.add(jlblNomConductor, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, -1, 29));
 
-        jScrollPane1.setViewportView(jtxtCodigo);
+        jScrollPane1.setViewportView(jtxtNombreMaquinista);
 
         jPnlRegFuncionario.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, 280, -1));
 
@@ -159,7 +497,6 @@ public class menuRegistro extends javax.swing.JFrame {
         jlblRutaDestino.setText("Ruta/Destino: ");
         jPnlRegFuncionario.add(jlblRutaDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, 29));
 
-        jDdlDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jDdlDestino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jDdlDestinoActionPerformed(evt);
@@ -172,9 +509,9 @@ public class menuRegistro extends javax.swing.JFrame {
         jlblDescripcion.setText("Descripción:");
         jPnlRegFuncionario.add(jlblDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 110, 20));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        jTextAreaDescrip.setColumns(20);
+        jTextAreaDescrip.setRows(5);
+        jScrollPane2.setViewportView(jTextAreaDescrip);
 
         jPnlRegFuncionario.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, 330, 70));
 
@@ -426,19 +763,22 @@ public class menuRegistro extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnRegFuncionarioActionPerformed
 
     private void jbtnModificarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnModificarDatosActionPerformed
-        // TODO add your handling code here:
+         File ruta = new File(jtxtIDM.getText());
+        this.modificarRegistro(ruta);
     }//GEN-LAST:event_jbtnModificarDatosActionPerformed
 
     private void jbtnGuardarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarDatosActionPerformed
-        // TODO add your handling code here:
+        File ruta = new File(jtxtIDM.getText());
+        this.AgregarRegistro(ruta);
     }//GEN-LAST:event_jbtnGuardarDatosActionPerformed
 
     private void jDdlDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDdlDestinoActionPerformed
-        // TODO add your handling code here:
+       String copiar = (String) jDdlDestino.getSelectedItem();
+         jDdlDestino.setName(String.valueOf(jDdlDestino.getSelectedObjects()));
     }//GEN-LAST:event_jDdlDestinoActionPerformed
 
     private void jbtnEliminarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEliminarDatosActionPerformed
-        // TODO add your handling code here:
+       eliminarRegistro();
     }//GEN-LAST:event_jbtnEliminarDatosActionPerformed
 
     private void jBtnRecorridoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRecorridoActionPerformed
@@ -465,6 +805,26 @@ public class menuRegistro extends javax.swing.JFrame {
         this.setVisible(false);
         moduloRegistro.registroRecorridos.jlblTituloRegistroTrenes.setText("Registro de Recorridos");
     }//GEN-LAST:event_jBtnRegRecorridoActionPerformed
+
+    private void jTableDatosMaquinistaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableDatosMaquinistaMouseClicked
+        clic_tabla = jTableDatosMaquinista.rowAtPoint(evt.getPoint());
+        
+        int IDM = (int)jTableDatosMaquinista.getValueAt(clic_tabla, 0);
+        String nombreM = ""+jTableDatosMaquinista.getValueAt(clic_tabla, 1);
+        String recorrido  = ""+jTableDatosMaquinista.getValueAt(clic_tabla, 2);
+        String descripcion = ""+jTableDatosMaquinista.getValueAt(clic_tabla, 3);
+        
+        jtxtIDRuta.setText(String.valueOf(IDM));
+        jtxtNombreMaquinista.setText(nombreM);
+        jDdlDestino.setName(String.valueOf(recorrido));
+        jTextAreaDescrip.setText(descripcion);
+        
+        try{
+//            JLabel lbl = (JLabel)tabla.getValueAt(clic_tabla, 4);
+//            lblFoto.setIcon(lbl.getIcon());
+        }catch(Exception ex){
+        }
+    }//GEN-LAST:event_jTableDatosMaquinistaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -512,7 +872,7 @@ public class menuRegistro extends javax.swing.JFrame {
     private javax.swing.JButton jBtnRegTrenes;
     private javax.swing.JButton jBtnReportes;
     private javax.swing.JButton jBtnReservarEspacio;
-    private javax.swing.JComboBox<String> jDdlDestino;
+    public static javax.swing.JComboBox<String> jDdlDestino;
     private javax.swing.JPanel jPanelFondo;
     private javax.swing.JPanel jPanelOpciones;
     private javax.swing.JPanel jPnlMenuRegistroFunc;
@@ -523,8 +883,8 @@ public class menuRegistro extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTableDatosConductor;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTable jTableDatosMaquinista;
+    private javax.swing.JTextArea jTextAreaDescrip;
     private javax.swing.JButton jbtnEliminarDatos;
     private javax.swing.JButton jbtnGuardarDatos;
     private javax.swing.JButton jbtnLimpiar;
@@ -535,7 +895,7 @@ public class menuRegistro extends javax.swing.JFrame {
     private javax.swing.JLabel jlblNomConductor;
     private javax.swing.JLabel jlblRutaDestino;
     public static javax.swing.JLabel jlblTituloRegistro;
-    private javax.swing.JTextPane jtxtCodigo;
-    private javax.swing.JTextPane jtxtCodigo1;
+    private javax.swing.JTextPane jtxtIDM;
+    private javax.swing.JTextPane jtxtNombreMaquinista;
     // End of variables declaration//GEN-END:variables
 }

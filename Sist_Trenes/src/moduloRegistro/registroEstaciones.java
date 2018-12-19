@@ -11,15 +11,19 @@ import Clases.RegistroEstaciones;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.Formatter;
 import java.util.Scanner;
 import java.util.StringTokenizer;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import sun.security.pkcs11.wrapper.Constants;
+import static moduloRegistro.registroRecorridos.jCbED;
+import static moduloRegistro.registroRecorridos.jCbIDES;
 
 
 /**
@@ -31,7 +35,14 @@ public class registroEstaciones extends javax.swing.JFrame {
 
     Limpiar_txt lt = new Limpiar_txt();
     
+    String barra = File.separator; //File.separator lo que hace es \\
     private String ruta_txt = "C:\\Users\\Usuario\\Desktop\\Universidad\\Programación\\Estructura de Datos\\Sistema de Trenes\\Sist_Trenes\\BDtxt\\RegistroEstaciones.txt";
+    private String rutaIndividual_txt = "C:\\Users\\Usuario\\Desktop\\Universidad\\Programación\\Estructura de Datos\\Sistema de Trenes\\Sist_Trenes\\txtIndiviual\\Estaciones\\Estaciones";
+    private String estaciones = System.getProperty("user.dir")+barra+"txtIndiviual"+barra+"Estaciones";
+    
+    File contenedor = new File(estaciones);
+    
+    File [] registros = contenedor.listFiles();
     
     RegistroEstaciones RegEstacion;
     ProcREstaciones PREstaciones;
@@ -51,7 +62,23 @@ public class registroEstaciones extends javax.swing.JFrame {
         }
        
     }
-        
+     
+        public void cargarDDLSalida()
+    {
+        for(int i = 0; i<registros.length; i++)
+        {
+            jCbIDES.addItem(registros[i].getName().replace(".estacion", ""));
+        }
+    }
+     
+       public void cargarDDLEntrada()
+    {
+        for(int i = 0; i<registros.length; i++)
+        {
+            jCbED.addItem(registros[i].getName().replace(".estacion", ""));
+        }
+    }
+      
     
     public void AgregarRegistro(File ruta){
         try{
@@ -66,6 +93,8 @@ public class registroEstaciones extends javax.swing.JFrame {
                 RegEstacion = new RegistroEstaciones(leerID(), leerNombre(), leerUbicacion(), leerHoraEntrada(), leerHoraSalida(), leerNumTel(), leerCorreo());
                 if(PREstaciones.BuscarID(RegEstacion.getIdEstacion())!= -1)mensaje("Este ID ya existe");
                 else PREstaciones.AgregarRegistro(RegEstacion);
+                
+                CrearTXTIndEstacion();
                 
                 Guardar_txt();
                 listarRegistro();
@@ -124,24 +153,46 @@ public class registroEstaciones extends javax.swing.JFrame {
     
     public void modificarRegistro(File ruta){
         try{
-             if(leerID() == -666)mensaje("Ingresar ID en número entero");
-            else if(leerNombre() == null)mensaje("Ingresar Nombre de la Estación");
-            else if(leerUbicacion() == null)mensaje("Ingresar Ubicación");
-            else if(leerHoraEntrada() == null) mensaje("Ingresar Hora de Entrada");
-            else if(leerHoraSalida() == null)mensaje("Ingresar Hora Salida");
-            else if(leerNumTel() == null)mensaje("Ingresar Número de Télefono");
-            else if(leerCorreo() == null)mensaje("Ingrese Correo");
-            else{
-                int ID = PREstaciones.BuscarID(leerID());
-                RegEstacion = new RegistroEstaciones(leerID(), leerNombre(), leerUbicacion(), leerHoraEntrada(), leerHoraSalida(), leerNumTel(), leerCorreo());
-                
-                if(ID == -1)PREstaciones.AgregarRegistro(RegEstacion);
-                else PREstaciones.ModificarRegistro(ID, RegEstacion);
-                
-                Guardar_txt();
-                listarRegistro();
-                lt.limpiar_texto(jPnlInfoRegEstaciones);
-            }
+            
+            File dir = new File(ruta_txt);
+            File url = new File(rutaIndividual_txt + jtxtIDEstacion.getText()+".estacion");
+
+             if(jtxtIDEstacion.getText().equals(""))
+           {
+               JOptionPane.showMessageDialog(rootPane, "INIDIQUE EL REGISTRO");
+           }
+             else
+             {
+                if(dir.exists() && url.exists())
+                {
+                    if(leerID() == -666)mensaje("Ingresar ID en número entero");
+                    else if(leerNombre() == null)mensaje("Ingresar Nombre de la Estación");
+                    else if(leerUbicacion() == null)mensaje("Ingresar Ubicación");
+                    else if(leerHoraEntrada() == null) mensaje("Ingresar Hora de Entrada");
+                    else if(leerHoraSalida() == null)mensaje("Ingresar Hora Salida");
+                    else if(leerNumTel() == null)mensaje("Ingresar Número de Télefono");
+                    else if(leerCorreo() == null)mensaje("Ingrese Correo");
+                    else{
+                        int ID = PREstaciones.BuscarID(leerID());
+                        RegEstacion = new RegistroEstaciones(leerID(), leerNombre(), leerUbicacion(), leerHoraEntrada(), leerHoraSalida(), leerNumTel(), leerCorreo());
+
+                        if(ID == -1)PREstaciones.AgregarRegistro(RegEstacion);
+                        else PREstaciones.ModificarRegistro(ID, RegEstacion);
+
+                        EditarTXTIndEstacion();
+
+                        Guardar_txt();
+                        listarRegistro();
+                        lt.limpiar_texto(jPnlInfoRegEstaciones);
+                    }
+                }
+                else
+               {
+                   JOptionPane.showMessageDialog(rootPane, "NO EXISTE ESTE REGISTRO");
+               }
+                 
+             }
+           
         }catch(Exception ex){
             mensaje(ex.getMessage());
         }
@@ -159,14 +210,13 @@ public class registroEstaciones extends javax.swing.JFrame {
                     int si = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar este la Estación","Si / No",0);
                     if(si == 0){
                         PREstaciones.EliminarRegistro(ID);
+                        EliminarTXTIndEstacion();
                         
                         Guardar_txt();
                         listarRegistro();
                         lt.limpiar_texto(this.jPnlInfoRegEstaciones);
                     }
                 }
-                
-                
             }
         }catch(Exception ex){
             mensaje(ex.getMessage());
@@ -207,7 +257,7 @@ public class registroEstaciones extends javax.swing.JFrame {
         jTableDatosEstacion.setRowHeight(30);
     }
     
-     public int leerID(){
+    public int leerID(){
         try{
             int ID = Integer.parseInt(jtxtIDEstacion.getText().trim());
             return ID;
@@ -216,7 +266,7 @@ public class registroEstaciones extends javax.swing.JFrame {
         }
     }
      
-      public String leerNombre(){
+    public String leerNombre(){
         try{
             String nombre = jtxtNombreEstacion.getText().trim().replace(" ", " ");
             return nombre;
@@ -236,7 +286,7 @@ public class registroEstaciones extends javax.swing.JFrame {
     }
     
     
-      public String leerHoraEntrada(){
+    public String leerHoraEntrada(){
         try{
             String HEntrada = jtxtHEntrada.getText().trim().replace(" ", " ");
             return HEntrada;
@@ -256,7 +306,7 @@ public class registroEstaciones extends javax.swing.JFrame {
     }
     
     
-      public String leerNumTel(){
+    public String leerNumTel(){
         try{
             String NumTel = jtxtNumTel.getText().trim().replace(" ", " ");
             return NumTel;
@@ -275,15 +325,126 @@ public class registroEstaciones extends javax.swing.JFrame {
         }
     }
    
-       public void mensaje(String texto){
+    public void mensaje(String texto){
         JOptionPane.showMessageDialog(null, texto);
     }
         
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
+    
+       
+    private void CrearTXTIndEstacion()
+       {
+           String archivo = jtxtIDEstacion.getText()+".estacion";
+           //File crear_ubicacion = new File(rutaIndividual_txt);
+           File crear_archivo = new File(rutaIndividual_txt + archivo);
+           
+           if(jtxtIDEstacion.getText().equals(""))
+           {
+            JOptionPane.showMessageDialog(rootPane, "NO HAY ID");
+           }
+           else
+           {
+               try 
+               {
+                    if(crear_archivo.exists())
+                    {
+                        
+                    }
+                    else
+                    {
+                        Formatter crear = new Formatter(rutaIndividual_txt + archivo);
+                        crear.format("%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n%s", 
+                                "ID="+jtxtIDEstacion.getText(),
+                                "Nombre="+jtxtNombreEstacion.getText(), 
+                                "Ubiciación="+jtxtUbicacion.getText(), 
+                                "HoraEntrada="+jtxtHEntrada.getText(), 
+                                "HoraSalida="+jtxtHSalida.getText(), 
+                                "NumTel="+jtxtNumTel.getText(), 
+                                "Correo="+jtxtCorreo.getText());
+                        crear.close();
+                        
+                        jCbED.removeAllItems();
+                        registros = contenedor.listFiles();
+                        cargarDDLEntrada();
+                        jCbIDES.removeAllItems();
+                        registros = contenedor.listFiles();
+                        cargarDDLSalida();
+                    }
+               } 
+               catch (Exception e)
+               {
+                   
+               }
+           } 
+       }
+       
+       private void EditarTXTIndEstacion()
+       {
+           File url = new File(rutaIndividual_txt + jtxtIDEstacion.getText()+".estacion");
+           if(jtxtIDEstacion.getText().equals(""))
+           {
+               JOptionPane.showMessageDialog(rootPane, "INIDIQUE EL REGISTRO");
+           }
+           else
+           {
+               if(url.exists())
+               {
+                   try 
+                    {
+                     FileWriter escrito = new FileWriter(rutaIndividual_txt + jtxtIDEstacion.getText()+".estacion");
+                     String ID = "ID=";
+                     String Nombre = "Nombre=";
+                     String Ubi = "Ubiciación=";
+                     String HoraE = "HoraEntrada=";
+                     String HoraS = "HoraSalida=";
+                     String Ntel = "NumTel=";
+                     String Correo = "Correo=";
+                     
+                        PrintWriter guardar = new PrintWriter(escrito);
+                        guardar.println(ID+jtxtIDEstacion.getText());
+                        guardar.println(Nombre+jtxtNombreEstacion.getText());
+                        guardar.println(Ubi+jtxtUbicacion.getText());
+                        guardar.println(HoraE+jtxtHEntrada.getText());
+                        guardar.println(HoraS+jtxtHSalida.getText());
+                        guardar.println(Ntel+jtxtNumTel.getText());
+                        guardar.println(Correo+jtxtCorreo.getText());
+                        escrito.close();
+                    } 
+                    catch (Exception e) {
+                    }
+               }
+               else
+               {
+                   JOptionPane.showMessageDialog(rootPane, "NO EXISTE ESTE REGISTRO");
+               }
+           }
+       }
+       
+       private void EliminarTXTIndEstacion()
+       {
+            File url = new File(rutaIndividual_txt + jtxtIDEstacion.getText()+".estacion");
+            if(jtxtIDEstacion.getText().equals(""))
+            {
+             JOptionPane.showMessageDialog(rootPane, "NO HAY ID");
+            }
+            else
+            {
+                if(url.exists())
+                {
+                    try {
+                        FileInputStream cerrar = new FileInputStream(url);
+                        cerrar.close();
+                        System.gc();
+                        url.delete();
+                        jCbED.removeItem(jtxtIDEstacion.getText());
+                        jCbIDES.removeItem(jtxtIDEstacion.getText());
+                        
+                    } catch (Exception e) {
+                    }
+                }
+            }
+       }
+       
+       
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -735,6 +896,7 @@ public class registroEstaciones extends javax.swing.JFrame {
     private void jbtnModificarDatosTrenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnModificarDatosTrenActionPerformed
         File ruta = new File(jtxtIDEstacion.getText());
         this.modificarRegistro(ruta);
+       
     }//GEN-LAST:event_jbtnModificarDatosTrenActionPerformed
 
     private void jbtnGuardarDatosTrenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarDatosTrenActionPerformed

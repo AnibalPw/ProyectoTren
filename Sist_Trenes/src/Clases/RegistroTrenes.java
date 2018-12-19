@@ -13,11 +13,11 @@ public class RegistroTrenes {
     
     private int IDTrenes;
     private int VagonesTren;
-    private double CapacidadTren;
+    private int CapacidadTren;
     
     public RegistroTrenes(){}
     
-     public RegistroTrenes(int pIdTrenes, int pVagTren, double pCapaTren)
+     public RegistroTrenes(int pIdTrenes, int pVagTren, int pCapaTren)
     {
     this.IDTrenes = pIdTrenes;
     this.VagonesTren = pVagTren;
@@ -56,16 +56,18 @@ public class RegistroTrenes {
     /**
      * @return the CapacidadTren
      */
-    public double getCapacidadTren() {
+    public int getCapacidadTren() {
         return CapacidadTren;
     }
 
     /**
      * @param CapacidadTren the CapacidadTren to set
      */
-    public void setCapacidadTren(double CapacidadTren) {
+    public void setCapacidadTren(int CapacidadTren) {
         this.CapacidadTren = CapacidadTren;
     }
+
+   
 
       
 }

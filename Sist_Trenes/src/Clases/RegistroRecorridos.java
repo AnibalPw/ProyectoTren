@@ -12,15 +12,17 @@ package Clases;
 public class RegistroRecorridos {
     
     private int IDRecorrido;
+    private String nombreRuta;
     private double precioRecorrido;
     private String estacionSalida;
     private String estacionEntrada;
     
     public RegistroRecorridos(){}
     
-    public RegistroRecorridos(int pIDRecorrido,double pPrecioRecorrido,String pEstacionS,String pEstacionE)
+    public RegistroRecorridos(int pIDRecorrido, String pNomRuta, double pPrecioRecorrido,String pEstacionS,String pEstacionE)
     {
         this.IDRecorrido = pIDRecorrido;
+        this.nombreRuta = pNomRuta;
         this.precioRecorrido = pPrecioRecorrido;
         this.estacionSalida = pEstacionS;
         this.estacionEntrada = pEstacionE;
@@ -80,6 +82,20 @@ public class RegistroRecorridos {
      */
     public void setEstacionEntrada(String estacionEntrada) {
         this.estacionEntrada = estacionEntrada;
+    }
+
+    /**
+     * @return the nombreRuta
+     */
+    public String getNombreRuta() {
+        return nombreRuta;
+    }
+
+    /**
+     * @param nombreRuta the nombreRuta to set
+     */
+    public void setNombreRuta(String nombreRuta) {
+        this.nombreRuta = nombreRuta;
     }
     
 }

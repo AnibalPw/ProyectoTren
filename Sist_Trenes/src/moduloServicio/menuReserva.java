@@ -5,8 +5,26 @@
  */
 package moduloServicio;
 
+import Clases.Limpiar_txt;
+import Clases.ProcRMaquinistas;
+import java.io.File;
+import Clases.Reservar;
+import Clases.ProcReservar;
+import Clases.RegistroMaquinistas;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.util.Formatter;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import static moduloRegistro.menuRegistro.jDdlDestino;
+import moduloRegistro.registroRecorridos;
+import static moduloRegistro.registroRecorridos.jtxtIDRuta;
 
 
 /**
@@ -16,24 +34,497 @@ import javax.swing.JOptionPane;
 public class menuReserva extends javax.swing.JFrame {
 
     
-    /**
-     * Creates new form menuReserva
-     */
+    Limpiar_txt lt = new Limpiar_txt();
+    
+    String barra = File.separator; //File.separator lo que hace es \\
+    private String ruta_txt = "C:\\Users\\Usuario\\Desktop\\Universidad\\Programación\\Estructura de Datos\\Sistema de Trenes\\Sist_Trenes\\BDtxt\\RegistroRecorridos.txt";
+    private String rutaIndividual_txt = "C:\\Users\\Usuario\\Desktop\\Universidad\\Programación\\Estructura de Datos\\Sistema de Trenes\\Sist_Trenes\\txtIndiviual\\Recorridos\\Recorridos";
+
+    
+    Reservar ReservaC;
+    ProcReservar PReservaC;
+    
+    int clic_tabla;
+    registroRecorridos ddl = new registroRecorridos();
+    
+    
     public menuReserva() {
         initComponents();
         this.setLocationRelativeTo(null);
        //jlblFecha.setText(Sist_Trenes.fechaActual());
        jlblFecha.setText(sist_trenes.Sist_Trenes.fechaActual());
+       
+         PReservaC = new ProcReservar();
+        
+         ddl.cargarDDLRecorridoReserva();
+        
+         try {
+            cargar_txt();
+            listarRegistro();
+        } catch (Exception e) {
+            mensaje("No existe el archivo txt");
+        }
+       
         
     }
         private int aumento = 0;
        
+ 
+        public void AgregarCliente(File ruta){
+        try{
+            if(leerRecorrido()== null)mensaje("Seleccione el Recorrido");
+            else if(leerPrecioUni()== -666)mensaje(" ");
+            else if(leerFecha()== null)mensaje(" ");
+            else if(leerCodigoV()== null) mensaje("Digite Codigo de Viaje");
+            else if(leerIDTren()== -666) mensaje("Digite ID Tren");
+            else if(leerNEstacion()== null) mensaje("Digite Nombre Estación");
+            else if(leerIDCliente()== -666) mensaje("Digite ID Cliente");
+            else if(leerNCliente()== null) mensaje("Digite Nombre Cliente");
+            else if(leerCantPasa()== -666) mensaje("Seleccione la Cantidad de Pasajeros");
+            else if(leerMonCobro()== -666) mensaje(" ");
+            else if(leerMonPago()== -666) mensaje(" ");
+            else if(leerCambio()== -666) mensaje(" ");
+            
+            else{
+                ReservaC = new Reservar(leerRecorrido(), leerPrecioUni(), leerFecha(), leerCodigoV(), leerIDTren(), leerNEstacion(), leerIDCliente(), leerNCliente(), leerCantPasa(), leerMonCobro(), leerMonPago(), leerCambio());
+                if(PReservaC.BuscarIDCliente(ReservaC.getIdCliente())!= -1)mensaje("Este ID ya existe");
+                else PReservaC.AgregaeCliente(ReservaC);
+                
+                CrearTXTIndClientes();
+                
+                
+                Guardar_txt();
+                listarRegistro();
+                lt.limpiar_texto(jPanelPago); 
+            }
+        }catch(Exception ex){
+            mensaje(ex.getMessage());
+        }
+    }
+     
+         
+        public void Guardar_txt(){
+        String line = System.getProperty("line.separator"); 
+        try{
+            BufferedWriter ficheroSalida = new BufferedWriter(new FileWriter(new File(ruta_txt)));
+            for(int i = 0; i < PReservaC.cantidadCliente(); i++){
+                ReservaC = PReservaC.ObtenerCliente(i);
+                ficheroSalida.write(String.valueOf(ReservaC.getRecorrido()+"," +ReservaC.getPrecioViaje()+", "+ReservaC.getFecha()+", "+ReservaC.getCodigoViaje()+","+ ReservaC.getIdTren()+","+ReservaC.getNombEstacion()+","+ReservaC.getIdCliente()+","+ ReservaC.getNombreCliente()+","+ReservaC.getMontoCobro()+","+ReservaC.getPagoCliente()+","+ReservaC.getCambioCliente()));
+              
+                ficheroSalida.newLine();
+            }
+             ficheroSalida.close();
+            
+        }catch(Exception ex){
+            mensaje("Error al guardar archivo:" + ex.getMessage());
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+        public void cargar_txt(){
+        File ruta = new File(ruta_txt);
+        String line = System.getProperty("line.separator"); 
+        try{
+            
+            FileReader ficheroSalida = new FileReader(ruta);
+            BufferedReader BR = new BufferedReader(ficheroSalida);
+            
+            String linea = null;
+            while((linea = BR.readLine())!= null){
+                StringTokenizer St = new StringTokenizer(linea, ",");
+                ReservaC = new Reservar();
+                ReservaC.setRecorrido(String.valueOf(St.nextToken()));
+                ReservaC.setPrecioViaje(Double.parseDouble(St.nextToken()));
+                ReservaC.setFecha(St.nextToken());
+                ReservaC.setCodigoViaje(String.valueOf(St.nextToken()));
+                ReservaC.setIdTren(Integer.parseInt(St.nextToken()));
+                ReservaC.setNombEstacion(String.valueOf(St.nextToken()));
+                ReservaC.setIdCliente(Integer.parseInt(St.nextToken()));
+                ReservaC.setNombreCliente(String.valueOf(St.nextToken()));
+                ReservaC.setRecorrido(St.nextToken());
+                ReservaC.setCantPasajeros(Integer.parseInt(St.nextToken()));
+                ReservaC.setMontoCobro(Double.parseDouble(St.nextToken()));
+                ReservaC.setPagoCliente(Double.parseDouble(St.nextToken()));
+                ReservaC.setCambioCliente(Double.parseDouble(St.nextToken()));
+                
+                PReservaC.AgregaeCliente(ReservaC);
+            }
+            BR.close();
+        }catch(Exception ex){
+            mensaje("Error al cargar archivo: " +ex.getMessage());
+            System.out.println(ex.getMessage());
+        }
+    }
         
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
+        public void modificarRegistro(File ruta){
+        try{
+            
+            File dir = new File(ruta_txt);
+            File url = new File(rutaIndividual_txt + jtxtIDCliente.getText()+".clientes");
+
+             if(jtxtIDRuta.getText().equals(""))
+           {
+               JOptionPane.showMessageDialog(rootPane, "INIDIQUE EL REGISTRO");
+           }
+             else
+             {
+                if(dir.exists() && url.exists())
+                {
+                    if(leerRecorrido()== null)mensaje("Seleccione el Recorrido");
+                    else if(leerPrecioUni()== -666)mensaje(" ");
+                    else if(leerFecha()== null)mensaje(" ");
+                    else if(leerCodigoV()== null) mensaje("Digite Codigo de Viaje");
+                    else if(leerIDTren()== -666) mensaje("Digite ID Tren");
+                    else if(leerNEstacion()== null) mensaje("Digite Nombre Estación");
+                    else if(leerIDCliente()== -666) mensaje("Digite ID Cliente");
+                    else if(leerNCliente()== null) mensaje("Digite Nombre Cliente");
+                    else if(leerCantPasa()== -666) mensaje("Seleccione la Cantidad de Pasajeros");
+                    else if(leerMonCobro()== -666) mensaje(" ");
+                    else if(leerMonPago()== -666) mensaje(" ");
+                    else if(leerCambio()== -666) mensaje(" ");
+                    
+                    else{
+                        int ID = PReservaC.BuscarIDCliente(leerIDCliente());
+                        ReservaC = new Reservar(leerRecorrido(), leerPrecioUni(), leerFecha(), leerCodigoV(), leerIDTren(), leerNEstacion(), leerIDCliente(), leerNCliente(), leerCantPasa(), leerMonCobro(),leerMonPago(),leerCambio());
+
+                        if(ID == -1)PReservaC.AgregaeCliente(ReservaC);
+                        else PReservaC.ModificarCliente(ID, ReservaC);
+
+                        EditarTXTIndClientes();
+
+                        Guardar_txt();
+                        listarRegistro();
+                        lt.limpiar_texto(jPanelPago);
+                    }
+                }
+                else
+               {
+                   JOptionPane.showMessageDialog(rootPane, "NO EXISTE ESTE REGISTRO");
+               }
+                 
+             }
+           
+        }catch(Exception ex){
+            mensaje(ex.getMessage());
+        }
+    }
+    
+        public void eliminarRegistro(){
+        try{
+            if(leerIDCliente()== -666) mensaje("Ingrese ID entero");
+            
+            else{
+                int ID = PReservaC.BuscarIDCliente(leerIDCliente());
+                if(ID == -1) mensaje("codigo no existe");
+                
+                else{
+                    int si = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar este la Estación","Si / No",0);
+                    if(si == 0){
+                        PReservaC.EliminarCliente(ID);
+                        EliminarTXTIndClientes();
+                        JOptionPane.showMessageDialog(rootPane, "Registro Eliminado");
+                        
+                        Guardar_txt();
+                        //listarRegistro();
+                        lt.limpiar_texto(this.jPanelPago);
+                    }
+                }
+            }
+        }catch(Exception ex){
+            mensaje(ex.getMessage());
+        }
+    }
+          
+          
+        public void listarRegistro(){
+        DefaultTableModel dt = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column){
+            return false;
+            }
+        };
+        
+        dt.addColumn("Recorrido");
+        dt.addColumn("Precio Unitario");
+        dt.addColumn("Fecha");
+        dt.addColumn("Codigo Viaje");
+        dt.addColumn("ID Tren");
+        dt.addColumn("Nombre Estacion");
+        dt.addColumn("ID Cliente");
+        dt.addColumn("Nombre Cliente");
+        dt.addColumn("Cantidad Pasajeros");
+        dt.addColumn("Monto Cobro");
+        dt.addColumn("Pago del Cliente");
+        dt.addColumn("Cambio a Cliente");
+        //jTableDatosEstacion.setDefaultRenderer(Object.class, null);
+        
+        Object fila[] = new Object[dt.getColumnCount()];
+        for(int i = 0; i < PReservaC.cantidadCliente(); i++){
+            ReservaC = PReservaC.ObtenerCliente(i);
+            fila[0] = ReservaC.getRecorrido();
+            fila[1] = ReservaC.getPrecioViaje();
+            fila[2] = ReservaC.getFecha();
+            fila[3] = ReservaC.getCodigoViaje();
+            fila[4] = ReservaC.getIdTren();
+            fila[5] = ReservaC.getNombEstacion();
+            fila[6] = ReservaC.getIdCliente();
+            fila[7] = ReservaC.getNombreCliente();
+            fila[8] = ReservaC.getCantPasajeros();
+            fila[9] = ReservaC.getMontoCobro();
+            fila[10] = ReservaC.getPagoCliente();
+            fila[11] = ReservaC.getCambioCliente();
+            dt.addRow(fila);
+        }
+        //jTableDatosMaquinista.setModel(dt);
+        //jTableDatosMaquinista.setRowHeight(30);
+    }
+         
+         
+    public String leerRecorrido(){
+        try{
+            String recorrido = (String)jDdlDestinoReserva.getSelectedItem();
+            return recorrido;
+        }catch(Exception ex){
+            return null;
+        }
+    }     
+        
+    public double leerPrecioUni(){
+        try{
+           double  precioUni = Double.parseDouble(jlblPrecioUni.getText().trim());
+            return precioUni;
+        }catch(Exception ex)
+        {
+            return -666;
+        }
+    }
+     
+      public String leerFecha(){
+        try{
+            String FechaV = jlblFecha.getText().trim().replace(" ", " ");
+            return FechaV;
+        }catch(Exception ex){
+            return null;
+        }
+    }
+       public String leerCodigoV(){
+        try{
+            String codigoV = jtxtCodigoViaje.getText().trim().replace(" ", " ");
+            return codigoV;
+        }catch(Exception ex){
+            return null;
+        }
+    }
+    
+    public int leerIDTren(){
+        try{
+            int IDT = Integer.parseInt(jtxtIDTren.getText().trim());
+            return IDT;
+        }catch(Exception ex){
+            return -666;
+        }
+    }
+     
+    
+    public String leerNEstacion(){
+        try{
+            String nombreE = jtxtNomEstacion.getText().trim().replace(" ", " ");
+            return nombreE;
+        }catch(Exception ex){
+            return null;
+        }
+    }
+    
+    public int leerIDCliente(){
+        try{
+            int IDC = Integer.parseInt(jtxtIDCliente.getText().trim());
+            return IDC;
+        }catch(Exception ex){
+            return -666;
+        }
+    }
+    
+    
+    public String leerNCliente(){
+        try{
+            String nomCliente = jtxtNombreCliente.getText().trim().replace(" ", " ");
+            return nomCliente;
+        }catch(Exception ex){
+            return null;
+        }
+    }
+    
+    
+    
+    public int leerCantPasa(){
+        try{
+            int cantPasajeros = Integer.parseInt(jlblContadorPasajeros.getText().trim());
+            return cantPasajeros;
+        }catch(Exception ex){
+            return -666;
+        }
+    }
+   
+    
+    public double leerMonCobro(){
+        try{
+           double  montoCobro = Double.parseDouble(jtxtTotalPagar.getText().trim());
+            return montoCobro;
+        }catch(Exception ex)
+        {
+            return -666;
+        }
+    }
+    
+    
+    public double leerMonPago(){
+        try{
+           double  montoPago = Double.parseDouble(jtxtPagoCliente.getText().trim());
+            return montoPago;
+        }catch(Exception ex)
+        {
+            return -666;
+        }
+    }
+    
+     public double leerCambio(){
+        try{
+           double montoCambio = Double.parseDouble(jtxtCambioaCliente.getText().trim());
+            return montoCambio;
+        }catch(Exception ex)
+        {
+            return -666;
+        }
+    }
+    
+    
+    public void mensaje(String texto){
+        JOptionPane.showMessageDialog(null, texto);
+    }
+        
+     private void CrearTXTIndClientes()
+   {
+           String archivo = jtxtIDCliente.getText()+".clientes";
+           File crear_archivo = new File(rutaIndividual_txt + archivo);
+           
+           if(jtxtIDCliente.getText().equals(""))
+           {
+            JOptionPane.showMessageDialog(rootPane, "NO HAY ID");
+           }
+           else
+           {
+               try 
+               {
+                    if(crear_archivo.exists())
+                    {
+                        
+                    }
+                    else
+                    {
+                        //crear_ubicacion.mkdirs();
+                        Formatter crear = new Formatter(rutaIndividual_txt + archivo);
+                        crear.format("%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n%s", 
+                                "Recorrido= "+jDdlDestinoReserva.getItemAt(archivo.compareTo(archivo)), 
+                                "Precio Unitario="+jlblPrecioUni.getText(), 
+                                "Fecha= "+jlblFecha.getText(), 
+                                "Codigo Viaje= "+jtxtCodigoViaje.getText(),
+                                "ID Tren= "+jtxtIDTren.getText(), 
+                                "Nombre Estación= "+jtxtNomEstacion.getText(), 
+                                "ID Cliente= "+jtxtIDCliente.getText(), 
+                                "Nombre Cliente= "+jtxtNombreCliente.getText(),
+                                "Cantidad Pasajeros= "+jlblContadorPasajeros.getText(), 
+                                "Monto Cobro= "+jtxtTotalPagar.getText(), 
+                                "Monto Pago= "+jtxtPagoCliente.getText(),
+                                "Monto Cambio= "+jtxtCambioaCliente.getText());
+                        crear.close();
+                    }
+               } 
+               catch (Exception e)
+               {
+                   
+               }
+           } 
+       }
+     
+     private void EditarTXTIndClientes()
+       {
+           File url = new File(rutaIndividual_txt + jtxtIDCliente.getText()+".clientes");
+           String archivo = jtxtIDCliente.getText()+".clientes";
+           if(jtxtIDRuta.getText().equals(""))
+           {
+               JOptionPane.showMessageDialog(rootPane, "INIDIQUE EL REGISTRO");
+           }
+           else
+           {
+               if(url.exists())
+               {
+                   try 
+                    {
+                     FileWriter escrito = new FileWriter(rutaIndividual_txt + jtxtIDRuta.getText()+".maquinistas");
+                     String Recorrido = "Recorrido=";
+                     String PrecioUni = "Precio Unitario=";
+                     String fecha = "Fecha=";
+                     String CViaje = "Codigo Viaje=";
+                     String IDTren = "ID Tren=";
+                     String  NomEstacion= "Nombre Estación= ";
+                     String IDCliente = "ID Cliente= ";
+                     String NomCliente= "Nombre Cliente= ";
+                     String CantPasajeros = "Cantidad Pasajeros= ";
+                     String MCobro = "Monto a Cobra= ";
+                     String MPago = "Pago Clinete= ";
+                     String Cambio = "Cambio a Cliente= ";
+                     
+                        PrintWriter guardar = new PrintWriter(escrito);
+                        guardar.println(Recorrido+jDdlDestinoReserva.getItemAt(archivo.compareTo(archivo)));
+                        guardar.println(PrecioUni+jlblPrecioUni.getText());
+                        guardar.println(fecha+jlblFecha.getText());
+                        guardar.println(CViaje+jtxtCodigoViaje.getText());
+                        guardar.println(IDTren+jtxtIDTren.getText());
+                        guardar.println(NomEstacion+jtxtNomEstacion.getText());
+                        guardar.println(IDCliente+jtxtIDCliente.getText());
+                        guardar.println(NomCliente+jtxtNombreCliente.getText());
+                        guardar.println(CantPasajeros+jlblContadorPasajeros.getText());
+                        guardar.println(MCobro+jtxtTotalPagar.getText());
+                        guardar.println(MPago+jtxtPagoCliente.getText());
+                        guardar.println(Cambio+jtxtCambioaCliente.getText());
+                        escrito.close();
+                    } 
+                    catch (Exception e) {
+                    }
+               }
+               else
+               {
+                   JOptionPane.showMessageDialog(rootPane, "NO EXISTE ESTE REGISTRO");
+               }
+           }
+       }
+    
+     private void EliminarTXTIndClientes()
+       {
+            File url = new File(rutaIndividual_txt + jtxtIDCliente.getText()+".clientes");
+            if(jtxtIDCliente.getText().equals(""))
+            {
+             JOptionPane.showMessageDialog(rootPane, "NO HAY ID");
+            }
+            else
+            {
+                if(url.exists())
+                {
+                    try {
+                        FileInputStream cerrar = new FileInputStream(url);
+                        cerrar.close();
+                        System.gc();
+                        url.delete();
+                        
+                    } catch (Exception e) {
+                    }
+                }
+            }
+       }   
+  
+        
+        
+        
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -49,7 +540,7 @@ public class menuReserva extends javax.swing.JFrame {
         jlblPrecio = new javax.swing.JLabel();
         jlblUsuario = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtxtCodigo = new javax.swing.JTextPane();
+        jtxtNombreCliente = new javax.swing.JTextPane();
         jlblFecha = new javax.swing.JLabel();
         jlblDestino = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -61,7 +552,7 @@ public class menuReserva extends javax.swing.JFrame {
         jbtnMenos = new javax.swing.JButton();
         jlblMontoTotal = new javax.swing.JLabel();
         jtxtTotalPagar = new javax.swing.JTextField();
-        jDdlDestino = new javax.swing.JComboBox<>();
+        jDdlDestinoReserva = new javax.swing.JComboBox<>();
         jlblFechaHora = new javax.swing.JLabel();
         jlblPrecioUni = new javax.swing.JLabel();
         jtxtPagoCliente = new javax.swing.JTextField();
@@ -71,12 +562,12 @@ public class menuReserva extends javax.swing.JFrame {
         jlblViaje1 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jtxtIDTren = new javax.swing.JTextPane();
-        jlblViaje2 = new javax.swing.JLabel();
+        jlblNomEstacion = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jtxtIDEstacion = new javax.swing.JTextPane();
+        jtxtNomEstacion = new javax.swing.JTextPane();
         jlblDCliente = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jtxtCodigo4 = new javax.swing.JTextPane();
+        jtxtIDCliente = new javax.swing.JTextPane();
         jbtnPago = new javax.swing.JButton();
         jPnlEligeCampo = new javax.swing.JPanel();
         jPanelMPrecios = new javax.swing.JPanel();
@@ -150,7 +641,7 @@ public class menuReserva extends javax.swing.JFrame {
         jlblUsuario.setText("Nombre del cliente:");
         jPanelOpciones.add(jlblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, -1, 29));
 
-        jScrollPane1.setViewportView(jtxtCodigo);
+        jScrollPane1.setViewportView(jtxtNombreCliente);
 
         jPanelOpciones.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 180, -1));
 
@@ -223,13 +714,12 @@ public class menuReserva extends javax.swing.JFrame {
         jtxtTotalPagar.setEnabled(false);
         jPanelOpciones.add(jtxtTotalPagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, 139, 30));
 
-        jDdlDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jDdlDestino.addActionListener(new java.awt.event.ActionListener() {
+        jDdlDestinoReserva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jDdlDestinoActionPerformed(evt);
+                jDdlDestinoReservaActionPerformed(evt);
             }
         });
-        jPanelOpciones.add(jDdlDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 220, -1));
+        jPanelOpciones.add(jDdlDestinoReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 220, -1));
 
         jlblFechaHora.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jlblFechaHora.setForeground(new java.awt.Color(102, 102, 102));
@@ -239,7 +729,7 @@ public class menuReserva extends javax.swing.JFrame {
         jlblPrecioUni.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jlblPrecioUni.setForeground(new java.awt.Color(0, 0, 0));
         jlblPrecioUni.setText("₡");
-        jPanelOpciones.add(jlblPrecioUni, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, 110, 20));
+        jPanelOpciones.add(jlblPrecioUni, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, 110, 20));
 
         jtxtPagoCliente.setEnabled(false);
         jPanelOpciones.add(jtxtPagoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 300, 139, 30));
@@ -260,27 +750,27 @@ public class menuReserva extends javax.swing.JFrame {
         jlblViaje1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblViaje1.setForeground(new java.awt.Color(0, 0, 0));
         jlblViaje1.setText("ID Tren:");
-        jPanelOpciones.add(jlblViaje1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, -1, 29));
+        jPanelOpciones.add(jlblViaje1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, -1, 29));
 
         jScrollPane4.setViewportView(jtxtIDTren);
 
-        jPanelOpciones.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 100, -1));
+        jPanelOpciones.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 100, -1));
 
-        jlblViaje2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jlblViaje2.setForeground(new java.awt.Color(0, 0, 0));
-        jlblViaje2.setText("ID Estación:");
-        jPanelOpciones.add(jlblViaje2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, -1, 29));
+        jlblNomEstacion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblNomEstacion.setForeground(new java.awt.Color(0, 0, 0));
+        jlblNomEstacion.setText("Nombre Estación:");
+        jPanelOpciones.add(jlblNomEstacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, -1, 29));
 
-        jScrollPane5.setViewportView(jtxtIDEstacion);
+        jScrollPane5.setViewportView(jtxtNomEstacion);
 
-        jPanelOpciones.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, 100, -1));
+        jPanelOpciones.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 110, -1));
 
         jlblDCliente.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblDCliente.setForeground(new java.awt.Color(0, 0, 0));
         jlblDCliente.setText("ID Cliente:");
         jPanelOpciones.add(jlblDCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, -1, 29));
 
-        jScrollPane6.setViewportView(jtxtCodigo4);
+        jScrollPane6.setViewportView(jtxtIDCliente);
 
         jPanelOpciones.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 100, -1));
 
@@ -451,12 +941,15 @@ public class menuReserva extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnMenuDesplegableActionPerformed
 
     private void jbtnPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPagoActionPerformed
-        // TODO add your handling code here:
+        File ruta = new File(jtxtIDCliente.getText());
+        this.AgregarCliente(ruta);
     }//GEN-LAST:event_jbtnPagoActionPerformed
 
-    private void jDdlDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDdlDestinoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jDdlDestinoActionPerformed
+    private void jDdlDestinoReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDdlDestinoReservaActionPerformed
+         String copiar = (String) jDdlDestinoReserva.getSelectedItem();
+         jDdlDestinoReserva.setName(String.valueOf(jDdlDestinoReserva.getSelectedObjects()));
+         
+    }//GEN-LAST:event_jDdlDestinoReservaActionPerformed
 
     private void jBtnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegistroActionPerformed
     
@@ -481,8 +974,7 @@ public class menuReserva extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnHomeActionPerformed
 
     private void jbtnMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMasActionPerformed
-
-           //String temp = "";
+        //String temp = "";
         if(jbtnMas != jbtnMenos){
             aumento++;
             String contador = String.valueOf(aumento);
@@ -552,7 +1044,7 @@ public class menuReserva extends javax.swing.JFrame {
     private javax.swing.JButton jBtnRecorrido;
     private javax.swing.JButton jBtnRegistro;
     private javax.swing.JButton jBtnReportes;
-    private javax.swing.JComboBox<String> jDdlDestino;
+    public static javax.swing.JComboBox<String> jDdlDestinoReserva;
     private javax.swing.JPanel jPanelFondo;
     private javax.swing.JPanel jPanelMPrecios;
     private javax.swing.JPanel jPanelOpciones;
@@ -578,6 +1070,7 @@ public class menuReserva extends javax.swing.JFrame {
     private javax.swing.JLabel jlblMontoTotal;
     private javax.swing.JLabel jlblMontoTotal1;
     private javax.swing.JLabel jlblMontoTotal2;
+    private javax.swing.JLabel jlblNomEstacion;
     private javax.swing.JLabel jlblNumPasajeroTitulo;
     private javax.swing.JLabel jlblPrecio;
     private javax.swing.JLabel jlblPrecioUni;
@@ -587,13 +1080,12 @@ public class menuReserva extends javax.swing.JFrame {
     private javax.swing.JLabel jlblUsuario;
     private javax.swing.JLabel jlblViaje;
     private javax.swing.JLabel jlblViaje1;
-    private javax.swing.JLabel jlblViaje2;
     private javax.swing.JTextField jtxtCambioaCliente;
-    private javax.swing.JTextPane jtxtCodigo;
-    private javax.swing.JTextPane jtxtCodigo4;
     private javax.swing.JTextPane jtxtCodigoViaje;
-    private javax.swing.JTextPane jtxtIDEstacion;
+    private javax.swing.JTextPane jtxtIDCliente;
     private javax.swing.JTextPane jtxtIDTren;
+    private javax.swing.JTextPane jtxtNomEstacion;
+    private javax.swing.JTextPane jtxtNombreCliente;
     private javax.swing.JTextField jtxtPagoCliente;
     private javax.swing.JTextField jtxtTotalPagar;
     // End of variables declaration//GEN-END:variables

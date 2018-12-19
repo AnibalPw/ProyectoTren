@@ -17,7 +17,7 @@ import javax.swing.JTextPane;
 public class Limpiar_txt {
     
      public void limpiar_texto(JPanel panel){
-        for(int i = 0;  i > panel.getComponents().length; i++){
+        for(int i = 0; panel.getComponents().length>i ; i++){
             if(panel.getComponents()[i] instanceof JTextPane){
                 ((JTextPane)panel.getComponents()[i]).setText("");
             }

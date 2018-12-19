@@ -10,14 +10,18 @@ import Clases.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.Formatter;
+import java.util.Properties;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+import static moduloServicio.menuConsulta.jtxtIDTrenC;
+import static moduloServicio.menuConsulta.jTxtResultados;
 
 /**
  *
@@ -28,6 +32,10 @@ public class registroTrenes extends javax.swing.JFrame {
      Limpiar_txt lt = new Limpiar_txt();
     
     private String ruta_txt = "C:\\Users\\Usuario\\Desktop\\Universidad\\Programación\\Estructura de Datos\\Sistema de Trenes\\Sist_Trenes\\BDtxt\\RegistroTrenes.txt";
+    private String rutaIndividual_txt = "C:\\Users\\Usuario\\Desktop\\Universidad\\Programación\\Estructura de Datos\\Sistema de Trenes\\Sist_Trenes\\txtIndiviual\\Trenes\\Trenes";
+    String barra = File.separator; //File.separator lo que hace es \\
+    String rutaTren_txt = System.getProperty("user.dir")+barra+"txtIndiviual"+barra+"Trenes"+barra;
+    
     
     RegistroTrenes RegTrenes;
     ProcRTrenes PRTrenes;
@@ -58,6 +66,7 @@ public class registroTrenes extends javax.swing.JFrame {
                 RegTrenes = new RegistroTrenes(IDTren(), InVagon(), InCapa());
                 if(PRTrenes.BuscarID(RegTrenes.getIDTrenes())!= -1)mensaje("Este ID ya existe");
                 else PRTrenes.AgregarTren(RegTrenes);
+                CrearTXTTrenesIN();
                 
                 GuardarTren_txt();
                 listarRegistro();
@@ -82,7 +91,7 @@ public class registroTrenes extends javax.swing.JFrame {
                 RegTrenes = new RegistroTrenes();
                 RegTrenes.setIDTrenes(Integer.parseInt(St.nextToken()));
                 RegTrenes.setVagonesTren(Integer.valueOf(St.nextToken()));
-                RegTrenes.setCapacidadTren(Double.parseDouble(St.nextToken()));
+                RegTrenes.setCapacidadTren(Integer.parseInt(St.nextToken()));
                 PRTrenes.AgregarTren(RegTrenes);
             }
             BR.close();
@@ -113,19 +122,39 @@ public class registroTrenes extends javax.swing.JFrame {
       
        public void modificarRegistroTrenes(File ruta){
         try{
-               if(IDTren() == -666)mensaje("Ingresar ID en número entero");
-           else if(InVagon() == -666)mensaje("Ingresar Cantidad de Vagones");
-            else if(InCapa() == -666)mensaje("Ingresar Capacidad del Tren");
-            else{
-                int ID = PRTrenes.BuscarID(IDTren());
-                RegTrenes = new RegistroTrenes(IDTren(), InVagon(), InCapa());
-                
-                if(ID == -1)PRTrenes.AgregarTren(RegTrenes);
-                else PRTrenes.ModificarTren(ID, RegTrenes);
-                
-                GuardarTren_txt();
-                listarRegistro();
-                lt.limpiar_texto(jPnlInfoRegRecorridos);
+            
+            File dir = new File(ruta_txt);
+            File url = new File(rutaIndividual_txt + jtxtIDTren.getText()+".trenes");
+            
+            if(jtxtIDTren.getText().equals(""))
+            {
+               JOptionPane.showMessageDialog(rootPane, "INIDIQUE EL REGISTRO");
+            }
+            else
+            {
+                if(dir.exists() && url.exists())
+                {
+                if(IDTren() == -666)mensaje("Ingresar ID en número entero");
+                else if(InVagon() == -666)mensaje("Ingresar Cantidad de Vagones");
+                else if(InCapa() == -666)mensaje("Ingresar Capacidad del Tren");
+                else
+                {
+                    int ID = PRTrenes.BuscarID(IDTren());
+                    RegTrenes = new RegistroTrenes(IDTren(), InVagon(), InCapa());
+
+                    if(ID == -1)PRTrenes.AgregarTren(RegTrenes);
+                    else PRTrenes.ModificarTren(ID, RegTrenes);
+                    EditarTXTTrenesIN();
+                    
+                    GuardarTren_txt();
+                    listarRegistro();
+                    lt.limpiar_texto(jPnlInfoRegRecorridos);
+                }
+                }
+                else
+                {
+                 JOptionPane.showMessageDialog(rootPane, "NO EXISTE ESTE REGISTRO");
+                }
             }
         }catch(Exception ex){
             mensaje(ex.getMessage());
@@ -133,7 +162,8 @@ public class registroTrenes extends javax.swing.JFrame {
     }
        
        
-           public void eliminarRegistroTrenes(){
+    public void eliminarRegistroTrenes()
+    {
         try{
             if(IDTren() == -666) mensaje("Ingrese ID entero");
             
@@ -145,6 +175,7 @@ public class registroTrenes extends javax.swing.JFrame {
                     int si = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar este la Estación","Si / No",0);
                     if(si == 0){
                         PRTrenes.EliminarTren(ID);
+                        EliminarTXTTrenesIN();
                         
                         GuardarTren_txt();
                         listarRegistro();
@@ -200,9 +231,9 @@ public class registroTrenes extends javax.swing.JFrame {
             return -666;
         }
     }
-             public double InCapa(){
+             public int InCapa(){
         try{
-            double  CapaTren= Double.parseDouble(jtxtCapacidadTren.getText().trim());
+            int  CapaTren= Integer.parseInt(jtxtCapacidadTren.getText().trim());
             return CapaTren;
         }catch(Exception ex){
             return -666;
@@ -212,11 +243,137 @@ public class registroTrenes extends javax.swing.JFrame {
           public void mensaje(String texto){
         JOptionPane.showMessageDialog(null, texto);
     }
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
+  
+    
+          private void CrearTXTTrenesIN()
+       {
+           String archivo = jtxtIDTren.getText()+".trenes";
+           //File crear_ubicacion = new File(rutaIndividual_txt);
+           File crear_archivo = new File(rutaIndividual_txt + archivo);
+           
+           if(jtxtIDTren.getText().equals(""))
+           {
+            JOptionPane.showMessageDialog(rootPane, "NO HAY ID");
+           }
+           else
+           {
+               try 
+               {
+                    if(crear_archivo.exists())
+                    {
+                        
+                    }
+                    else
+                    {
+                        Formatter crear = new Formatter(rutaIndividual_txt + archivo);
+                        crear.format("%s\r\n%s\r\n%s", 
+                                "ID="+jtxtIDTren.getText(),
+                                "CantidadVagones="+jtxtCantVagones.getText(), 
+                                "CapacidaddelTren="+jtxtCapacidadTren.getText());
+                                
+                        crear.close();
+                    }
+               } 
+               catch (Exception e)
+               {
+                   
+               }
+           } 
+       }
+       
+       private void EditarTXTTrenesIN()
+       {
+           File url = new File(rutaIndividual_txt + jtxtIDTren.getText()+".trenes");
+           if(jtxtIDTren.getText().equals(""))
+           {
+               JOptionPane.showMessageDialog(rootPane, "INIDIQUE EL REGISTRO");
+           }
+           else
+           {
+               if(url.exists())
+               {
+                   try 
+                    {
+                     FileWriter escrito = new FileWriter(rutaIndividual_txt + jtxtIDTren.getText()+".trenes");
+                     String ID = "ID=";
+                     String Cantidad = "Cantidad Vagones=";
+                     String Capacidad = "Capacidad del Tren=";
+                     
+                        PrintWriter guardar = new PrintWriter(escrito);
+                        guardar.println(ID+jtxtIDTren.getText());
+                        guardar.println(Cantidad+jtxtCantVagones.getText());
+                        guardar.println(Capacidad+jtxtCapacidadTren.getText());
+                        
+                        escrito.close();
+                    } 
+                    catch (Exception e) {
+                    }
+               }
+               else
+               {
+                   JOptionPane.showMessageDialog(rootPane, "NO EXISTE ESTE REGISTRO");
+               }
+           }
+       }
+       
+       private void EliminarTXTTrenesIN()
+       {
+            File url = new File(rutaIndividual_txt + jtxtIDTren.getText()+".trenes");
+            if(jtxtIDTren.getText().equals(""))
+            {
+             JOptionPane.showMessageDialog(rootPane, "NO HAY ID");
+            }
+            else
+            {
+                if(url.exists())
+                {
+                    try {
+                        FileInputStream cerrar = new FileInputStream(url);
+                        cerrar.close();
+                        System.gc();
+                        url.delete();
+                        
+                    } catch (Exception e) {
+                    }
+                }
+            }
+       }
+          
+       
+       public void MostrarTren()
+    {
+        File url = new File(rutaTren_txt+jtxtIDTrenC.getText()+".trenes");
+        
+        if(jtxtIDTrenC.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(rootPane, "INDIQUE EL ID QUE DESA BUSCAR");
+        }
+        else
+        {
+         if(url.exists())
+            {
+                try {
+                    FileInputStream fileS = new FileInputStream(url);
+                    Properties mostrarTrenes = new Properties();
+                    mostrarTrenes.load(fileS);
+                    
+                   // jTxtResultados.setText(mostrarTrenes.getProperty("ID"));
+                    //System.out.println("");
+                    //jTxtResultados.setText(mostrarTrenes.getProperty("Cantidad Vagones"));
+                    //System.out.println("");
+                    jTxtResultados.setText(mostrarTrenes.getProperty("CapacidaddelTren"));
+                    
+                } catch (Exception e) {
+                }
+            }
+         else
+         {
+             JOptionPane.showMessageDialog(rootPane, "Registro inválido");
+         }
+        }
+    }    
+   
+          
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -643,8 +800,12 @@ public class registroTrenes extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnRegEstacionesActionPerformed
 
     private void jbtnLimpiarTrenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLimpiarTrenActionPerformed
-         Limpiar_txt lp = new Limpiar_txt();
+        Limpiar_txt lp = new Limpiar_txt();
         lp.limpiar_texto(jPnlInfoRegRecorridos);
+        
+        jtxtIDTren.setText("");
+        jtxtCapacidadTren.setText("");
+        jtxtCantVagones.setText("");
     }//GEN-LAST:event_jbtnLimpiarTrenActionPerformed
 
     private void jTableDatosTrenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableDatosTrenMouseClicked
@@ -740,8 +901,8 @@ public class registroTrenes extends javax.swing.JFrame {
     private javax.swing.JLabel jlblCapaTren;
     private javax.swing.JLabel jlblIDTren;
     public static javax.swing.JLabel jlblTituloRegistroTrenes;
-    private javax.swing.JTextPane jtxtCantVagones;
-    private javax.swing.JTextPane jtxtCapacidadTren;
-    private javax.swing.JTextPane jtxtIDTren;
+    public static javax.swing.JTextPane jtxtCantVagones;
+    public static javax.swing.JTextPane jtxtCapacidadTren;
+    public static javax.swing.JTextPane jtxtIDTren;
     // End of variables declaration//GEN-END:variables
 }
