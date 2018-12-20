@@ -955,6 +955,7 @@ public class menuReserva extends javax.swing.JFrame {
     
         moduloRegistro.menuRegistro Registro = new  moduloRegistro.menuRegistro();
         Registro.setVisible(true);
+        Registro.setExtendedState(Registro.MAXIMIZED_BOTH);
         this.setVisible(false);
         moduloRegistro.menuRegistro.jlblTituloRegistro.setText("Registro de Funcionarios");
         
@@ -963,6 +964,7 @@ public class menuReserva extends javax.swing.JFrame {
     private void jBtnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConsultaActionPerformed
         moduloServicio.menuConsulta Consulta = new moduloServicio.menuConsulta();
         Consulta.setVisible(true);
+        Consulta.setExtendedState(Consulta.MAXIMIZED_BOTH);
         this.setVisible(false);
         moduloServicio.menuConsulta.jlblTituloConsulta.setText("Consulta Información");
     }//GEN-LAST:event_jBtnConsultaActionPerformed
@@ -1000,7 +1002,10 @@ public class menuReserva extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnMenosActionPerformed
 
     private void jBtnRecorridoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRecorridoActionPerformed
-        // TODO add your handling code here:
+        registroRecorridos regRecorridos = new registroRecorridos();
+        regRecorridos.setVisible(true);
+        this.setVisible(false);
+        moduloRegistro.registroRecorridos.jlblTituloRegistroTrenes.setText("Registro de Recorridos");
     }//GEN-LAST:event_jBtnRecorridoActionPerformed
 
     /**

@@ -547,6 +547,11 @@ public class menuRegistro extends javax.swing.JFrame {
 
         jbtnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Disposal_26px.png"))); // NOI18N
         jbtnLimpiar.setToolTipText("Limpiar información");
+        jbtnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnLimpiarActionPerformed(evt);
+            }
+        });
         jPnlRegFuncionario.add(jbtnLimpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 180, 40, -1));
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -782,7 +787,10 @@ public class menuRegistro extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnEliminarDatosActionPerformed
 
     private void jBtnRecorridoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRecorridoActionPerformed
-        
+        registroRecorridos regRecorridos = new registroRecorridos();
+        regRecorridos.setVisible(true);
+        this.setVisible(false);
+        moduloRegistro.registroRecorridos.jlblTituloRegistroTrenes.setText("Registro de Recorridos");
     }//GEN-LAST:event_jBtnRecorridoActionPerformed
 
     private void jBtnRegTrenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegTrenesActionPerformed
@@ -825,6 +833,13 @@ public class menuRegistro extends javax.swing.JFrame {
         }catch(Exception ex){
         }
     }//GEN-LAST:event_jTableDatosMaquinistaMouseClicked
+
+    private void jbtnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLimpiarActionPerformed
+         jtxtIDM.setText("");
+        jtxtNombreMaquinista.setText("");
+        jTextAreaDescrip.setText("");
+        
+    }//GEN-LAST:event_jbtnLimpiarActionPerformed
 
     /**
      * @param args the command line arguments

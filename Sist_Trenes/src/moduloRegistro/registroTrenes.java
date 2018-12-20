@@ -21,7 +21,7 @@ import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import static moduloServicio.menuConsulta.jtxtIDTrenC;
-import static moduloServicio.menuConsulta.jTxtResultados;
+import static moduloServicio.menuConsulta.jTextAreaResultado;
 
 /**
  *
@@ -346,22 +346,31 @@ public class registroTrenes extends javax.swing.JFrame {
         
         if(jtxtIDTrenC.getText().equals(""))
         {
-            JOptionPane.showMessageDialog(rootPane, "INDIQUE EL ID QUE DESA BUSCAR");
+            JOptionPane.showMessageDialog(rootPane, "INDIQUE EL ID QUE DESEA BUSCAR");
         }
         else
         {
          if(url.exists())
             {
                 try {
-                    FileInputStream fileS = new FileInputStream(url);
-                    Properties mostrarTrenes = new Properties();
-                    mostrarTrenes.load(fileS);
+//                    FileInputStream fileS = new FileInputStream(url);
+//                    Properties mostrarTrenes = new Properties();
+//                    mostrarTrenes.load(fileS);
                     
+                   BufferedReader txt = new BufferedReader( new FileReader(url));
+                   String linea = txt.readLine();
+                   
+                   while(linea != null)
+                   {
+                       jTextAreaResultado.append(linea + "\r\n");
+                       linea = txt.readLine();
+                   }
+                   
                    // jTxtResultados.setText(mostrarTrenes.getProperty("ID"));
                     //System.out.println("");
                     //jTxtResultados.setText(mostrarTrenes.getProperty("Cantidad Vagones"));
                     //System.out.println("");
-                    jTxtResultados.setText(mostrarTrenes.getProperty("CapacidaddelTren"));
+                    //jTxtResultados.setText(mostrarTrenes.getProperty("CapacidaddelTren"));
                     
                 } catch (Exception e) {
                 }
@@ -784,7 +793,10 @@ public class registroTrenes extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnGuardarDatosTrenActionPerformed
 
     private void jBtnRecorridoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRecorridoActionPerformed
-        // TODO add your handling code here:
+        registroRecorridos regRecorridos = new registroRecorridos();
+        regRecorridos.setVisible(true);
+        this.setVisible(false);
+        moduloRegistro.registroRecorridos.jlblTituloRegistroTrenes.setText("Registro de Recorridos");
     }//GEN-LAST:event_jBtnRecorridoActionPerformed
 
     private void jBtnRegTrenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegTrenesActionPerformed
@@ -814,8 +826,6 @@ public class registroTrenes extends javax.swing.JFrame {
         int ID = (int)jTableDatosTren.getValueAt(clic_tabla, 0);
         int vagones = (int)jTableDatosTren.getValueAt(clic_tabla, 1);
         double capacidad = (double)jTableDatosTren.getValueAt(clic_tabla, 2);
-        
-        
         
         jtxtIDTren.setText(String.valueOf(ID));
         jtxtCantVagones.setText(String.valueOf(vagones));

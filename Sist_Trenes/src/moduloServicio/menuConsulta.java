@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 import java.util.Scanner;
 import java.util.*;
 import javax.swing.JOptionPane;
+import moduloRegistro.registroRecorridos;
 import moduloRegistro.registroTrenes;
 import static moduloRegistro.registroTrenes.jtxtIDTren;
 import static moduloRegistro.registroTrenes.jtxtCantVagones;
@@ -49,11 +50,11 @@ public class menuConsulta extends javax.swing.JFrame {
                     Properties mostrarTrenes = new Properties();
                     mostrarTrenes.load(fileS);
                     
-                    jTxtResultados.setText(mostrarTrenes.getProperty("ID"));
-                    System.out.println("");
-                    jTxtResultados.setText(mostrarTrenes.getProperty("Cantidad Vagones"));
-                    System.out.println("");
-                    jTxtResultados.setText(mostrarTrenes.getProperty("Capacidad del Tren"));
+//                    jTxtResultados.setText(mostrarTrenes.getProperty("ID"));
+//                    System.out.println("");
+//                    jTxtResultados.setText(mostrarTrenes.getProperty("Cantidad Vagones"));
+//                    System.out.println("");
+//                    jTxtResultados.setText(mostrarTrenes.getProperty("Capacidad del Tren"));
                     
                 } catch (Exception e) {
                 }
@@ -77,7 +78,8 @@ public class menuConsulta extends javax.swing.JFrame {
         jbtnMenuDesplegable = new javax.swing.JButton();
         jPnlConsulta = new javax.swing.JPanel();
         jPanelOpciones = new javax.swing.JPanel();
-        jTxtResultados = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextAreaResultado = new javax.swing.JTextArea();
         jlblViaje = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jtxtIDClienteC = new javax.swing.JTextPane();
@@ -88,6 +90,7 @@ public class menuConsulta extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         jtxtIDTrenC = new javax.swing.JTextPane();
         jbtnBuscarDatos = new javax.swing.JButton();
+        jbtnLimpiarConsulta = new javax.swing.JButton();
         jPnlMenuConsulta = new javax.swing.JPanel();
         jBtnHome = new javax.swing.JButton();
         jBtnReportes = new javax.swing.JButton();
@@ -142,7 +145,12 @@ public class menuConsulta extends javax.swing.JFrame {
         jPanelOpciones.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelOpciones.setForeground(new java.awt.Color(255, 255, 255));
         jPanelOpciones.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanelOpciones.add(jTxtResultados, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 200));
+
+        jTextAreaResultado.setColumns(20);
+        jTextAreaResultado.setRows(5);
+        jScrollPane2.setViewportView(jTextAreaResultado);
+
+        jPanelOpciones.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 200));
 
         jPnlConsulta.add(jPanelOpciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 570, 200));
 
@@ -182,6 +190,15 @@ public class menuConsulta extends javax.swing.JFrame {
             }
         });
         jPnlConsulta.add(jbtnBuscarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, 110, -1));
+
+        jbtnLimpiarConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Disposal_26px.png"))); // NOI18N
+        jbtnLimpiarConsulta.setToolTipText("Limpiar información");
+        jbtnLimpiarConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnLimpiarConsultaActionPerformed(evt);
+            }
+        });
+        jPnlConsulta.add(jbtnLimpiarConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 100, 40, -1));
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -317,6 +334,7 @@ public class menuConsulta extends javax.swing.JFrame {
     private void jBtnRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegistroActionPerformed
     
         moduloRegistro.menuRegistro Registro = new  moduloRegistro.menuRegistro();
+        Registro.setExtendedState(Registro.MAXIMIZED_BOTH);
         Registro.setVisible(true);
         this.setVisible(false);
         moduloRegistro.menuRegistro.jlblTituloRegistro.setText("Registro de Funcionarios");
@@ -325,6 +343,7 @@ public class menuConsulta extends javax.swing.JFrame {
 
     private void jBtnReservaEspacioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnReservaEspacioActionPerformed
         moduloServicio.menuReserva Reserva = new  moduloServicio.menuReserva();
+        Reserva.setExtendedState(Reserva.MAXIMIZED_BOTH);
         Reserva.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jBtnReservaEspacioActionPerformed
@@ -336,14 +355,37 @@ public class menuConsulta extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnHomeActionPerformed
 
     private void jBtnRecorridoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRecorridoActionPerformed
-        // TODO add your handling code here:
+        registroRecorridos regRecorridos = new registroRecorridos();
+        regRecorridos.setVisible(true);
+        this.setVisible(false);
+        moduloRegistro.registroRecorridos.jlblTituloRegistroTrenes.setText("Registro de Recorridos");
     }//GEN-LAST:event_jBtnRecorridoActionPerformed
 
     private void jbtnBuscarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBuscarDatosActionPerformed
-       //MostrarTren();
-       moduloRegistro.registroTrenes m = new moduloRegistro.registroTrenes();
-       m.MostrarTren();
+       
+       if (!jtxtIDEstacionC.getText().equals(""))
+       {
+           moduloRegistro.registroEstaciones Est = new moduloRegistro.registroEstaciones();
+           Est.MostrarEstacion();
+       }
+       else if (jtxtIDEstacionC.getText().equals("") )
+       {
+           moduloRegistro.registroTrenes m = new moduloRegistro.registroTrenes();
+           m.MostrarTren();
+       }
+            
+       
     }//GEN-LAST:event_jbtnBuscarDatosActionPerformed
+
+    private void jbtnLimpiarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLimpiarConsultaActionPerformed
+        Clases.Limpiar_txt lp = new  Clases.Limpiar_txt();
+        lp.limpiar_texto(jPnlConsulta);
+        
+        jtxtIDClienteC.setText("");
+        jtxtIDEstacionC.setText("");
+        jtxtIDTrenC.setText("");
+        jTextAreaResultado.setText("");
+    }//GEN-LAST:event_jbtnLimpiarConsultaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -393,18 +435,20 @@ public class menuConsulta extends javax.swing.JFrame {
     private javax.swing.JPanel jPnlMenuConsulta;
     private javax.swing.JPanel jPnlNavBar;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator2;
-    public static javax.swing.JTextField jTxtResultados;
+    public static javax.swing.JTextArea jTextAreaResultado;
     private javax.swing.JButton jbtnBuscarDatos;
+    private javax.swing.JButton jbtnLimpiarConsulta;
     private javax.swing.JButton jbtnMenuDesplegable;
     private javax.swing.JLabel jlblCodigo;
     public static javax.swing.JLabel jlblTituloConsulta;
     private javax.swing.JLabel jlblUsuario;
     private javax.swing.JLabel jlblViaje;
     private javax.swing.JTextPane jtxtIDClienteC;
-    private javax.swing.JTextPane jtxtIDEstacionC;
+    public static javax.swing.JTextPane jtxtIDEstacionC;
     public static javax.swing.JTextPane jtxtIDTrenC;
     // End of variables declaration//GEN-END:variables
 }

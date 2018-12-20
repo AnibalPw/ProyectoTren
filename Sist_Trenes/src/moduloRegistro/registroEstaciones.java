@@ -24,6 +24,11 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import static moduloRegistro.registroRecorridos.jCbED;
 import static moduloRegistro.registroRecorridos.jCbIDES;
+import static moduloRegistro.registroTrenes.jtxtCantVagones;
+import static moduloRegistro.registroTrenes.jtxtCapacidadTren;
+import static moduloRegistro.registroTrenes.jtxtIDTren;
+import static moduloServicio.menuConsulta.jTextAreaResultado;
+import static moduloServicio.menuConsulta.jtxtIDEstacionC;
 
 
 /**
@@ -39,6 +44,8 @@ public class registroEstaciones extends javax.swing.JFrame {
     private String ruta_txt = "C:\\Users\\Usuario\\Desktop\\Universidad\\Programación\\Estructura de Datos\\Sistema de Trenes\\Sist_Trenes\\BDtxt\\RegistroEstaciones.txt";
     private String rutaIndividual_txt = "C:\\Users\\Usuario\\Desktop\\Universidad\\Programación\\Estructura de Datos\\Sistema de Trenes\\Sist_Trenes\\txtIndiviual\\Estaciones\\Estaciones";
     private String estaciones = System.getProperty("user.dir")+barra+"txtIndiviual"+barra+"Estaciones";
+    String rutaEstacion_txt = System.getProperty("user.dir")+barra+"txtIndiviual"+barra+"Estaciones"+barra;
+    
     
     File contenedor = new File(estaciones);
     
@@ -444,6 +451,39 @@ public class registroEstaciones extends javax.swing.JFrame {
             }
        }
        
+          public void MostrarEstacion()
+    {
+        File url = new File(rutaEstacion_txt+jtxtIDEstacionC.getText()+".estacion");
+        
+        if(jtxtIDEstacionC.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(rootPane, "INDIQUE EL ID QUE DESEA BUSCAR");
+        }
+        else
+        {
+         if(url.exists())
+            {
+                try {
+                    
+                   BufferedReader txt = new BufferedReader( new FileReader(url));
+                   String linea = txt.readLine();
+                   
+                   while(linea != null)
+                   {
+                       jTextAreaResultado.append(linea + "\r\n");
+                       linea = txt.readLine();
+                   }
+                    
+                } catch (Exception e) {
+                }
+            }
+         else
+         {
+             JOptionPane.showMessageDialog(rootPane, "Registro inválido");
+         }
+        }
+    }  
+       
        
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -509,7 +549,7 @@ public class registroEstaciones extends javax.swing.JFrame {
         jlblTituloRegistroTrenes.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jlblTituloRegistroTrenes.setForeground(new java.awt.Color(0, 0, 0));
         jlblTituloRegistroTrenes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPnlNavBar.add(jlblTituloRegistroTrenes, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 240, 20));
+        jPnlNavBar.add(jlblTituloRegistroTrenes, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, 240, 20));
 
         jbtnMenuDesplegable.setBackground(new java.awt.Color(255, 255, 255));
         jbtnMenuDesplegable.setForeground(new java.awt.Color(255, 255, 255));
@@ -654,6 +694,7 @@ public class registroEstaciones extends javax.swing.JFrame {
         jPnlInfoRegEstaciones.add(jlblHSalida1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, 60, 20));
 
         jtxtCorreo.setText("trenesdobleA@gmail.com");
+        jtxtCorreo.setEnabled(false);
         jScrollPane11.setViewportView(jtxtCorreo);
 
         jPnlInfoRegEstaciones.add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 140, 250, -1));
@@ -905,7 +946,10 @@ public class registroEstaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnGuardarDatosTrenActionPerformed
 
     private void jBtnRecorridoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRecorridoActionPerformed
-        // TODO add your handling code here:
+       registroRecorridos regRecorridos = new registroRecorridos();
+        regRecorridos.setVisible(true);
+        this.setVisible(false);
+        moduloRegistro.registroRecorridos.jlblTituloRegistroTrenes.setText("Registro de Recorridos");
     }//GEN-LAST:event_jBtnRecorridoActionPerformed
 
     private void jBtnRegTrenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRegTrenesActionPerformed
@@ -923,6 +967,14 @@ public class registroEstaciones extends javax.swing.JFrame {
     private void jbtnLimpiarTrenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLimpiarTrenActionPerformed
         Limpiar_txt lp = new Limpiar_txt();
         lp.limpiar_texto(jPnlInfoRegEstaciones);
+        
+        jtxtIDEstacion.setText("");
+        jtxtNombreEstacion.setText("");
+        jtxtHEntrada.setText("");
+        jtxtHSalida.setText("");
+        jtxtNumTel.setText("");
+        jtxtUbicacion.setText("");
+        
     }//GEN-LAST:event_jbtnLimpiarTrenActionPerformed
 
     private void jTableDatosEstacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableDatosEstacionMouseClicked

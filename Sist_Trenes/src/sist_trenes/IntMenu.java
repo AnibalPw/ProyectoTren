@@ -6,6 +6,7 @@
 package sist_trenes;
 import Carga.*;
 import ds.desktop.notify.DesktopNotify;
+import moduloRegistro.registroRecorridos;
 
 import moduloServicio.menuReserva;
 
@@ -56,13 +57,23 @@ public class IntMenu extends javax.swing.JFrame {
         jlblTitulo.setForeground(java.awt.SystemColor.desktop);
         jlblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlblTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logotren2.png"))); // NOI18N
-        jPanelFondoImagen.add(jlblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, 380, 140));
+        jPanelFondoImagen.add(jlblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 420, 420, 180));
 
-        jbtnRecorrido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8_Place_Marker_26px_1.png"))); // NOI18N
-        jbtnRecorrido.setText("Recorridos");
+        jbtnRecorrido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/botones/boton7.png"))); // NOI18N
+        jbtnRecorrido.setBorder(null);
+        jbtnRecorrido.setBorderPainted(false);
+        jbtnRecorrido.setContentAreaFilled(false);
         jbtnRecorrido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbtnRecorrido.setFocusPainted(false);
         jbtnRecorrido.setFocusable(false);
-        jPanelFondoImagen.add(jbtnRecorrido, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 210, 130, -1));
+        jbtnRecorrido.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/botones/boton7press.png"))); // NOI18N
+        jbtnRecorrido.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/botones/boton7roll.png"))); // NOI18N
+        jbtnRecorrido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnRecorridoActionPerformed(evt);
+            }
+        });
+        jPanelFondoImagen.add(jbtnRecorrido, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 160, -1));
 
         jbtnReserva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/botones/boton4.png"))); // NOI18N
         jbtnReserva.setBorder(null);
@@ -78,36 +89,52 @@ public class IntMenu extends javax.swing.JFrame {
                 jbtnReservaActionPerformed(evt);
             }
         });
-        jPanelFondoImagen.add(jbtnReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, 220, 70));
+        jPanelFondoImagen.add(jbtnReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 220, 70));
 
-        jbtnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/System Report_26px.png"))); // NOI18N
-        jbtnReporte.setText("Reportes");
+        jbtnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/botones/boton5.png"))); // NOI18N
+        jbtnReporte.setBorder(null);
+        jbtnReporte.setBorderPainted(false);
+        jbtnReporte.setContentAreaFilled(false);
         jbtnReporte.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbtnReporte.setFocusPainted(false);
         jbtnReporte.setFocusable(false);
-        jPanelFondoImagen.add(jbtnReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, -1, -1));
+        jbtnReporte.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/botones/boton5press.png"))); // NOI18N
+        jbtnReporte.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/botones/boton5roll.png"))); // NOI18N
+        jPanelFondoImagen.add(jbtnReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 200, -1));
 
-        jbtnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Document_26px.png"))); // NOI18N
-        jbtnRegistrar.setText("Registrar");
+        jbtnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/botones/boton8.png"))); // NOI18N
+        jbtnRegistrar.setToolTipText("");
+        jbtnRegistrar.setBorder(null);
+        jbtnRegistrar.setBorderPainted(false);
+        jbtnRegistrar.setContentAreaFilled(false);
         jbtnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbtnRegistrar.setFocusPainted(false);
         jbtnRegistrar.setFocusable(false);
+        jbtnRegistrar.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/botones/boton8press.png"))); // NOI18N
+        jbtnRegistrar.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/botones/boton8roll.png"))); // NOI18N
         jbtnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnRegistrarActionPerformed(evt);
             }
         });
-        jPanelFondoImagen.add(jbtnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, -1, -1));
+        jPanelFondoImagen.add(jbtnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 390, -1, -1));
 
-        jbtnConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Questions_26px.png"))); // NOI18N
-        jbtnConsulta.setText("Consulta");
+        jbtnConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/botones/boton6.png"))); // NOI18N
         jbtnConsulta.setToolTipText("Consultar viaje");
+        jbtnConsulta.setBorder(null);
+        jbtnConsulta.setBorderPainted(false);
+        jbtnConsulta.setContentAreaFilled(false);
         jbtnConsulta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbtnConsulta.setFocusPainted(false);
         jbtnConsulta.setFocusable(false);
+        jbtnConsulta.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/botones/boton6press.png"))); // NOI18N
+        jbtnConsulta.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/botones/boton6roll.png"))); // NOI18N
         jbtnConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnConsultaActionPerformed(evt);
             }
         });
-        jPanelFondoImagen.add(jbtnConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 370, -1, -1));
+        jPanelFondoImagen.add(jbtnConsulta, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 490, -1, -1));
 
         jlblFondo.setBackground(new java.awt.Color(255, 255, 255));
         jlblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Movimiento-Absoluto.jpg"))); // NOI18N
@@ -163,6 +190,7 @@ public class IntMenu extends javax.swing.JFrame {
     private void jbtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRegistrarActionPerformed
         moduloRegistro.menuRegistro RegistroFunc = new  moduloRegistro.menuRegistro();
         RegistroFunc.setVisible(true);
+        RegistroFunc.setExtendedState(RegistroFunc.MAXIMIZED_BOTH);
         this.setVisible(false);
          moduloRegistro.menuRegistro.jlblTituloRegistro.setText("Registro de Funcionarios");
     }//GEN-LAST:event_jbtnRegistrarActionPerformed
@@ -180,6 +208,14 @@ public class IntMenu extends javax.swing.JFrame {
                 "PARA REALIZAR UNA CONSULTA NECESITA EL 'ID' DE LO QUE DESEA CONSULTAR ", 
                 DesktopNotify.INFORMATION);
     }//GEN-LAST:event_jbtnConsultaActionPerformed
+
+    private void jbtnRecorridoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRecorridoActionPerformed
+        registroRecorridos regRecorridos = new registroRecorridos();
+        regRecorridos.setVisible(true);
+        regRecorridos.setExtendedState(regRecorridos.MAXIMIZED_BOTH);
+        this.setVisible(false);
+        moduloRegistro.registroRecorridos.jlblTituloRegistroTrenes.setText("Registro de Recorridos");
+    }//GEN-LAST:event_jbtnRecorridoActionPerformed
 
     /**
      * @param args the command line arguments
